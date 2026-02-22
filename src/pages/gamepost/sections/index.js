@@ -1,0 +1,15 @@
+export { default as HeroSection } from "./HeroSection";
+export { default as StorylineSection } from "./StorylineSection";
+export { default as GameplaySection } from "./GameplaySection";
+export { default as QuickControlSection } from "./QuickControlSection";
+export { default as SystemRequirementSection } from "./SystemRequirementSection";
+export { default as ModesSection } from "./ModesSection";
+export { default as ReviewsSection } from "./ReviewsSection";
+export { default as CommunitySection } from "./CommunitySection";
+export { default as CriticRatingSection } from "./CriticRatingSection";
+export { default as JoinCommunitySection } from "./JoinCommunitySection";
+export { default as AwardsSection } from "./AwardsSection";
+export { default as MediaGallerySection } from "./MediaGallerySection";
+export { default as GetGameSection } from "./GetGameSection";
+export { default as StoreExtrasSection } from "./StoreExtrasSection";
+export { default as MoreLikeThisSection } from "./MoreLikeThisSection";
