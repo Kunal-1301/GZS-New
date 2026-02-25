@@ -1,0 +1,90 @@
+@layer components {
+
+  /* ── CARDS ───────────────────────────────────────────────── */
+  .admin-card {
+    @apply bg-admin-card border border-admin-border rounded-xl p-8 shadow-sm mb-6;
+  }
+  .admin-stat-card {
+    @apply bg-admin-stat rounded-lg p-6 flex flex-col gap-1;
+  }
+  .admin-stat-number {
+    @apply text-[2.5rem] font-black leading-none text-admin-stat-text;
+  }
+  .admin-stat-label {
+    @apply text-[11px] font-bold uppercase tracking-[0.12em] text-white/80;
+  }
+
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+  .admin-btn-primary {
+    @apply inline-flex items-center gap-1.5 bg-admin-accent text-admin-accent-text
+           text-[11px] font-bold uppercase tracking-[0.08em] px-6 py-[10px]
+           rounded-[4px] border-none cursor-pointer transition
+           hover:bg-admin-accent-dark;
+  }
+  .admin-btn-secondary {
+    @apply inline-flex items-center gap-1.5 bg-transparent text-admin-text-secondary
+           text-[11px] font-bold uppercase tracking-[0.08em] px-6 py-[10px]
+           rounded-[4px] border border-admin-border cursor-pointer transition
+           hover:bg-admin-border-light hover:border-admin-text-muted;
+  }
+  .admin-btn-outline-accent {
+    @apply inline-flex items-center gap-1.5 bg-transparent text-admin-accent
+           text-[11px] font-bold uppercase tracking-[0.08em] px-3.5 py-2
+           rounded-[4px] border border-admin-accent cursor-pointer transition
+           hover:bg-admin-accent hover:text-admin-accent-text whitespace-nowrap;
+  }
+  .admin-create-btn {
+    @apply inline-flex items-center gap-1.5 bg-admin-accent text-admin-accent-text
+           text-[11px] font-bold uppercase tracking-[0.08em] px-4 py-2
+           rounded-[4px] border-none cursor-pointer transition
+           hover:bg-admin-accent-dark;
+  }
+  .admin-icon-btn {
+    @apply w-9 h-9 rounded-full flex items-center justify-center bg-transparent
+           border-none cursor-pointer text-admin-text-muted transition
+           hover:bg-admin-border-light hover:text-admin-text;
+  }
+  .admin-avatar {
+    @apply w-9 h-9 rounded-full bg-admin-text-muted cursor-pointer overflow-hidden;
+  }
+  .admin-filter-btn {
+    @apply inline-flex items-center gap-1.5 bg-admin-card border border-admin-border
+           rounded-[4px] px-3 py-1.5 text-[11px] font-semibold uppercase
+           tracking-[0.08em] text-admin-text-secondary cursor-pointer transition
+           hover:border-admin-text-muted hover:bg-admin-surface;
+  }
+
+  /* ── STATUS BADGES ───────────────────────────────────────── */
+  .admin-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold;
+  }
+  .admin-badge-published {
+    @apply bg-admin-status-bg-pub text-admin-status-pub;
+  }
+  .admin-badge-draft {
+    @apply bg-admin-status-bg-draft text-admin-status-draft;
+  }
+  .admin-badge-review {
+    @apply bg-admin-status-bg-review text-admin-status-review;
+  }
+
+  /* ── ACTION BUTTONS ──────────────────────────────────────── */
+  .admin-action-btn {
+    @apply inline-flex items-center justify-center w-7 h-7 rounded-[4px]
+           bg-transparent border-none cursor-pointer text-admin-text-muted
+           transition hover:bg-admin-border-light hover:text-admin-text;
+  }
+  .admin-action-btn.delete {
+    @apply hover:bg-red-100 hover:text-red-600;
+  }
+
+  /* ── QUICK ACTIONS BAR ───────────────────────────────────── */
+  .admin-quick-actions {
+    @apply flex items-center gap-3 flex-wrap bg-admin-card border border-admin-border
+           rounded-xl px-6 py-4 mb-8 shadow-sm;
+  }
+  .admin-quick-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.1em]
+           text-admin-text-muted flex-shrink-0 mr-2;
+  }
+}

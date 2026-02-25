@@ -1,50 +1,51 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './public/components/ErrorBoundary';
 
 // ── Public Pages ──────────────────────────────────────────────
-const GamePostCollection = lazy(() => import('./pages/gamepost/GamePostCollection'));
-const GamePostPage = lazy(() => import('./pages/gamepost/GamePostPage'));
-const EsportsHome = lazy(() => import('./pages/esports/EsportsHome'));
-const AllTournaments = lazy(() => import('./pages/esports/AllTournaments'));
-const TournamentDetails = lazy(() => import('./pages/esports/TournamentDetails'));
-const TournamentRegistration = lazy(() => import('./pages/esports/TournamentRegistration'));
-const Blog = lazy(() => import('./pages/blog/Blog'));
-const BlogPost = lazy(() => import('./pages/blog/BlogPost'));
-const WriteBlog = lazy(() => import('./pages/blog/WriteBlog'));
-const Career = lazy(() => import('./pages/career/Career'));
-const AboutHub = lazy(() => import('./pages/about/AboutHub'));
-const About = lazy(() => import('./pages/about/About'));
-const AboutStory = lazy(() => import('./pages/about/AboutStory'));
-const Contact = lazy(() => import('./pages/contact/Contact'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-const Login = lazy(() => import('./pages/auth/Login'));
-const Signup = lazy(() => import('./pages/auth/Signup'));
-const VerifyEmail = lazy(() => import('./pages/auth/VerifyEmail'));
-const ProfileSetup = lazy(() => import('./pages/auth/ProfileSetup'));
-const Profile = lazy(() => import('./pages/profile/Profile'));
+const GamePostCollection = lazy(() => import('./public/pages/gamepost/GamePostCollection'));
+const GamePostPage = lazy(() => import('./public/pages/gamepost/GamePostPage'));
+const EsportsHome = lazy(() => import('./public/pages/esports/EsportsHome'));
+const AllTournaments = lazy(() => import('./public/pages/esports/AllTournaments'));
+const TournamentDetails = lazy(() => import('./public/pages/esports/TournamentDetails'));
+const TournamentRegistration = lazy(() => import('./public/pages/esports/TournamentRegistration'));
+const Blog = lazy(() => import('./public/pages/blog/Blog'));
+const BlogPost = lazy(() => import('./public/pages/blog/BlogPost'));
+const WriteBlog = lazy(() => import('./public/pages/blog/WriteBlog'));
+const Career = lazy(() => import('./public/pages/career/Career'));
+const AboutHub = lazy(() => import('./public/pages/about/AboutHub'));
+const About = lazy(() => import('./public/pages/about/About'));
+const AboutStory = lazy(() => import('./public/pages/about/AboutStory'));
+const Contact = lazy(() => import('./public/pages/contact/Contact'));
+const NotFound = lazy(() => import('./public/pages/NotFound'));
+const Login = lazy(() => import('./public/pages/auth/Login'));
+const Signup = lazy(() => import('./public/pages/auth/Signup'));
+const VerifyEmail = lazy(() => import('./public/pages/auth/VerifyEmail'));
+const ProfileSetup = lazy(() => import('./public/pages/auth/ProfileSetup'));
+const Profile = lazy(() => import('./public/pages/profile/Profile'));
 
 // ── Content Admin (Top-Level) ─────────────────────────────────
-const ContentAdminLayout = lazy(() => import('./admin/content/ContentAdminLayout'));
-const CADashboard = lazy(() => import('./admin/content/pages/Dashboard'));
-const CAGamePosts = lazy(() => import('./admin/content/pages/GamePostsList'));
-const CAEsports = lazy(() => import('./admin/content/pages/Esports'));
-const CANews = lazy(() => import('./admin/content/pages/News'));
-const CACommunity = lazy(() => import('./admin/content/pages/Community'));
-const CAReviews = lazy(() => import('./admin/content/pages/Reviews'));
-const CASettings = lazy(() => import('./admin/content/pages/Settings'));
+const ContentAdminLayout = lazy(() => import('./admin/SuperAdmin/ContentAdminLayout'));
+const CADashboard = lazy(() => import('./admin/SuperAdmin/pages/Dashboard'));
+const CAGamePosts = lazy(() => import('./admin/SuperAdmin/pages/GamePostsList'));
+const CAEsports = lazy(() => import('./admin/SuperAdmin/pages/Esports'));
+const CANews = lazy(() => import('./admin/SuperAdmin/pages/News'));
+const CACommunity = lazy(() => import('./admin/SuperAdmin/pages/Community'));
+const CAReviews = lazy(() => import('./admin/SuperAdmin/pages/Reviews'));
+const CASettings = lazy(() => import('./admin/SuperAdmin/pages/Settings'));
 
 // ── GamePost Sub-Admin ────────────────────────────────────────
 const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
-const BasicInfo = lazy(() => import('./admin/pages/BasicInfo'));
-const StoryContent = lazy(() => import('./admin/pages/StoryContent'));
-const Media = lazy(() => import('./admin/pages/Media'));
-const QuickOverview = lazy(() => import('./admin/pages/QuickOverview'));
-const SystemRequirements = lazy(() => import('./admin/pages/SystemRequirements'));
-const StoreExtras = lazy(() => import('./admin/pages/StoreExtras'));
-const ReviewsCommunity = lazy(() => import('./admin/pages/ReviewsCommunity'));
-const MoreGames = lazy(() => import('./admin/pages/MoreGames'));
-const SocialCommunity = lazy(() => import('./admin/pages/SocialCommunity'));
+const BasicInfo = lazy(() => import('./admin/GamesAdmin/BasicInfo'));
+const StoryContent = lazy(() => import('./admin/GamesAdmin/StoryContent'));
+const Media = lazy(() => import('./admin/GamesAdmin/Media'));
+const QuickOverview = lazy(() => import('./admin/GamesAdmin/QuickOverview'));
+const SystemRequirements = lazy(() => import('./admin/GamesAdmin/SystemRequirements'));
+const StoreExtras = lazy(() => import('./admin/GamesAdmin/StoreExtras'));
+const ReviewsCommunity = lazy(() => import('./admin/GamesAdmin/ReviewsCommunity'));
+const MoreGames = lazy(() => import('./admin/GamesAdmin/MoreGames'));
+const SocialCommunity = lazy(() => import('./admin/GamesAdmin/SocialCommunity'));
+const PreviewGamePost = lazy(() => import('./admin/GamesAdmin/PreviewGamePost'));
 
 // ── Loader ────────────────────────────────────────────────────
 function PageLoader() {
@@ -112,6 +113,7 @@ const App = () => (
             <Route path="reviews" element={<ReviewsCommunity />} />
             <Route path="more" element={<MoreGames />} />
             <Route path="social" element={<SocialCommunity />} />
+            <Route path="preview" element={<PreviewGamePost />} />
           </Route>
 
           {/* ── 404 ───────────────────────────────────────────── */}

@@ -1,0 +1,81 @@
+@layer components {
+
+  /* ── LAYOUT ─────────────────────────────────────────────── */
+  .admin-layout {
+    @apply flex min-h-screen bg-admin-bg text-admin-text font-inter;
+  }
+  .admin-main {
+    @apply flex flex-col flex-1 bg-admin-bg min-w-0;
+  }
+  .admin-content {
+    @apply px-16 py-10 bg-admin-bg flex-1;
+    min-height: calc(100vh - 72px);
+  }
+
+  /* ── NAVBAR ──────────────────────────────────────────────── */
+  .admin-navbar {
+    @apply h-[72px] bg-admin-navbar border-b border-admin-border
+           flex items-center justify-between px-10 sticky top-0 z-40
+           shadow-sm;
+  }
+  .admin-navbar-logo {
+    @apply text-2xl font-black tracking-wider text-admin-accent uppercase;
+  }
+  .admin-navbar-title {
+    @apply text-[11px] font-bold tracking-[0.15em] uppercase text-admin-text-secondary;
+  }
+  .admin-navbar-search {
+    @apply flex-1 max-w-sm mx-8 relative;
+  }
+  .admin-navbar-search input {
+    @apply w-full bg-admin-input border border-admin-border rounded-lg
+           pl-9 pr-4 py-2 text-[13px] text-admin-text outline-none
+           transition focus:border-admin-accent focus:ring-2 focus:ring-admin-accent-light;
+  }
+  .admin-navbar-search-icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-admin-text-muted pointer-events-none;
+  }
+  .admin-navbar-actions {
+    @apply flex items-center gap-3 flex-shrink-0;
+  }
+
+  /* ── SIDEBAR ─────────────────────────────────────────────── */
+  .admin-sidebar {
+    @apply w-[220px] min-h-screen bg-admin-sidebar border-r border-admin-border
+           pt-10 px-4 flex flex-col gap-1 flex-shrink-0;
+  }
+  .admin-nav-link {
+    @apply block w-full px-4 py-[10px] text-[11px] font-bold tracking-[0.12em]
+           uppercase text-admin-text-muted rounded-[4px] transition
+           hover:text-admin-text hover:bg-admin-border-light;
+    text-decoration: none;
+  }
+  .admin-nav-link.active {
+    @apply bg-admin-accent text-admin-accent-text;
+  }
+
+  /* ── PAGE HEADER ─────────────────────────────────────────── */
+  .admin-page-title {
+    @apply text-[2rem] font-black tracking-[0.06em] uppercase text-admin-text mb-8;
+  }
+  .admin-section-title {
+    @apply text-[11px] font-bold uppercase tracking-[0.15em] text-admin-text-muted mb-5;
+  }
+
+  /* ── CONTENT LIST HEADER ─────────────────────────────────── */
+  .admin-list-card {
+    @apply overflow-hidden rounded-xl border border-admin-border bg-admin-card shadow-sm;
+  }
+  .admin-list-header {
+    @apply flex items-center justify-between px-5 py-4 border-b border-admin-border;
+  }
+  .admin-list-title {
+    @apply text-[13px] font-black uppercase tracking-[0.1em]
+           bg-admin-text text-admin-card px-4 py-2 rounded-[4px] inline-block;
+  }
+
+  /* ── DIVIDER ─────────────────────────────────────────────── */
+  .admin-divider {
+    @apply border-0 border-t border-admin-border my-6;
+  }
+}

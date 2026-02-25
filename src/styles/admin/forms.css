@@ -1,0 +1,43 @@
+@layer components {
+
+  /* ── FORM INPUTS ─────────────────────────────────────────── */
+  .admin-field {
+    @apply flex flex-col gap-1;
+  }
+  .admin-label {
+    @apply block text-[11px] font-semibold uppercase tracking-[0.08em] text-admin-text-secondary;
+  }
+  .admin-input {
+    @apply w-full bg-admin-input border border-admin-input-border rounded-[4px]
+           px-[14px] py-[10px] text-sm text-admin-text outline-none transition
+           focus:border-admin-accent focus:ring-2 focus:ring-admin-accent-light;
+  }
+  .admin-select {
+    @apply w-full bg-admin-input border border-admin-input-border rounded-[4px]
+           px-[14px] py-[10px] text-sm text-admin-text outline-none cursor-pointer
+           transition appearance-none focus:border-admin-accent;
+  }
+  .admin-textarea {
+    @apply w-full bg-admin-input border border-admin-input-border rounded-[4px]
+           px-[14px] py-[10px] text-sm text-admin-text outline-none resize-y
+           min-h-[120px] transition focus:border-admin-accent focus:ring-2 focus:ring-admin-accent-light;
+  }
+
+  /* ── FILE UPLOAD ZONE ────────────────────────────────────── */
+  .admin-upload-zone {
+    @apply border-2 border-dashed border-admin-border rounded-lg p-10
+           text-center bg-admin-surface cursor-pointer transition
+           hover:border-admin-accent hover:bg-orange-50;
+  }
+  .admin-upload-zone-text {
+    @apply text-[13px] text-admin-text-muted;
+  }
+  .admin-upload-zone-text strong {
+    @apply text-admin-accent;
+  }
+
+  /* ── SURFACE BOXES ───────────────────────────────────────── */
+  .admin-surface-card {
+    @apply bg-admin-surface rounded-md border border-admin-border p-4 mb-4;
+  }
+}

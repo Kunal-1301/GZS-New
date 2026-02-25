@@ -1,0 +1,18 @@
+@layer components {
+  /* ── PROFILE PAGES ─────────────────────────────────────────── */
+  .pr-section-title {
+    @apply text-base font-black uppercase tracking-widest text-pr-text mb-6 border-b border-pr-border pb-3;
+  }
+  .pr-label {
+    @apply text-[10px] font-bold uppercase text-pr-text-muted tracking-widest;
+  }
+  .pr-input {
+    @apply px-4 py-2.5 bg-pr-surface border border-pr-border rounded-lg text-sm text-pr-text outline-none transition-colors w-full focus:border-pr-primary;
+  }
+  .pr-btn-primary {
+    @apply px-8 py-3 bg-pr-primary hover:bg-pr-primary-dark text-white text-xs font-black uppercase tracking-widest rounded-lg transition-colors shadow-sm whitespace-nowrap;
+  }
+  .pr-btn-danger {
+    @apply px-8 py-3 bg-white border border-red-200 text-red-500 hover:bg-red-50 hover:border-red-300 text-[10px] font-black uppercase tracking-widest rounded-lg transition-colors shadow-sm whitespace-nowrap;
+  }
+}

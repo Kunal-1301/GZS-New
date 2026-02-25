@@ -10,6 +10,7 @@ const LINKS = [
   { label: "Reviews & Community", to: "/admin/reviews" },
   { label: "More Games", to: "/admin/more" },
   { label: "Social & Community", to: "/admin/social" },
+  { label: "Live Preview", to: "/admin/preview" },
 ];
 
 const Sidebar = () => (

@@ -1,0 +1,108 @@
+# GzoneSphere CSS Architecture Documentation
+
+This document provides a comprehensive overview of the CSS architecture and styling strategy used in the GzoneSphere frontend application. The styling is exclusively handled via **Tailwind CSS (v4)** leveraging the modern `@theme` directive, combined with thoughtful abstractions.
+
+## Architecture Overview
+
+The system strictly avoids scattered inline `style={{...}}` blocks or disjointed pure CSS files. Everything stems from our central configuration, achieving two primary goals:
+1. **Separation of Concerns and Contexts**: Distinct logical segments of the site (e.g., Esports, About, Profile, Admin) get their own targeted, namespaced design tokens.
+2. **Standardization**: Tailwind's constraints combined with `@apply` layers guarantee visual consistency. 
+
+All core styling rules originate from `src/index.css`.
+
+---
+
+## 1. Global Theming Strategy (`index.css` & `@theme`)
+
+Tailwind v4 replaces the traditional `tailwind.config.js` with CSS-native `@theme` blocks inside `index.css`.
+
+### 1.1 Namespaced Color Tokens
+To avoid monolithic token structures, colors are categorically namespaced. This defines distinct themes natively accessible via Tailwind utility classes (e.g., `bg-au-card`, `text-admin-text`).
+
+| Context / Section | Prefix | Description | Example utility class |
+| :--- | :--- | :--- | :--- |
+| **Global Brand** | `brand-` | Base global colors | `bg-brand-accent` |
+| **Dark UI** | `bg-`, `text-` | Core dark UI theme | `bg-bg-surface` |
+| **Esports** | `es-` | Green-centric esports theme | `text-es-primary` |
+| **Blog** | `bl-` | Warm amber/cream theme | `bg-bl-bg` |
+| **About Hub** | `ab-` | Sky-blue/teal theme | `border-ab-border` |
+| **Auth Flow** | `au-` | Solid teal login/signup theme | `bg-au-card` |
+| **User Profile** | `pr-` | Purple/Violet dashboard theme | `text-pr-text-muted` |
+| **Contact** | `ct-` | Sky-blue soft theme | `bg-ct-hero-alt` |
+| **Admin Panel** | `admin-` | Soft gray and orange backend | `bg-admin-bg` |
+| **Game Post/Coll.** | `gp-`, `gc-`| Dynamic game pages and listings | `bg-gp-primary` |
+
+### 1.2 Global Typography, Spacing, and Shapes
+Beyond colors, global variables dictate universal layout properties.
+* **Fonts:** `--font-jetmono`, `--font-inter`
+* **Spacing:** `--spacing-container`, `--spacing-section`, `--spacing-section-gap`
+* **Border Radius:** Scaled from `--radius-sm` to `--radius-3xl`.
+
+These seamlessly translate into classes like `font-inter`, `p-section`, or `rounded-2xl`.
+
+---
+
+## 2. Public Facing Pages & Components
+
+### 2.1 Pure Utility Usage
+Public pages exclusively use pure Tailwind utility classes constructed safely from the namespaced tokens. There are no `@apply` component classes extracted for public components. 
+Instead of writing complex CSS, UI is formed using granular utility blocks in the `.jsx` files:
+
+```jsx
+// Example from Auth
+<div className="bg-au-card-dark text-au-text border border-au-input-border rounded-xl ...">
+```
+
+### 2.2 Dynamic CSS Variables (`GameThemeContext`)
+Because the **Games Posts** require unique, dynamic thematic colors injected from PostgreSQL schema (e.g., Valorant is red, Cyberpunk is yellow), public pages use a dynamic hybrid approach.
+
+While standard Tailwind provides static `--color-gp-primary`, we have mapped root layout colors:
+```css
+:root {
+  --gp-primary: var(--color-gp-primary);
+  /* ... */
+}
+```
+
+The `GameThemeProvider` overwrites these root variables at runtime via Javascript. The public components consume them automatically utilizing the `--gp-*` CSS custom properties, achieving instant responsive theming per game page route.
+
+---
+
+## 3. Admin Panel Architecture (`admin.css`)
+
+The Admin subsystem (managing Content and Games Sub-Admin) requires dense mapping of identical elements (cards, tables, buttons, inputs). Scattering Tailwind utilities here violates DRY (Don't Repeat Yourself) principles and clutters component visibility.
+
+Therefore, the Admin panel uses an **`@apply` Component abstraction layer** maintained separately in `src/styles/admin.css`. 
+
+### 3.1 Semantic Component Classes
+Admin components use clean, precompiled, semantic class names:
+`admin-layout`, `admin-card`, `admin-input`, `admin-btn-primary`, `admin-table`.
+
+### 3.2 Structure Inside `admin.css`
+The file leverages `@apply` inside the `@layer components { ... }` directive to compile complex utilities down into single classes.
+
+**Benefits for Admin Pages:**
+* **Forms:** Standardized forms via `<input className="admin-input" />` or `<div className="admin-field">`.
+* **Buttons:** Consistent action triggers with `admin-btn-primary` or `admin-action-btn delete`.
+* **Tables:** List views look identical across all endpoints securely managed by `.admin-table` structure blocks.
+* **Layouts:** Shared `admin-page-title` and `admin-section-title` keep hierarchy uniform.
+
+### 3.3 Strict Adherence to Tokens
+Even within `.admin-*` custom classes, all underlying structures only request verified tokens generated by `index.css`:
+```css
+  .admin-input {
+    @apply w-full bg-admin-input border border-admin-input-border rounded-[4px]
+           px-[14px] py-[10px] text-sm text-admin-text outline-none transition
+           focus:border-admin-accent focus:ring-2 focus:ring-admin-accent-light;
+  }
+```
+No raw hex codes (`#FFFFFF`), `rgb()`, or `px` values are heavily utilized in `admin.css`.
+
+---
+
+## Summary Best Practices & Guidelines
+
+1. **Adding New Colors:** Always modify the `@theme` block in `index.css`. NEVER hardcode hexes in `className="bg-[#123123]"`.
+2. **Writing Public Code:** Write inline Tailwind utility loops mapping to the assigned namespace (e.g., building a blog feature? Stick exclusively to `bl-*` utility tags).
+3. **Writing Admin Code:** Leverage the `.admin-*` class names inside `admin.css`. Avoid adding unique structural utility classes directly mapped into Admin HTML elements unless accommodating a profound edge case. 
+4. **Consistency Enforcement:** Ensure all new components draw tokens from the overarching typography, standard sizes, and pre-negotiated root settings preventing drifting designs.
