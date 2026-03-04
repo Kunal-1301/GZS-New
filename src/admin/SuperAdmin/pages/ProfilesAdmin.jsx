@@ -1,20 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiEye, FiCheckCircle, FiXCircle, FiTrash2, FiUser, FiAward, FiActivity, FiX, FiExternalLink, FiSend } from 'react-icons/fi';
+import { mockApiService } from '../../../public/services/mockApiService';
 
-/* ── Dummy Data ──────────────────────────────────────────── */
-const USERS = [
-    { id: 'U1', user: 'khali_gaming', type: 'Game Creation', created: '2026-03-01', status: 'Active' },
-    { id: 'U2', user: 'art_wizard', type: 'Art & Design', created: '2026-03-02', status: 'Active' },
-    { id: 'U3', user: 'dev_pro', type: 'Programming', created: '2026-03-04', status: 'Pending' },
-    { id: 'U4', user: 'music_man', type: 'Music & Audio', created: '2026-02-28', status: 'Suspended' },
-];
-
-const PROOFS = [
-    { id: 'P1', user: 'khali_gaming', subType: 'Game Creation', group: 'Unity', skill: 'C# Scripting', proofType: 'GitHub Link', submitted: '1 Hr Ago', status: 'Pending Review' },
-    { id: 'P2', user: 'art_wizard', subType: 'Art & Design', group: '2D Art', skill: 'Character Sprites', proofType: 'Asset File', submitted: '3 Hrs Ago', status: 'Pending Review' },
-    { id: 'P3', user: 'khali_gaming', subType: 'Game Creation', group: 'Level Design', skill: 'Greyboxing', proofType: 'Portfolio Link', submitted: '2 Days Ago', status: 'Approved' },
-];
-
+/* ── Activity Dummy (Stay local for now) ────────────────── */
 const ACTIVITY = [
     { id: 'A1', user: 'khali_gaming', content: 'Added a new skill: Character Design', profile: 'Art & Design', date: '2 Hrs Ago', status: 'Active' },
     { id: 'A2', user: 'gamer_1', content: 'Verified skill: Unity Engine', profile: 'Game Creation', date: '1 Day Ago', status: 'Deleted' },
@@ -69,15 +57,11 @@ function RejectionModal({ onConfirm, onClose }) {
 }
 
 /* ── Tab Components ──────────────────────────────────────── */
-function UsersTab() {
+function UsersTab({ users, onDelete }) {
     return (
         <div className="admin-list-card">
-            <div className="admin-list-header">
+            <div className="admin-list-header text-[var(--theme-text)]">
                 <span className="admin-list-title">USER PROFILES</span>
-                <div className="flex gap-2">
-                    <button className="admin-filter-btn">Filter: All</button>
-                    <button className="admin-filter-btn">Sort: Newest</button>
-                </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="admin-table">
@@ -85,7 +69,7 @@ function UsersTab() {
                         <tr><th>ID</th><th>User</th><th>Main Sub-Profile</th><th>Created</th><th>Status</th><th>Actions</th></tr>
                     </thead>
                     <tbody>
-                        {USERS.map(row => (
+                        {users.map(row => (
                             <tr key={row.id}>
                                 <td className="text-xs text-[var(--theme-text-muted)]">{row.id}</td>
                                 <td className="font-bold text-[var(--theme-text)]">{row.user}</td>
@@ -94,8 +78,8 @@ function UsersTab() {
                                 <td><StatusBadge status={row.status} /></td>
                                 <td>
                                     <div className="flex gap-1">
-                                        <button className="admin-action-btn"><FiEye size={13} /></button>
-                                        <button className="admin-action-btn delete"><FiTrash2 size={13} /></button>
+                                        <button className="admin-action-btn" title="View Profile"><FiEye size={13} /></button>
+                                        <button className="admin-action-btn delete" title="Delete User" onClick={() => onDelete(row.id)}><FiTrash2 size={13} /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -110,11 +94,8 @@ function UsersTab() {
 function SkillProofsTab({ onReview, proofList, handleAction }) {
     return (
         <div className="admin-list-card">
-            <div className="admin-list-header">
+            <div className="admin-list-header text-[var(--theme-text)]">
                 <span className="admin-list-title">SKILL PROOF APPROVALS</span>
-                <div className="flex gap-2">
-                    <button className="admin-btn-primary py-1 px-4 text-[10px]">BULK APPROVE</button>
-                </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="admin-table">
@@ -138,8 +119,8 @@ function SkillProofsTab({ onReview, proofList, handleAction }) {
                                         <button className="admin-action-btn" title="View Proof" onClick={() => onReview(row)}><FiEye size={13} /></button>
                                         {row.status === 'Pending Review' && (
                                             <>
-                                                <button className="admin-action-btn !text-green-600 hover:!bg-green-50" onClick={() => handleAction(row.id, 'Approved')}><FiCheckCircle size={13} /></button>
-                                                <button className="admin-action-btn delete" onClick={() => onReview({ ...row, actionType: 'reject' })}><FiXCircle size={13} /></button>
+                                                <button className="admin-action-btn !text-green-600 hover:!bg-green-50" title="Approve" onClick={() => handleAction(row.id, 'Approved')}><FiCheckCircle size={13} /></button>
+                                                <button className="admin-action-btn delete" title="Reject" onClick={() => onReview({ ...row, actionType: 'reject' })}><FiXCircle size={13} /></button>
                                             </>
                                         )}
                                     </div>
@@ -166,7 +147,7 @@ function ProofDrawer({ proof, onClose, onApprove, onReject }) {
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors"><FiX size={18} /></button>
                 </div>
-                <div className="flex-1 p-6 space-y-6 overflow-y-auto">
+                <div className="flex-1 p-6 space-y-6 overflow-y-auto text-[var(--theme-text)]">
                     <div className="space-y-1">
                         <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">User</label>
                         <p className="text-xs font-bold text-gray-900 flex items-center gap-1.5"><FiUser size={12} /> {proof.user}</p>
@@ -206,11 +187,45 @@ export default function ProfilesAdmin({ defaultTab = 'users' }) {
     const [activeTab, setActiveTab] = useState(defaultTab);
     const [reviewProof, setReviewProof] = useState(null);
     const [rejectProof, setRejectProof] = useState(null);
-    const [proofList, setProofList] = useState(PROOFS);
 
-    const handleAction = (id, status) => {
+    const [users, setUsers] = useState([]);
+    const [proofList, setProofList] = useState([]);
+    const [activityList, setActivityList] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const load = async () => {
+            const [u, p, a] = await Promise.all([
+                mockApiService.getAllUsers(),
+                mockApiService.getAllProofs(),
+                mockApiService.getAllActivity()
+            ]);
+            setUsers(u);
+            setProofList(p);
+            setActivityList(a);
+            setLoading(false);
+        };
+        load();
+    }, []);
+
+    const handleProofAction = async (id, status) => {
+        await mockApiService.updateProof(id, { status });
         setProofList(prev => prev.map(p => p.id === id ? { ...p, status } : p));
     };
+
+    const handleDeleteUser = async (id) => {
+        if (!confirm("Are you sure you want to delete this user?")) return;
+        await mockApiService.deleteUser(id);
+        setUsers(prev => prev.filter(u => u.id !== id));
+    };
+
+    const handleDeleteActivity = async (id) => {
+        if (!confirm("Are you sure you want to delete this activity entry?")) return;
+        await mockApiService.deleteActivity(id);
+        setActivityList(prev => prev.filter(a => a.id !== id));
+    };
+
+    if (loading) return <div className="p-20 text-center text-xs font-black tracking-widest opacity-40 animate-pulse">LOADING PROFILE ENGINE...</div>;
 
     return (
         <div>
@@ -225,23 +240,25 @@ export default function ProfilesAdmin({ defaultTab = 'users' }) {
                 <button onClick={() => setActiveTab('activity')} className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-black transition-all ${activeTab === 'activity' ? 'bg-indigo-600 text-white shadow-lg' : 'bg-white text-gray-500 hover:bg-gray-50'}`}><FiActivity size={14} /> ACTIVITY</button>
             </div>
 
-            {activeTab === 'users' && <UsersTab />}
-            {activeTab === 'proofs' && <SkillProofsTab onReview={(p) => p.actionType === 'reject' ? setRejectProof(p) : setReviewProof(p)} proofList={proofList} handleAction={handleAction} />}
+            {activeTab === 'users' && <UsersTab users={users} onDelete={handleDeleteUser} />}
+            {activeTab === 'proofs' && <SkillProofsTab onReview={(p) => p.actionType === 'reject' ? setRejectProof(p) : setReviewProof(p)} proofList={proofList} handleAction={handleProofAction} />}
             {activeTab === 'activity' && (
                 <div className="admin-list-card">
-                    <div className="admin-list-header text-[var(--theme-text)]"><FiActivity size={16} /> ACTIVITY MODERATION</div>
+                    <div className="admin-list-header text-[var(--theme-text)]">
+                        <span className="admin-list-title flex items-center gap-2"><FiActivity size={16} /> ACTIVITY MODERATION</span>
+                    </div>
                     <div className="overflow-x-auto">
                         <table className="admin-table">
                             <thead><tr><th>User</th><th>Content</th><th>Profile</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
                             <tbody>
-                                {ACTIVITY.map(row => (
+                                {activityList.map(row => (
                                     <tr key={row.id}>
                                         <td className="font-bold">{row.user}</td>
                                         <td className="text-xs italic">"{row.content}"</td>
                                         <td className="text-[10px] font-black text-indigo-500">{row.profile}</td>
                                         <td className="text-[10px]">{row.date}</td>
                                         <td><StatusBadge status={row.status} /></td>
-                                        <td><button className="admin-action-btn delete"><FiTrash2 size={13} /></button></td>
+                                        <td><button className="admin-action-btn delete" onClick={() => handleDeleteActivity(row.id)}><FiTrash2 size={13} /></button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -253,13 +270,13 @@ export default function ProfilesAdmin({ defaultTab = 'users' }) {
             <ProofDrawer
                 proof={reviewProof}
                 onClose={() => setReviewProof(null)}
-                onApprove={handleAction}
+                onApprove={handleProofAction}
                 onReject={(p) => { setReviewProof(null); setRejectProof(p); }}
             />
 
             {rejectProof && (
                 <RejectionModal
-                    onConfirm={(reason) => handleAction(rejectProof.id, 'Rejected')}
+                    onConfirm={(reason) => handleProofAction(rejectProof.id, 'Rejected')}
                     onClose={() => setRejectProof(null)}
                 />
             )}

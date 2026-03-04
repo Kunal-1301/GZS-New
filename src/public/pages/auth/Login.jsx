@@ -4,11 +4,20 @@ import AuthLayout from './AuthLayout';
 
 export default function Login() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [keepSignedIn, setKeepSignedIn] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate('/profile');
+
+        // MOCK ADMIN LOGIN
+        if (email === 'admin@gzonesphere.com') {
+            localStorage.setItem('gz_admin_session', 'active');
+            navigate('/content-admin');
+        } else {
+            navigate('/profile');
+        }
     };
 
     return (
@@ -25,6 +34,8 @@ export default function Login() {
                     <input
                         type="email"
                         required
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                         placeholder="gzonesphere@gmail.com"
                         className="au-input"
                     />
@@ -36,6 +47,8 @@ export default function Login() {
                     <input
                         type="password"
                         required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                         placeholder="password"
                         className="au-input"
                     />

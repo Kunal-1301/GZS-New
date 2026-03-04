@@ -60,6 +60,8 @@ const MoreGames = lazy(() => import('./admin/GamesAdmin/MoreGames'));
 const SocialCommunity = lazy(() => import('./admin/GamesAdmin/SocialCommunity'));
 const PreviewGamePost = lazy(() => import('./admin/GamesAdmin/PreviewGamePost'));
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 const App = () => (
   <BrowserRouter>
     <ToastProvider>
@@ -100,36 +102,39 @@ const App = () => (
               <Route path="/profile/skill-add" element={<ProfileSkillAdd />} />
               <Route path="/profile/skill-dashboard" element={<ProfileSkillDashboard />} />
 
-              {/* ── Content Admin (Top-Level) ──────────────────────── */}
-              <Route path="/content-admin" element={<ContentAdminLayout />}>
-                <Route index element={<CADashboard />} />
-                <Route path="game-posts" element={<CAGamePosts />} />
-                <Route path="esports" element={<CAEsports />} />
-                <Route path="esports/brackets" element={<CABrackets />} />
-                <Route path="esports/results" element={<CAResults />} />
-                <Route path="esports/sponsors" element={<CASponsors />} />
-                <Route path="news" element={<CANews />} />
-                <Route path="blogs" element={<CANews />} />
-                <Route path="community" element={<CACommunity />} />
-                <Route path="profiles" element={<CAProfiles />} />
-                <Route path="profiles/proofs" element={<CAProfiles defaultTab="proofs" />} />
-                <Route path="profiles/activity" element={<CAProfiles defaultTab="activity" />} />
-                <Route path="reviews" element={<CAReviews />} />
-                <Route path="settings" element={<CASettings />} />
-              </Route>
+              {/* ── Protected Admin Routes ─────────────────────────── */}
+              <Route element={<ProtectedRoute />}>
+                {/* Content Admin (Top-Level) */}
+                <Route path="/content-admin" element={<ContentAdminLayout />}>
+                  <Route index element={<CADashboard />} />
+                  <Route path="game-posts" element={<CAGamePosts />} />
+                  <Route path="esports" element={<CAEsports />} />
+                  <Route path="esports/brackets" element={<CABrackets />} />
+                  <Route path="esports/results" element={<CAResults />} />
+                  <Route path="esports/sponsors" element={<CASponsors />} />
+                  <Route path="news" element={<CANews />} />
+                  <Route path="blogs" element={<CANews />} />
+                  <Route path="community" element={<CACommunity />} />
+                  <Route path="profiles" element={<CAProfiles />} />
+                  <Route path="profiles/proofs" element={<CAProfiles defaultTab="proofs" />} />
+                  <Route path="profiles/activity" element={<CAProfiles defaultTab="activity" />} />
+                  <Route path="reviews" element={<CAReviews />} />
+                  <Route path="settings" element={<CASettings />} />
+                </Route>
 
-              {/* ── GamePost Sub-Admin ─────────────────────────────── */}
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<BasicInfo />} />
-                <Route path="story" element={<StoryContent />} />
-                <Route path="media" element={<Media />} />
-                <Route path="quick" element={<QuickOverview />} />
-                <Route path="system" element={<SystemRequirements />} />
-                <Route path="store" element={<StoreExtras />} />
-                <Route path="reviews" element={<ReviewsCommunity />} />
-                <Route path="more" element={<MoreGames />} />
-                <Route path="social" element={<SocialCommunity />} />
-                <Route path="preview" element={<PreviewGamePost />} />
+                {/* GamePost Sub-Admin */}
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<BasicInfo />} />
+                  <Route path="story" element={<StoryContent />} />
+                  <Route path="media" element={<Media />} />
+                  <Route path="quick" element={<QuickOverview />} />
+                  <Route path="system" element={<SystemRequirements />} />
+                  <Route path="store" element={<StoreExtras />} />
+                  <Route path="reviews" element={<ReviewsCommunity />} />
+                  <Route path="more" element={<MoreGames />} />
+                  <Route path="social" element={<SocialCommunity />} />
+                  <Route path="preview" element={<PreviewGamePost />} />
+                </Route>
               </Route>
 
               {/* ── 404 ───────────────────────────────────────────── */}

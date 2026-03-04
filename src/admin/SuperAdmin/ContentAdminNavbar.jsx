@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FiSearch, FiPlus } from 'react-icons/fi';
 import { HiOutlineBell, HiOutlineUser } from 'react-icons/hi';
 
@@ -33,9 +34,9 @@ const ContentAdminNavbar = () => {
 
             {/* Right: Create button + icons */}
             <div className="admin-navbar-actions">
-                <button className="admin-create-btn hidden sm:flex">
+                <Link to="/content-admin" className="admin-create-btn hidden sm:flex no-underline">
                     <FiPlus size={13} /> CREATE
-                </button>
+                </Link>
                 <button className="admin-icon-btn" aria-label="Notifications">
                     <HiOutlineBell size={17} />
                 </button>

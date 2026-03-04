@@ -1,13 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiEye, FiEdit2, FiTrash2, FiPlus, FiStar, FiCheckCircle, FiXCircle } from "react-icons/fi";
-
-const INITIAL_REVIEWS = [
-    { id: "01", title: "Valorant — The Perfect Tactical Shooter", game: "Valorant", rating: "9/10", status: "Published", updated: "2 Days Ago", author: "Editor One" },
-    { id: "02", title: "Cyberpunk 2077 Redeeming Arc 2025", game: "Cyberpunk", rating: "8/10", status: "Draft", updated: "4 Days Ago", author: "Admin Name" },
-    { id: "03", title: "God of War Ragnarok — Epic Conclusion", game: "GoW Ragnarok", rating: "10/10", status: "Published", updated: "1 Week Ago", author: "Editor Two" },
-    { id: "04", title: "Apex Legends Season 20 — What's New?", game: "Apex Legends", rating: "7/10", status: "In Review", updated: "3 Days Ago", author: "Editor One" },
-    { id: "05", title: "Fortnite Chapter 6 — Worth Returning?", game: "Fortnite", rating: "6/10", status: "Draft", updated: "5 Days Ago", author: "Admin Name" },
-];
+import { mockApiService } from "../../../public/services/mockApiService";
 
 const FILTERS = ["All", "Published", "Draft", "In Review"];
 
@@ -21,14 +14,33 @@ function StatusBadge({ status }) {
 }
 
 export default function Reviews() {
-    const [reviews, setReviews] = useState(INITIAL_REVIEWS);
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("All");
 
-    const handleAction = (id, status) => {
+    useEffect(() => {
+        const load = async () => {
+            const data = await mockApiService.getAllReviews();
+            setReviews(data);
+            setLoading(false);
+        };
+        load();
+    }, []);
+
+    const handleAction = async (id, status) => {
+        await mockApiService.updateReview(id, { status });
         setReviews(prev => prev.map(r => r.id === id ? { ...r, status } : r));
     };
 
+    const handleDelete = async (id) => {
+        if (!confirm("Delete this review permanently?")) return;
+        await mockApiService.deleteReview(id);
+        setReviews(prev => prev.filter(r => r.id !== id));
+    };
+
     const filtered = filter === "All" ? reviews : reviews.filter(r => r.status === filter);
+
+    if (loading) return <div className="p-20 text-center animate-pulse text-[var(--theme-text-muted)] font-black uppercase tracking-widest">FETCHING REVIEWS...</div>;
 
     return (
         <div>
@@ -105,7 +117,7 @@ export default function Reviews() {
                                                     </button>
                                                 </>
                                             )}
-                                            <button className="admin-action-btn delete" title="Delete"><FiTrash2 size={13} /></button>
+                                            <button onClick={() => handleDelete(row.id)} className="admin-action-btn delete" title="Delete"><FiTrash2 size={13} /></button>
                                         </div>
                                     </td>
                                 </tr>

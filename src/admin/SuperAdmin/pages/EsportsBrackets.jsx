@@ -1,18 +1,63 @@
-import { useState } from 'react';
-import { FiPlus, FiEdit2, FiTrash2, FiEye, FiGrid } from 'react-icons/fi';
-
-const BRACKETS = [
-    { id: 'B1', name: 'Valorant Cup - Group A', type: 'Double Elimination', size: '16 Teams', status: 'Active', event: 'Valorant Cup' },
-    { id: 'B2', name: 'BGMI Invitational - Semis', type: 'Points Table', size: '20 Teams', status: 'Active', event: 'BGMI Invitational' },
-    { id: 'B3', name: 'A Way Out - Race Bracket', type: 'Single Elimination', size: '8 Teams', status: 'Finished', event: 'A Way Out' },
-];
+import { useState, useEffect } from 'react';
+import { FiPlus, FiEdit2, FiTrash2, FiEye, FiGrid, FiArrowLeft } from 'react-icons/fi';
+import BracketGenerator from '../components/BracketGenerator';
+import { mockApiService } from '../../../public/services/mockApiService';
 
 export default function EsportsBrackets() {
+    const [view, setView] = useState('list'); // 'list' or 'generate'
+    const [brackets, setBrackets] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const load = async () => {
+            const data = await mockApiService.getAllBrackets();
+            setBrackets(data);
+            setLoading(false);
+        };
+        load();
+    }, []);
+
+    const handleNewBracket = async (bracketData) => {
+        const newBracket = await mockApiService.addBracket(bracketData);
+        setBrackets([newBracket, ...brackets]);
+        setView('list');
+    };
+
+    const handleDelete = async (id) => {
+        if (!confirm("Delete this bracket?")) return;
+        await mockApiService.deleteBracket(id);
+        setBrackets(prev => prev.filter(b => b.id !== id));
+    };
+
+    if (loading) return <div className="p-20 text-center animate-pulse text-xs font-black tracking-widest opacity-40">LOADING BRACKETS...</div>;
+
+    if (view === 'generate') {
+        return (
+            <div>
+                <div className="mb-8">
+                    <button
+                        onClick={() => setView('list')}
+                        className="flex items-center gap-2 text-xs font-bold text-[var(--theme-text-muted)] hover:text-[var(--theme-primary)] transition-colors"
+                    >
+                        <FiArrowLeft /> BACK TO BRACKETS
+                    </button>
+                    <h1 className="admin-page-title mt-4 mb-0">BRACKET GENERATOR</h1>
+                </div>
+                <BracketGenerator onGenerate={handleNewBracket} />
+            </div>
+        );
+    }
+
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
                 <h1 className="admin-page-title mb-0">BRACKETS & MATCHES</h1>
-                <button className="admin-btn-primary"><FiPlus size={13} /> GENERATE BRACKET</button>
+                <button
+                    onClick={() => setView('generate')}
+                    className="admin-btn-primary"
+                >
+                    <FiPlus size={13} /> GENERATE BRACKET
+                </button>
             </div>
 
             <div className="admin-list-card">
@@ -25,11 +70,11 @@ export default function EsportsBrackets() {
                             </tr>
                         </thead>
                         <tbody>
-                            {BRACKETS.map(row => (
+                            {brackets.map(row => (
                                 <tr key={row.id}>
                                     <td className="text-[var(--theme-text-muted)] text-xs">{row.id}</td>
                                     <td className="font-semibold text-[var(--theme-text)] underline decoration-[var(--theme-primary)] decoration-2">{row.name}</td>
-                                    <td className="text-xs">{row.event}</td>
+                                    <td className="text-xs">{row.event || 'Local Event'}</td>
                                     <td className="text-xs">{row.type}</td>
                                     <td>{row.size}</td>
                                     <td>
@@ -41,7 +86,12 @@ export default function EsportsBrackets() {
                                         <div className="flex gap-1">
                                             <button className="admin-action-btn" title="Edit Matches"><FiGrid size={13} /></button>
                                             <button className="admin-action-btn" title="Settings"><FiEdit2 size={13} /></button>
-                                            <button className="admin-action-btn delete"><FiTrash2 size={13} /></button>
+                                            <button
+                                                className="admin-action-btn delete"
+                                                onClick={() => handleDelete(row.id)}
+                                            >
+                                                <FiTrash2 size={13} />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>

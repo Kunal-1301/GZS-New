@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { HiChevronDown, HiChevronRight } from 'react-icons/hi';
+import { FiTrash2 } from 'react-icons/fi';
 
 /* ── Sidebar navigation definition ─────────────────────────
    Uses a tree structure so Esports shows nested sub-items.
@@ -79,17 +80,39 @@ function SidebarGroup({ item }) {
     );
 }
 
+
+
 /* ── Main Sidebar ─────────────────────────────────────────── */
-const ContentAdminSidebar = () => (
-    <aside className="admin-sidebar">
-        {NAV_TREE.map(item =>
-            item.children ? (
-                <SidebarGroup key={item.to} item={item} />
-            ) : (
-                <SidebarLink key={item.to} to={item.to} end={item.end} label={item.label} />
-            )
-        )}
-    </aside>
-);
+const ContentAdminSidebar = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('gz_admin_session');
+        navigate('/login');
+    };
+
+    return (
+        <aside className="admin-sidebar flex flex-col">
+            <div className="flex-1 space-y-1">
+                {NAV_TREE.map(item =>
+                    item.children ? (
+                        <SidebarGroup key={item.to} item={item} />
+                    ) : (
+                        <SidebarLink key={item.to} to={item.to} end={item.end} label={item.label} />
+                    )
+                )}
+            </div>
+
+            <div className="p-4 border-t border-[var(--theme-border)] mt-auto">
+                <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center gap-2 py-2 text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                    <FiTrash2 size={13} className="rotate-180" /> LOGOUT PANEL
+                </button>
+            </div>
+        </aside>
+    );
+};
 
 export default ContentAdminSidebar;

@@ -70,10 +70,20 @@ function PreviewDrawer({ post, onClose, onApprove, onReject }) {
 
 /* ── Page ────────────────────────────────────────────────── */
 export default function GamePostsList() {
-    const [posts, setPosts] = useState(DUMMY_POSTS);
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("All");
     const [selected, setSelected] = useState([]);
     const [preview, setPreview] = useState(null);
+
+    useEffect(() => {
+        const load = async () => {
+            const data = await mockApiService.getAllGames();
+            setPosts(data);
+            setLoading(false);
+        };
+        load();
+    }, []);
 
     const filtered = filter === "All" ? posts : posts.filter(r => r.status === filter);
 
@@ -82,19 +92,26 @@ export default function GamePostsList() {
     const toggleAll = () =>
         setSelected(selected.length === filtered.length ? [] : filtered.map(p => p.id));
 
-    const handleApprove = (id) =>
-        setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "Published" } : p));
-    const handleReject = (id) =>
-        setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "Draft" } : p));
+    const handleAction = async (id, status) => {
+        await mockApiService.updateGame(id, { status });
+        setPosts(prev => prev.map(p => p.id === id ? { ...p, status } : p));
+    };
 
-    const bulkApprove = () => {
-        setPosts(prev => prev.map(p => selected.includes(p.id) ? { ...p, status: "Published" } : p));
+    const handleToggleFeatured = async (id, current) => {
+        await mockApiService.updateGame(id, { featured: !current });
+        setPosts(prev => prev.map(p => p.id === id ? { ...p, featured: !current } : p));
+    };
+
+    const handleApprove = (id) => handleAction(id, "Published");
+    const handleReject = (id) => handleAction(id, "Draft");
+
+    const bulkUpdateStatus = async (status) => {
+        await Promise.all(selected.map(id => mockApiService.updateGame(id, { status })));
+        setPosts(prev => prev.map(p => selected.includes(p.id) ? { ...p, status } : p));
         setSelected([]);
     };
-    const bulkReject = () => {
-        setPosts(prev => prev.map(p => selected.includes(p.id) ? { ...p, status: "Draft" } : p));
-        setSelected([]);
-    };
+
+    if (loading) return <div className="p-20 text-center animate-pulse text-[var(--theme-text-muted)] font-black uppercase tracking-widest">LOADING GAME DATABASE...</div>;
 
     return (
         <>
@@ -111,13 +128,13 @@ export default function GamePostsList() {
                     <div className="flex items-center gap-3 mb-4 px-4 py-3 bg-[var(--theme-bg-alt)] border border-[var(--theme-border)] rounded-xl">
                         <span className="text-xs text-[var(--theme-text-muted)]">{selected.length} selected</span>
                         <button
-                            onClick={bulkApprove}
+                            onClick={() => bulkUpdateStatus("Published")}
                             className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors"
                         >
                             <FiCheckCircle size={11} /> BULK APPROVE
                         </button>
                         <button
-                            onClick={bulkReject}
+                            onClick={() => bulkUpdateStatus("Draft")}
                             className="flex items-center gap-1.5 border border-red-300 text-red-600 hover:bg-red-50 text-xs font-bold px-4 py-1.5 rounded-lg transition-colors"
                         >
                             <FiXCircle size={11} /> BULK REJECT
@@ -179,7 +196,7 @@ export default function GamePostsList() {
                                         <td><StatusBadge status={row.status} /></td>
                                         <td>
                                             <button
-                                                onClick={() => setPosts(prev => prev.map(p => p.id === row.id ? { ...p, featured: !p.featured } : p))}
+                                                onClick={() => handleToggleFeatured(row.id, row.featured)}
                                                 className={`text-[10px] font-black px-2 py-0.5 rounded ${row.featured ? 'bg-orange-100 text-orange-600' : 'bg-gray-100 text-gray-400'}`}
                                             >
                                                 {row.featured ? 'FEATURED' : 'NORMAL'}

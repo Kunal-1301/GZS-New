@@ -99,7 +99,7 @@ export default function News() {
                                     <td><StatusBadge status={row.status} /></td>
                                     <td>
                                         <button
-                                            onClick={() => setNews(prev => prev.map(n => n.id === row.id ? { ...n, featured: !n.featured } : n))}
+                                            onClick={() => toggleFeatured(row.id, row.featured)}
                                             className={`text-[10px] font-black px-2 py-0.5 rounded ${row.featured ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-400'}`}
                                         >
                                             {row.featured ? 'FEATURED' : 'NORMAL'}
@@ -129,7 +129,18 @@ export default function News() {
                                                     </button>
                                                 </>
                                             )}
-                                            <button className="admin-action-btn delete" title="Delete"><FiTrash2 size={13} /></button>
+                                            <button
+                                                onClick={async () => {
+                                                    if (confirm("Delete this entry?")) {
+                                                        await mockApiService.deleteBlog(row.id);
+                                                        setNews(prev => prev.filter(n => n.id !== row.id));
+                                                    }
+                                                }}
+                                                className="admin-action-btn delete"
+                                                title="Delete"
+                                            >
+                                                <FiTrash2 size={13} />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
