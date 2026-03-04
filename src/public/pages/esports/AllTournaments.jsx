@@ -1,27 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowUpRight, FiSearch, FiFilter } from 'react-icons/fi';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Breadcrumb from '../../components/Breadcrumb';
 import { usePageTheme } from '../../context/ThemeContext';
-
-const TOURNAMENTS = [
-    { id: 1, name: 'VALORANT WINTER SHOWDOWN II 2026', game: 'VALORANT', prize: '50,000 INR', status: 'UPCOMING', type: 'OPEN', slots: '32', date: 'DEC 20, 2026' },
-    { id: 2, name: 'CS2 MASTERS SERIES', game: 'CS2', prize: '30,000 INR', status: 'ONGOING', type: 'INVITATIONAL', slots: '16', date: 'NOV 15, 2026' },
-    { id: 3, name: 'BGMI ROYALE INVITATIONAL', game: 'BGMI', prize: '25,000 INR', status: 'UPCOMING', type: 'OPEN', slots: '64', date: 'JAN 05, 2027' },
-    { id: 4, name: 'APEX LEGENDS CLASH', game: 'APEX', prize: '15,000 INR', status: 'COMPLETED', type: 'OPEN', slots: '32', date: 'OCT 10, 2026' },
-    { id: 5, name: 'FREE FIRE SURVIVAL', game: 'FREE FIRE', prize: '20,000 INR', status: 'UPCOMING', type: 'OPEN', slots: '48', date: 'FEB 12, 2027' },
-    { id: 6, name: 'EAFC 26 KNOCKOUT', game: 'FIFA', prize: '10,000 INR', status: 'UPCOMING', type: 'OPEN', slots: '16', date: 'DEC 25, 2026' },
-];
+import { mockApiService } from '../../services/mockApiService';
 
 export default function AllTournaments() {
+    const [tournaments, setTournaments] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filterGame, setFilterGame] = useState('ALLGAMES');
     const [filterStatus, setFilterStatus] = useState('ALL');
     const [search, setSearch] = useState('');
     usePageTheme('esports');
 
-    const filteredTournaments = TOURNAMENTS.filter((t) => {
+    useEffect(() => {
+        const load = async () => {
+            const data = await mockApiService.getPublicTournaments();
+            setTournaments(data);
+            setLoading(false);
+        };
+        load();
+    }, []);
+
+    const filteredTournaments = tournaments.filter((t) => {
         if (filterGame !== 'ALLGAMES' && t.game !== filterGame) return false;
         if (filterStatus !== 'ALL' && t.status !== filterStatus) return false;
         if (search && !t.name.toLowerCase().includes(search.toLowerCase())) return false;

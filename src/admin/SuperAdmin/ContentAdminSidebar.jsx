@@ -17,7 +17,16 @@ const NAV_TREE = [
             { label: 'Sponsorships', to: '/content-admin/esports/sponsors' },
         ],
     },
-    { label: 'NEWS', to: '/content-admin/news' },
+    { label: 'NEWS & BLOGS', to: '/content-admin/news' },
+    {
+        label: 'PROFILES',
+        to: '/content-admin/profiles',
+        children: [
+            { label: 'Users & Sub-Profiles', to: '/content-admin/profiles' },
+            { label: 'Skill Proof Approvals', to: '/content-admin/profiles/proofs' },
+            { label: 'Activity & Posts', to: '/content-admin/profiles/activity' },
+        ],
+    },
     { label: 'COMMUNITY', to: '/content-admin/community' },
     { label: 'REVIEWS', to: '/content-admin/reviews' },
     { label: 'SETTINGS', to: '/content-admin/settings' },

@@ -1,12 +1,9 @@
-import { FiEye, FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiEye, FiEdit2, FiTrash2, FiPlus, FiCheckCircle, FiXCircle, FiFilter } from "react-icons/fi";
+import { mockApiService } from "../../../public/services/mockApiService";
 
-const NEWS_ITEMS = [
-    { id: "01", title: "Valorant Episode 9 Act 2 — New Agent Revealed", category: "Game Updates", status: "Published", updated: "2 Hrs Ago", author: "Editor One" },
-    { id: "02", title: "Sony Reveals PlayStation 6 Launch Window", category: "Hardware", status: "Published", updated: "1 Day Ago", author: "Admin Name" },
-    { id: "03", title: "Xbox Game Pass Gets 15 New Titles in March", category: "Subscription", status: "Draft", updated: "2 Days Ago", author: "Editor Two" },
-    { id: "04", title: "Steam Breaks Concurrent Users Record Again", category: "Industry", status: "Published", updated: "4 Days Ago", author: "Admin Name" },
-    { id: "05", title: "GTA VI PC Version Confirmed for 2027", category: "Announcements", status: "In Review", updated: "1 Week Ago", author: "Editor One" },
-];
+const FILTERS = ["All", "Published", "Draft", "In Review"];
+const CATS = ["All", "Game Updates", "Hardware", "Industry", "Announcements", "Blog Post"];
 
 function StatusBadge({ status }) {
     const cls = {
@@ -18,43 +15,120 @@ function StatusBadge({ status }) {
 }
 
 export default function News() {
+    const [news, setNews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState("All");
+    const [catFilter, setCatFilter] = useState("All");
+
+    useEffect(() => {
+        const load = async () => {
+            const data = await mockApiService.getAllBlogs();
+            setNews(data);
+            setLoading(false);
+        };
+        load();
+    }, []);
+
+    const handleUpdate = async (id, data) => {
+        await mockApiService.updateBlog(id, data);
+        setNews(prev => prev.map(n => n.id === id ? { ...n, ...data } : n));
+    };
+
+    const handleAction = (id, status) => handleUpdate(id, { status });
+    const toggleFeatured = (id, current) => handleUpdate(id, { featured: !current });
+
+    const filtered = news.filter(n => {
+        const matchesStatus = filter === "All" || n.status === filter;
+        const matchesCat = catFilter === "All" || n.category === catFilter;
+        return matchesStatus && matchesCat;
+    });
+
+    if (loading) return <div className="p-20 text-center animate-pulse text-[var(--theme-text-muted)] font-black uppercase tracking-widest">FETCHING EDITORIAL DATA...</div>;
+
     return (
         <div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "2rem" }}>
-                <h1 className="admin-page-title" style={{ marginBottom: 0 }}>News</h1>
-                <button className="admin-btn-primary"><FiPlus size={13} /> Write News</button>
+            <div className="flex items-center justify-between mb-8">
+                <h1 className="admin-page-title mb-0">NEWS & BLOGS</h1>
+                <div className="flex gap-2">
+                    <button className="admin-btn-outline-accent"><FiPlus size={13} /> WRITE BLOG</button>
+                    <button className="admin-btn-primary"><FiPlus size={13} /> WRITE NEWS</button>
+                </div>
             </div>
 
-            <div className="admin-card" style={{ padding: 0, overflow: "hidden" }}>
-                <div className="admin-list-header" style={{ padding: "1rem 1.25rem", borderBottom: "1px solid var(--admin-border)" }}>
-                    <span className="admin-list-title">News Articles</span>
+            <div className="admin-list-card">
+                <div className="admin-list-header flex-col md:flex-row gap-4 items-start md:items-center">
+                    <div className="flex gap-2 flex-wrap">
+                        {FILTERS.map(f => (
+                            <button
+                                key={f}
+                                onClick={() => setFilter(f)}
+                                className={`admin-filter-btn ${filter === f ? "!bg-[var(--theme-primary)] !text-white" : ""}`}
+                            >
+                                {f}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="flex items-center gap-2 ml-auto">
+                        <span className="text-[10px] uppercase font-black tracking-widest text-[var(--theme-text-muted)]">Category:</span>
+                        <select
+                            value={catFilter}
+                            onChange={(e) => setCatFilter(e.target.value)}
+                            className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-xs font-bold px-3 py-1.5 rounded-lg outline-none"
+                        >
+                            {CATS.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                    </div>
                 </div>
-                <div className="admin-table-wrap" style={{ border: "none", borderRadius: 0 }}>
+
+                <div className="overflow-x-auto">
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>S No.</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Updated</th>
-                                <th>Author</th>
-                                <th>Actions</th>
+                                <th>#</th><th>Title</th><th>Category</th>
+                                <th>Status</th><th>Featured</th><th>Updated</th><th>Author</th><th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {NEWS_ITEMS.map(row => (
+                            {filtered.length === 0 ? (
+                                <tr><td colSpan="8" className="text-center py-6 text-[var(--theme-text-muted)]">No items found.</td></tr>
+                            ) : filtered.map(row => (
                                 <tr key={row.id}>
-                                    <td style={{ color: "var(--admin-text-muted)", fontSize: "0.75rem" }}>{row.id}</td>
-                                    <td style={{ fontWeight: 600, color: "var(--admin-text-primary)" }}>{row.title}</td>
-                                    <td>{row.category}</td>
+                                    <td className="text-[var(--theme-text-muted)] text-xs">{row.id}</td>
+                                    <td className="font-semibold text-[var(--theme-text)]">{row.title}</td>
+                                    <td className="text-xs">{row.category}</td>
                                     <td><StatusBadge status={row.status} /></td>
-                                    <td>{row.updated}</td>
-                                    <td>{row.author}</td>
                                     <td>
-                                        <div style={{ display: "flex", gap: "0.25rem" }}>
+                                        <button
+                                            onClick={() => setNews(prev => prev.map(n => n.id === row.id ? { ...n, featured: !n.featured } : n))}
+                                            className={`text-[10px] font-black px-2 py-0.5 rounded ${row.featured ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-400'}`}
+                                        >
+                                            {row.featured ? 'FEATURED' : 'NORMAL'}
+                                        </button>
+                                    </td>
+                                    <td className="text-xs">{row.updated}</td>
+                                    <td className="text-xs">{row.author}</td>
+                                    <td>
+                                        <div className="flex gap-1">
                                             <button className="admin-action-btn" title="View"><FiEye size={13} /></button>
                                             <button className="admin-action-btn" title="Edit"><FiEdit2 size={13} /></button>
+                                            {row.status === 'In Review' && (
+                                                <>
+                                                    <button
+                                                        className="admin-action-btn !text-green-600 hover:!bg-green-50"
+                                                        title="Approve"
+                                                        onClick={() => handleAction(row.id, 'Published')}
+                                                    >
+                                                        <FiCheckCircle size={13} />
+                                                    </button>
+                                                    <button
+                                                        className="admin-action-btn delete"
+                                                        title="Reject"
+                                                        onClick={() => handleAction(row.id, 'Draft')}
+                                                    >
+                                                        <FiXCircle size={13} />
+                                                    </button>
+                                                </>
+                                            )}
                                             <button className="admin-action-btn delete" title="Delete"><FiTrash2 size={13} /></button>
                                         </div>
                                     </td>

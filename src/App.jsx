@@ -26,14 +26,24 @@ const Signup = lazy(() => import('@pages/auth/Signup'));
 const VerifyEmail = lazy(() => import('@pages/auth/VerifyEmail'));
 const ProfileSetup = lazy(() => import('@pages/auth/ProfileSetup'));
 const Profile = lazy(() => import('@pages/profile/Profile'));
+const ProfileHowItWorks = lazy(() => import('@pages/profile/ProfileHowItWorks'));
+const ProfileChooseSubProfile = lazy(() => import('@pages/profile/ProfileChooseSubProfile'));
+const ProfileOverview = lazy(() => import('@pages/profile/ProfileOverview'));
+const ProfileSkillVerify = lazy(() => import('@pages/profile/ProfileSkillVerify'));
+const ProfileSkillAdd = lazy(() => import('@pages/profile/ProfileSkillAdd'));
+const ProfileSkillDashboard = lazy(() => import('@pages/profile/ProfileSkillDashboard'));
 
 // ── Content Admin (Top-Level) ─────────────────────────────────
 const ContentAdminLayout = lazy(() => import('./admin/SuperAdmin/ContentAdminLayout'));
 const CADashboard = lazy(() => import('./admin/SuperAdmin/pages/Dashboard'));
 const CAGamePosts = lazy(() => import('./admin/SuperAdmin/pages/GamePostsList'));
 const CAEsports = lazy(() => import('./admin/SuperAdmin/pages/Esports'));
+const CABrackets = lazy(() => import('./admin/SuperAdmin/pages/EsportsBrackets'));
+const CAResults = lazy(() => import('./admin/SuperAdmin/pages/EsportsResults'));
+const CASponsors = lazy(() => import('./admin/SuperAdmin/pages/EsportsSponsors'));
 const CANews = lazy(() => import('./admin/SuperAdmin/pages/News'));
 const CACommunity = lazy(() => import('./admin/SuperAdmin/pages/Community'));
+const CAProfiles = lazy(() => import('./admin/SuperAdmin/pages/ProfilesAdmin'));
 const CAReviews = lazy(() => import('./admin/SuperAdmin/pages/Reviews'));
 const CASettings = lazy(() => import('./admin/SuperAdmin/pages/Settings'));
 
@@ -83,14 +93,27 @@ const App = () => (
               <Route path="/verify-email" element={<VerifyEmail />} />
               <Route path="/profile-setup" element={<ProfileSetup />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/how-it-works" element={<ProfileHowItWorks />} />
+              <Route path="/profile/choose-subprofile" element={<ProfileChooseSubProfile />} />
+              <Route path="/profile/overview" element={<ProfileOverview />} />
+              <Route path="/profile/skill-verify" element={<ProfileSkillVerify />} />
+              <Route path="/profile/skill-add" element={<ProfileSkillAdd />} />
+              <Route path="/profile/skill-dashboard" element={<ProfileSkillDashboard />} />
 
               {/* ── Content Admin (Top-Level) ──────────────────────── */}
               <Route path="/content-admin" element={<ContentAdminLayout />}>
                 <Route index element={<CADashboard />} />
                 <Route path="game-posts" element={<CAGamePosts />} />
                 <Route path="esports" element={<CAEsports />} />
+                <Route path="esports/brackets" element={<CABrackets />} />
+                <Route path="esports/results" element={<CAResults />} />
+                <Route path="esports/sponsors" element={<CASponsors />} />
                 <Route path="news" element={<CANews />} />
+                <Route path="blogs" element={<CANews />} />
                 <Route path="community" element={<CACommunity />} />
+                <Route path="profiles" element={<CAProfiles />} />
+                <Route path="profiles/proofs" element={<CAProfiles defaultTab="proofs" />} />
+                <Route path="profiles/activity" element={<CAProfiles defaultTab="activity" />} />
                 <Route path="reviews" element={<CAReviews />} />
                 <Route path="settings" element={<CASettings />} />
               </Route>

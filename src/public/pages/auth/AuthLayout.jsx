@@ -1,38 +1,68 @@
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import { Link } from 'react-router-dom';
 
-export default function AuthLayout({ title, subtitle, children }) {
+/**
+ * AuthLayout — Self-contained layout for all auth pages.
+ * No Navbar/Footer — uses a top banner bar + bottom footer bar.
+ * Left panel (lighter teal) + Right form card (darker teal).
+ *
+ * Props:
+ *  title       — Heading text in left panel
+ *  subtitle    — Subtitle text in left panel
+ *  sideLink    — { prefix, label, href } — contextual link in left panel (e.g. "Don't have an account? Sign up")
+ *  children    — Form content rendered in right card
+ */
+export default function AuthLayout({ title, subtitle, sideLink, children }) {
     return (
-        <div className="theme-auth min-h-screen flex flex-col bg-[var(--theme-bg)] font-inter">
-            <Navbar />
+        <div className="min-h-screen flex flex-col bg-white font-inter">
 
-            <main className="flex-1 relative flex flex-col items-center justify-center py-20 min-h-[600px]">
-                {/* Horizontal colored strip */}
-                <div className="absolute top-1/2 left-0 w-full h-[320px] bg-[var(--theme-primary-dark)] opacity-50 -translate-y-1/2 pointer-events-none" />
+            {/* ── Top Banner ─────────────────────────────────── */}
+            <div className="bg-[#0b6e8a] text-white text-center py-3 px-6 text-[11px] tracking-wide">
+                Welcome, Gzonesphere is a true platform on which you can do all.{' '}
+                <span className="font-black tracking-widest">EXPLORE. PLAY. CONQUER</span>
+            </div>
 
-                <div className="relative z-10 w-full max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-12">
+            {/* ── Main Area ──────────────────────────────────── */}
+            <main className="flex-1 flex items-center justify-center py-16 px-4 bg-white">
+                <div className="w-full max-w-[900px] mx-auto flex flex-col lg:flex-row shadow-2xl rounded-lg overflow-hidden">
 
-                    {/* Left Text Segment */}
-                    <div className="flex-1 text-[var(--theme-text)] py-12">
-                        <h1
-                            className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-wider mb-4 leading-[1.1] font-heading"
-                        >
+                    {/* Left Panel — lighter teal */}
+                    <div className="bg-[#3d93ae] text-white py-14 px-10 flex flex-col justify-center lg:w-[380px] shrink-0">
+                        <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-wide leading-tight mb-4 font-heading">
                             {title}
                         </h1>
-                        <p className="text-[var(--theme-text-muted)] text-sm md:text-base max-w-md leading-relaxed">
+                        <p className="text-white/80 text-sm leading-relaxed mb-8">
                             {subtitle}
                         </p>
+                        {sideLink && (
+                            <p className="text-white/80 text-[13px]">
+                                {sideLink.prefix}{' '}
+                                <Link
+                                    to={sideLink.href}
+                                    className="font-bold text-white hover:underline underline-offset-2 transition-colors"
+                                >
+                                    {sideLink.label}
+                                </Link>
+                            </p>
+                        )}
                     </div>
 
-                    {/* Right Card Segment */}
-                    <div className="w-full max-w-[420px] bg-[var(--theme-card)] rounded-md shadow-2xl p-8 lg:p-10 shrink-0 border border-[var(--theme-border)]">
+                    {/* Right Card — darker teal */}
+                    <div className="bg-[#085c7a] text-white py-12 px-10 flex-1 flex flex-col justify-center">
                         {children}
                     </div>
 
                 </div>
             </main>
 
-            <Footer />
+            {/* ── Bottom Footer Bar ──────────────────────────── */}
+            <div className="bg-[#0b6e8a] text-white text-center py-3 px-6 text-[11px] tracking-wide">
+                <span className="cursor-pointer hover:underline underline-offset-2 transition-colors">Terms</span>
+                {' · '}
+                <span className="cursor-pointer hover:underline underline-offset-2 transition-colors">Privacy</span>
+                {' · '}
+                <span className="cursor-pointer hover:underline underline-offset-2 transition-colors">Help</span>
+            </div>
+
         </div>
     );
 }

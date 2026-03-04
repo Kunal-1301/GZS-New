@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthLayout from './AuthLayout';
 
 export default function Signup() {
@@ -9,7 +9,6 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (agreed) {
-            // Route flow for demo purposes 
             navigate('/verify-email');
         }
     };
@@ -18,14 +17,13 @@ export default function Signup() {
         <AuthLayout
             title="JOIN GZONESPHERE ECOSYSTEM"
             subtitle="One account. All privileges. Connect with like-minded gamers and compete."
+            sideLink={{ prefix: 'Already have an account?', href: '/login', label: 'Login' }}
         >
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
                 {/* Email */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="au-label">
-                        Email Address
-                    </label>
+                    <label className="au-label">Email Address</label>
                     <input
                         type="email"
                         required
@@ -36,9 +34,7 @@ export default function Signup() {
 
                 {/* Password */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="au-label">
-                        Password
-                    </label>
+                    <label className="au-label">Password</label>
                     <input
                         type="password"
                         required
@@ -49,9 +45,7 @@ export default function Signup() {
 
                 {/* Confirm Password */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="au-label">
-                        Confirm Password
-                    </label>
+                    <label className="au-label">Confirm Password</label>
                     <input
                         type="password"
                         required
@@ -60,35 +54,25 @@ export default function Signup() {
                     />
                 </div>
 
-                {/* Terms Checkbox */}
-                <label className="flex items-start gap-3 mt-2 cursor-pointer group">
+                {/* Terms */}
+                <label className="flex items-start gap-3 mt-1 cursor-pointer group">
                     <input
                         type="checkbox"
                         required
                         checked={agreed}
                         onChange={(e) => setAgreed(e.target.checked)}
-                        className="mt-1 w-4 h-4 rounded-sm border-au-input-border bg-au-input-bg text-white focus:ring-0 cursor-pointer"
+                        className="mt-0.5 w-4 h-4 rounded-sm bg-white/10 border border-white/40 cursor-pointer accent-white"
                     />
-                    <span className="text-xs text-white/80 leading-relaxed group-hover:text-white transition-colors">
+                    <span className="text-[11px] text-white/75 leading-relaxed group-hover:text-white/90 transition-colors">
                         I agree with User agreement and privacy. Also allow promotional emails regarding GzoneSphere.
                     </span>
                 </label>
 
                 {/* Actions */}
-                <div className="flex items-center justify-between mt-6">
-                    <button
-                        type="submit"
-                        className="gzs-btn-primary"
-                    >
+                <div className="flex items-center justify-between mt-4">
+                    <button type="submit" className="au-btn-white">
                         OTP
                     </button>
-
-                    <Link
-                        to="/login"
-                        className="au-link"
-                    >
-                        Login →
-                    </Link>
                 </div>
 
             </form>

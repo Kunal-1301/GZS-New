@@ -76,6 +76,7 @@ export default function GamePostPage({ previewData }) {
     <GameThemeProvider theme={theme}>
       <div className="gp-page-bg text-[var(--gp-text-body)]">
         {/* Background Decorative Elements */}
+        <div className="gp-light-pattern fixed inset-0 pointer-events-none" />
         <div className="gp-bg-blob gp-bg-blob-1" />
         <div className="gp-bg-blob gp-bg-blob-2" />
         <div className="gp-bg-blob gp-bg-blob-3" />

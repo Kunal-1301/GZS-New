@@ -13,8 +13,8 @@ import GalleryCard from './components/GalleryCard';
 import { usePageTheme } from '../../context/ThemeContext';
 
 import { galleryImages, categories, sortOptions } from '../../data/blogData';
-import { getAllBlogs } from '../../data/blogService';
 import placeholderWhite, { images } from '../../data/images';
+import { mockApiService } from '../../services/mockApiService';
 
 /* ── Anime hero image (blog Figma uses game character art) ── */
 const HERO_BG = images.blogHero;
@@ -23,6 +23,7 @@ export default function Blog() {
   const navigate = useNavigate();
   usePageTheme('blog');
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedSort, setSelectedSort] = useState('latest');
   const [recentlyAddedPage, setRecentlyAddedPage] = useState(1);
@@ -30,8 +31,12 @@ export default function Blog() {
   const galleryRef = useRef(null);
 
   useEffect(() => {
-    const all = getAllBlogs();
-    setBlogs(all.map(b => ({ ...b, image: b.image || placeholderWhite })));
+    const load = async () => {
+      const data = await mockApiService.getPublicBlogs();
+      setBlogs(data.map(b => ({ ...b, image: b.image || placeholderWhite })));
+      setLoading(false);
+    };
+    load();
   }, []);
 
   /* Filtering */
@@ -39,11 +44,12 @@ export default function Blog() {
     .filter(p => selectedCategory === 'All' || p.category === selectedCategory)
     .sort((a, b) => {
       if (selectedSort === 'popular') return (b.likes || 0) - (a.likes || 0);
-      if (selectedSort === 'oldest') return new Date(a.date) - new Date(b.date);
-      return new Date(b.date) - new Date(a.date);
+      if (selectedSort === 'oldest') return new Date(a.date || a.updated) - new Date(b.date || b.updated);
+      return new Date(b.date || b.updated) - new Date(a.date || a.updated);
     });
 
-  const recentPosts = [...blogs].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
+  const recentPosts = filtered; // In a real app we'd fetch these separately if needed
+  const featuredPosts = blogs.filter(b => b.featured);
   const mostRead = [...blogs].sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 6);
 
   const scrollGallery = (dir) => {
