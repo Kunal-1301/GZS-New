@@ -1,38 +1,42 @@
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
 
 function NotFound() {
+    usePageTheme('blog');
     return (
-        <div className="min-h-screen flex flex-col bg-neutral-50">
+        <div className="theme-blog min-h-screen flex flex-col bg-[var(--theme-bg)] font-inter">
             <Navbar />
+            <Breadcrumb />
 
             <main className="flex-1 flex items-center justify-center px-6 py-24">
                 <div className="text-center max-w-lg">
                     {/* Large 404 */}
-                    <p className="text-[10rem] font-black leading-none text-neutral-200 select-none">
+                    <p className="text-[10rem] font-black leading-none text-[var(--theme-border)] select-none opacity-50">
                         404
                     </p>
 
-                    <h1 className="text-3xl md:text-4xl font-black uppercase tracking-wide text-neutral-900 mb-4 -mt-6">
+                    <h1 className="text-3xl md:text-4xl font-black uppercase tracking-wide text-[var(--theme-text)] mb-4 -mt-6">
                         Page Not Found
                     </h1>
 
-                    <p className="text-neutral-600 mb-10 leading-relaxed">
+                    <p className="text-[var(--theme-text-muted)] mb-10 leading-relaxed">
                         The page you're looking for doesn't exist or may have been moved.
                         Head back to a place you know.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             to="/"
-                            className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold uppercase tracking-wider text-sm rounded-sm transition-colors"
+                            className="gzs-btn-primary"
                         >
                             Go Home
                         </Link>
                         <Link
                             to="/blog"
-                            className="px-6 py-3 border-2 border-neutral-800 text-neutral-800 hover:bg-neutral-800 hover:text-white font-semibold uppercase tracking-wider text-sm rounded-sm transition-colors"
+                            className="gzs-btn-outline"
                         >
                             Read the Blog
                         </Link>

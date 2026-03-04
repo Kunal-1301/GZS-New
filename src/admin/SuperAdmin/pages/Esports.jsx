@@ -34,12 +34,12 @@ const REGISTRATIONS = [
 /* ── Sub-components ──────────────────────────────────────── */
 function StatusBadge({ status }) {
     const MAP = {
-        Published: 'bg-admin-status-bg-pub  text-admin-status-pub',
-        Active: 'bg-admin-status-bg-pub  text-admin-status-pub',
-        Approved: 'bg-admin-status-bg-pub  text-admin-status-pub',
-        Draft: 'bg-admin-status-bg-draft text-admin-status-draft',
-        Pending: 'bg-admin-status-bg-draft text-admin-status-draft',
-        'In Review': 'bg-admin-status-bg-review text-admin-status-review',
+        Published: 'bg-green-100  text-green-800',
+        Active: 'bg-green-100  text-green-800',
+        Approved: 'bg-green-100  text-green-800',
+        Draft: 'bg-neutral-200 text-neutral-700',
+        Pending: 'bg-neutral-200 text-neutral-700',
+        'In Review': 'bg-yellow-100 text-yellow-800',
         Disabled: 'bg-neutral-100 text-neutral-500',
         Rejected: 'bg-red-50 text-red-600',
     };
@@ -78,8 +78,8 @@ function DashboardTab() {
             </div>
 
             {/* Analytics placeholder */}
-            <div className="bg-admin-card border border-admin-border rounded-xl p-5 mb-6 h-16 flex items-center">
-                <span className="text-admin-text-muted text-xs">Analytics Placeholder</span>
+            <div className="bg-[var(--theme-card)] border border-[var(--theme-border)] rounded-xl p-5 mb-6 h-16 flex items-center">
+                <span className="text-[var(--theme-text-muted)] text-xs">Analytics Placeholder</span>
             </div>
 
             {/* Recent Events Table */}
@@ -91,7 +91,7 @@ function DashboardTab() {
                             <button
                                 key={f}
                                 onClick={() => setFilter(f)}
-                                className={`admin-filter-btn ${filter === f ? '!bg-admin-accent !text-white !border-admin-accent' : ''}`}
+                                className={`admin-filter-btn ${filter === f ? '!bg-[var(--theme-primary)] !text-white !border-[var(--theme-primary)]' : ''}`}
                             >
                                 {f}
                             </button>
@@ -109,12 +109,12 @@ function DashboardTab() {
                         <tbody>
                             {RECENT_EVENTS.map(row => (
                                 <tr key={row.id}>
-                                    <td className="text-admin-text-muted text-xs">{row.id}</td>
-                                    <td className="font-semibold text-admin-text">{row.name}</td>
+                                    <td className="text-[var(--theme-text-muted)] text-xs">{row.id}</td>
+                                    <td className="font-semibold text-[var(--theme-text)]">{row.name}</td>
                                     <td>{row.game}</td>
                                     <td><StatusBadge status={row.mode} /></td>
-                                    <td className="text-admin-text-muted">{row.reg}</td>
-                                    <td className="text-admin-text-muted">{row.start}</td>
+                                    <td className="text-[var(--theme-text-muted)]">{row.reg}</td>
+                                    <td className="text-[var(--theme-text-muted)]">{row.start}</td>
                                     <td><ActionBtns /></td>
                                 </tr>
                             ))}
@@ -146,8 +146,8 @@ function GamesTab() {
                         <tbody>
                             {GAMES_LIST.map(row => (
                                 <tr key={row.no}>
-                                    <td className="text-admin-text-muted text-xs">{row.no}</td>
-                                    <td className="font-semibold text-admin-text">{row.game}</td>
+                                    <td className="text-[var(--theme-text-muted)] text-xs">{row.no}</td>
+                                    <td className="font-semibold text-[var(--theme-text)]">{row.game}</td>
                                     <td>{row.platform}</td>
                                     <td>{row.teamType}</td>
                                     <td>{row.maxPlayers ?? '—'}</td>
@@ -188,12 +188,12 @@ function RegistrationsTab() {
                         <tbody>
                             {REGISTRATIONS.map(row => (
                                 <tr key={row.no}>
-                                    <td className="text-admin-text-muted text-xs">{row.no}</td>
-                                    <td className="font-semibold text-admin-text">{row.team}</td>
-                                    <td className="text-admin-text-muted">{row.event}</td>
+                                    <td className="text-[var(--theme-text-muted)] text-xs">{row.no}</td>
+                                    <td className="font-semibold text-[var(--theme-text)]">{row.team}</td>
+                                    <td className="text-[var(--theme-text-muted)]">{row.event}</td>
                                     <td>{row.game}</td>
                                     <td>{row.payment}</td>
-                                    <td className="text-admin-text-muted">{row.regAt}</td>
+                                    <td className="text-[var(--theme-text-muted)]">{row.regAt}</td>
                                     <td><StatusBadge status={row.status} /></td>
                                     <td><ActionBtns /></td>
                                 </tr>
@@ -225,8 +225,8 @@ export default function EsportsAdmin() {
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
                         className={`px-5 py-2 text-xs font-bold uppercase tracking-wider border rounded-sm transition-colors ${activeTab === tab.key
-                                ? 'bg-admin-accent text-admin-accent-text border-admin-accent'
-                                : 'bg-admin-card text-admin-text-muted border-admin-border hover:bg-admin-surface'
+                                ? 'bg-[var(--theme-primary)] text-[var(--theme-text-inverse)] border-[var(--theme-primary)]'
+                                : 'bg-[var(--theme-card)] text-[var(--theme-text-muted)] border-[var(--theme-border)] hover:bg-[var(--theme-bg-alt)]'
                             }`}
                     >
                         {tab.label}

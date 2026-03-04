@@ -31,9 +31,9 @@ function Pagination({
   const accentActiveClass = {
     green: 'bg-green-600 hover:bg-green-700',
     red: 'bg-red-500 hover:bg-red-600',
-    blue: 'bg-[#1a4a5e] hover:bg-[#0d3a4e]',
-    yellow: 'bg-yellow-500 hover:bg-yellow-600',
-  }[accent] ?? 'bg-yellow-500 hover:bg-yellow-600';
+    blue: 'bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)]',
+    yellow: 'bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)]',
+  }[accent] ?? 'bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)]';
 
   if (variant === 'arrows-only') {
     return (
@@ -76,8 +76,8 @@ function Pagination({
           key={page}
           onClick={() => onPageChange?.(page)}
           className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium transition-colors ${page === currentPage
-              ? `${accentActiveClass} text-white`
-              : 'border border-neutral-300 text-neutral-700 hover:bg-neutral-100'
+            ? `${accentActiveClass} text-white`
+            : 'border border-[var(--theme-border)] text-[var(--theme-text)] hover:bg-[var(--theme-bg-alt)]'
             }`}
         >
           {page}

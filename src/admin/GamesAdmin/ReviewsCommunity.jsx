@@ -21,7 +21,7 @@ export default function ReviewsCommunity() {
         {reviews.map((rev, i) => (
           <div key={i}
             className="grid grid-cols-[1fr_2fr_80px_80px_auto] gap-3 items-end mb-3
-                       p-4 bg-admin-surface rounded-md border border-admin-border">
+                       p-4 bg-[var(--theme-bg-alt)] rounded-md border border-[var(--theme-border)]">
             <div className="admin-field">
               <label className="admin-label">Site Name</label>
               <input className="admin-input" placeholder="IGN, Gamespot..." value={rev.site} onChange={e => update(i, "site", e.target.value)} />

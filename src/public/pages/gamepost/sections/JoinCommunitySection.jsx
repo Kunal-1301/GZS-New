@@ -1,12 +1,12 @@
 export default function JoinCommunitySection() {
     return (
-        <section className="container-global px-6 lg:px-16 section-padding font-jetmono">
+        <section className="container-global section-padding !pt-0">
 
-            <div className="bg-red-600 rounded-2xl px-10 py-10 flex items-center justify-between">
+            <div className="bg-[var(--gp-primary)] rounded-full px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl gp-animate-in">
 
                 {/* Left Title */}
-                <h2 className="text-[36px] font-black uppercase text-white tracking-wide">
-                    Join Our Community
+                <h2 className="gp-hero-title text-3xl text-white tracking-widest text-center md:text-left">
+                    JOIN OUR COMMUNITY
                 </h2>
 
                 {/* Right Social Icons */}
@@ -15,7 +15,7 @@ export default function JoinCommunitySection() {
                     {["IG", "YT", "RD", "DC", "TW"].map((icon) => (
                         <div
                             key={icon}
-                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-red-600 text-sm font-bold cursor-pointer hover:scale-105 transition"
+                            className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--gp-primary)] text-sm font-black cursor-pointer hover:scale-110 hover:shadow-lg transition-all gp-btn-transition"
                         >
                             {icon}
                         </div>

@@ -20,9 +20,9 @@ function BlogCard({
   highlighted = false,
 }) {
   return (
-    <div className="bg-white overflow-hidden card-standard flex flex-col">
+    <div className="bg-[var(--theme-card)] overflow-hidden card-standard flex flex-col">
       {/* Image Container */}
-      <div className="relative h-48 overflow-hidden bg-neutral-900">
+      <div className="relative h-48 overflow-hidden bg-[var(--theme-bg-section)]">
         <img
           src={image}
           alt={title}
@@ -33,12 +33,12 @@ function BlogCard({
       {/* Content */}
       <div className="p-5 flex flex-col flex-1">
         {/* Title */}
-        <h3 className="font-black text-sm uppercase tracking-wide text-neutral-900 mb-2 leading-tight">
+        <h3 className="font-black text-sm uppercase tracking-wide text-[var(--theme-text)] mb-2 leading-tight">
           {title}
         </h3>
 
         {/* Description */}
-        <p className="text-neutral-600 text-xs leading-relaxed mb-4 flex-1">
+        <p className="text-[var(--theme-text-muted)] text-xs leading-relaxed mb-4 flex-1">
           {description}
         </p>
 
@@ -48,22 +48,22 @@ function BlogCard({
           {highlighted ? (
             <Link
               to={`/blog/${id}`}
-              className="inline-flex items-center gap-1 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors"
+              className="gzs-btn-primary !px-5 !py-2.5 !text-[10px] no-underline"
             >
               READ MORE
-              <FiArrowUpRight className="w-3 h-3" />
+              <FiArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           ) : (
             <Link
               to={`/blog/${id}`}
-              className="inline-flex items-center px-4 py-2 border border-neutral-800 text-neutral-800 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 hover:text-white transition-colors"
+              className="gzs-btn-outline !px-5 !py-2.5 !text-[10px] no-underline"
             >
               READ MORE
             </Link>
           )}
 
           {/* Likes */}
-          <div className="flex items-center gap-1 text-neutral-500">
+          <div className="flex items-center gap-1 text-[var(--theme-text-muted)]">
             <span className="text-xs font-medium">{likes}</span>
             <HiOutlineHeart className="w-4 h-4" />
           </div>

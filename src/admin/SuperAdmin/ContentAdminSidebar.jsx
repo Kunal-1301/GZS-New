@@ -52,7 +52,7 @@ function SidebarGroup({ item }) {
                 </NavLink>
                 <button
                     onClick={() => setOpen(o => !o)}
-                    className="p-1 text-admin-text-muted hover:text-admin-text transition-colors"
+                    className="p-1 text-[var(--theme-text-muted)] hover:text-[var(--theme-text)] transition-colors"
                     aria-label="Toggle submenu"
                 >
                     {open ? <HiChevronDown size={14} /> : <HiChevronRight size={14} />}
@@ -60,7 +60,7 @@ function SidebarGroup({ item }) {
             </div>
 
             {open && (
-                <div className="mt-1 space-y-0.5 border-l border-admin-border ml-3">
+                <div className="mt-1 space-y-0.5 border-l border-[var(--theme-border)] ml-3">
                     {item.children.map(child => (
                         <SidebarLink key={child.to} to={child.to} label={child.label} sub />
                     ))}

@@ -36,6 +36,9 @@ export function GameThemeProvider({ theme, children }) {
             "--gp-primary-dark": theme.primaryDark || shadeColor(theme.primary, -20),
             "--gp-primary-light": theme.primaryLight || shadeColor(theme.primary, 20),
             "--gp-primary-alpha": hexToAlpha(theme.primary, 0.12),
+            "--gp-primary-alpha-low": hexToAlpha(theme.primary, 0.05),
+            "--gp-primary-alpha-medium": hexToAlpha(theme.primary, 0.15),
+            "--gp-primary-alpha-high": hexToAlpha(theme.primary, 0.40),
             "--gp-bg-page": theme.bgPage || lighten(theme.primary, 0.95),
             "--gp-bg-section": theme.bgSection || lighten(theme.primary, 0.90),
             "--gp-bg-card": "#ffffff",
@@ -60,8 +63,9 @@ export function GameThemeProvider({ theme, children }) {
             "--gp-icon-circle-bg": lighten(theme.primary, 0.90),
             "--gp-icon-circle-fg": theme.primary,
             "--gp-cta-gradient": `linear-gradient(135deg, ${theme.primary} 0%, ${shadeColor(theme.primary, -20)} 100%)`,
-            "--gp-hero-overlay": "rgba(0, 0, 0, 0.60)",
+            "--gp-hero-overlay": "rgba(0, 0, 0, 0.65)",
             "--gp-accent-bar": `3px solid ${theme.primary}`,
+            "--gp-bg-glow": hexToAlpha(theme.primary, 0.06),
         };
 
         Object.entries(vars).forEach(([k, v]) => {

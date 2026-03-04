@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
+import { useToast } from '../../public/components/Toast';
 
 const AdminGamePostContext = createContext();
 
 export const useAdminGamePost = () => useContext(AdminGamePostContext);
 
 export const AdminGamePostProvider = ({ children }) => {
+    const { showToast } = useToast();
     const [gamePostData, setGamePostData] = useState({
         hero: { game_title: "", game_desc_short: "", background_img: "" },
         game_info: { developer: "", publisher: "", release_date: "", genres: "", platforms: "", profile_size_photo: "" },
@@ -44,13 +46,13 @@ export const AdminGamePostProvider = ({ children }) => {
             });
             const data = await response.json();
             if (response.ok) {
-                alert(`Game Post ${isDraft ? 'saved as Draft' : 'Published'} successfully! ID: ` + data.game_post_id);
+                showToast(`Game Post ${isDraft ? 'saved as Draft' : 'Published'} successfully! ID: ` + data.game_post_id, 'success');
             } else {
-                alert('Error: ' + data.error);
+                showToast('Error: ' + data.error, 'error');
             }
         } catch (error) {
             console.error(error);
-            alert('Failed to connect to backend.');
+            showToast('Failed to connect to backend.', 'error');
         }
     };
 

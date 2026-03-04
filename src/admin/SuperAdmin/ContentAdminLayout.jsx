@@ -4,7 +4,7 @@ import ContentAdminSidebar from "./ContentAdminSidebar";
 
 const ContentAdminLayout = () => {
     return (
-        <div className="admin-layout">
+        <div className="theme-admin admin-layout min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)]">
             <ContentAdminSidebar />
 
             <div className="admin-main">

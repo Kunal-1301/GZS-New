@@ -50,7 +50,7 @@ export default function Login() {
                 <div className="flex items-center justify-between mt-2">
                     <button
                         type="submit"
-                        className="au-btn-primary"
+                        className="gzs-btn-primary"
                     >
                         NEXT
                     </button>

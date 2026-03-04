@@ -1,79 +1,73 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-// Theme variants
-const themes = {
-  default: {
-    name: 'default',
-    // Primary colors (Yellow theme for Blog)
-    primaryColor: '#facc15',
-    accentColor: '#facc15',
-    
-    // Background tones
-    bgPage: '#FEF9E7',
-    bgPrimary: '#FFFDF5',
-    bgSecondary: '#FEF9E7',
-    bgSurface: '#FFFFFF',
-    
-    // Text colors
-    textPrimary: '#171717',
-    textSecondary: '#525252',
-    textMuted: '#737373',
-    
-    // Button colors
-    btnPrimary: '#facc15',
-    btnPrimaryHover: '#eab308',
-    btnText: '#FFFFFF',
-  },
-  esports: {
-    name: 'esports',
-    // Primary colors (Green theme for Esports)
-    primaryColor: '#4CAF50',
-    accentColor: '#4CAF50',
-    
-    // Background tones (green gradient)
-    bgPage: 'linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 50%, #A5D6A7 100%)',
-    bgPrimary: '#E8F5E9',
-    bgSecondary: '#C8E6C9',
-    bgSurface: '#FFFFFF',
-    
-    // Text colors
-    textPrimary: '#1B5E20',
-    textSecondary: '#2E7D32',
-    textMuted: '#4CAF50',
-    
-    // Button colors
-    btnPrimary: '#4CAF50',
-    btnPrimaryHover: '#388E3C',
-    btnText: '#FFFFFF',
-  },
-};
+/**
+ * ThemeContext
+ * ────────────
+ * Manages the active CSS theme class on <html>, allowing pages to
+ * call setThemeVariant('esports') and have the right --theme-*
+ * variables activate automatically.
+ *
+ * The theme class is applied to document.documentElement so that
+ * all CSS variables from theme.css resolve correctly without
+ * manual DOM manipulation in each page.
+ *
+ * Usage:
+ *   const { setThemeVariant, resetTheme, currentTheme } = useTheme();
+ *   setThemeVariant('esports');  // applies .theme-esports on <html>
+ *   resetTheme();                // removes theme class
+ */
+
+const THEME_CLASSES = [
+  'theme-esports',
+  'theme-blog',
+  'theme-about',
+  'theme-auth',
+  'theme-profile',
+  'theme-contact',
+  'theme-admin',
+  'theme-collection',
+  'theme-gamepost',
+];
 
 const ThemeContext = createContext(undefined);
 
 export function ThemeProvider({ children }) {
-  const [currentTheme, setCurrentTheme] = useState('default');
+  const [currentTheme, setCurrentTheme] = useState(null);
 
-  // Get current theme object
-  const theme = themes[currentTheme] || themes.default;
+  // Apply the theme class to <html> whenever it changes
+  useEffect(() => {
+    const root = document.documentElement;
 
-  // Switch theme variant
-  const setThemeVariant = (variant) => {
-    if (themes[variant]) {
-      setCurrentTheme(variant);
+    // Remove all theme classes first
+    THEME_CLASSES.forEach(cls => root.classList.remove(cls));
+
+    // Apply the new theme class
+    if (currentTheme) {
+      const className = `theme-${currentTheme}`;
+      if (THEME_CLASSES.includes(className)) {
+        root.classList.add(className);
+      }
     }
-  };
 
-  // Reset to default theme
-  const resetTheme = () => {
-    setCurrentTheme('default');
-  };
+    return () => {
+      // Cleanup on unmount
+      THEME_CLASSES.forEach(cls => root.classList.remove(cls));
+    };
+  }, [currentTheme]);
+
+  const setThemeVariant = useCallback((variant) => {
+    setCurrentTheme(variant || null);
+  }, []);
+
+  const resetTheme = useCallback(() => {
+    setCurrentTheme(null);
+  }, []);
 
   const value = {
-    theme,
     currentTheme,
     setThemeVariant,
     resetTheme,
-    themes,
+    themeClass: currentTheme ? `theme-${currentTheme}` : '',
   };
 
   return (
@@ -83,13 +77,28 @@ export function ThemeProvider({ children }) {
   );
 }
 
-// Custom hook for using theme context
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
+}
+
+/**
+ * usePageTheme — convenience hook for page-level components.
+ * Sets the theme on mount, resets on unmount.
+ *
+ * Usage:
+ *   usePageTheme('esports');   // inside EsportsHome component body
+ */
+export function usePageTheme(variant) {
+  const { setThemeVariant, resetTheme } = useTheme();
+
+  useEffect(() => {
+    setThemeVariant(variant);
+    return () => resetTheme();
+  }, [variant, setThemeVariant, resetTheme]);
 }
 
 export default ThemeContext;

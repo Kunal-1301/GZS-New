@@ -2,27 +2,52 @@
 
   /* ── TABLE ───────────────────────────────────────────────── */
   .admin-table-wrap {
-    @apply w-full overflow-x-auto border border-admin-table-border rounded-lg bg-admin-card;
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--theme-border);
+    border-radius: 0.5rem;
+    background-color: var(--theme-card);
   }
   .admin-table {
-    @apply w-full text-[13px];
+    width: 100%;
+    font-size: 13px;
     border-collapse: collapse;
   }
   .admin-table thead tr {
-    @apply bg-admin-table-header;
+    background-color: var(--theme-bg-alt);
   }
   .admin-table thead th {
-    @apply px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.1em]
-           text-admin-table-header-text border-b border-admin-table-border whitespace-nowrap;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--theme-text-muted);
+    border-bottom: 1px solid var(--theme-border);
+    white-space: nowrap;
   }
   .admin-table tbody tr {
-    @apply border-b border-admin-table-border transition
-           hover:bg-admin-table-hover;
+    border-bottom: 1px solid var(--theme-border);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  .admin-table tbody tr:hover {
+    background-color: var(--theme-bg-alt);
   }
   .admin-table tbody tr:last-child {
-    @apply border-b-0;
+    border-bottom-width: 0px;
   }
   .admin-table tbody td {
-    @apply px-4 py-3 text-admin-text-secondary whitespace-nowrap;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    color: var(--theme-text);
+    white-space: nowrap;
   }
 }

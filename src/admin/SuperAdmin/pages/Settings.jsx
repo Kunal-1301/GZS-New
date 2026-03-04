@@ -21,7 +21,7 @@ export default function Settings() {
                         <button
                             key={label}
                             className={`admin-nav-link flex items-center gap-2.5 w-full text-left
-                ${i === 0 ? "!bg-admin-accent !text-admin-accent-text" : ""}`}
+                ${i === 0 ? "!bg-[var(--theme-primary)] !text-[var(--theme-text-inverse)]" : ""}`}
                         >
                             <Icon size={13} /> {label}
                         </button>

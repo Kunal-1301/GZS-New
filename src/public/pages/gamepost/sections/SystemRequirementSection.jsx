@@ -11,35 +11,36 @@ export default function SystemRequirementSection({ sys }) {
     ].filter(r => r.min || r.rec);
 
     return (
-        <section className="bg-[var(--gp-bg-section)] py-20 px-6">
-            <div className="max-w-[1200px] mx-auto">
-                <h2 className="text-center text-[1.875rem] font-black uppercase tracking-[0.08em]
-                       mb-12 text-[var(--gp-text-heading)]">
-                    System Requirements
-                </h2>
+        <section className="section-padding gp-animate-in">
+            <div className="container-global">
+                <div className="text-center mb-16 gp-animate-in">
+                    <span className="gp-section-label">PERFORMANCE</span>
+                    <h2 className="gp-hero-title text-4xl">
+                        SYSTEM REQUIREMENTS
+                    </h2>
+                </div>
 
-                <div className="rounded-xl overflow-hidden border border-[var(--gp-border)]">
-
-                    {/* Header row */}
-                    <div className="grid grid-cols-[160px_1fr_1fr]
-                          bg-[var(--gp-table-header)] text-[var(--gp-table-text)]
-                          text-[11px] font-bold uppercase tracking-[0.12em]">
-                        <div className="px-5 py-3.5">Component</div>
-                        <div className="px-5 py-3.5 border-l border-white/15">MINIMUM</div>
-                        <div className="px-5 py-3.5 border-l border-white/15">RECOMMENDED</div>
+                <div className="rounded-2xl overflow-hidden border border-[var(--gp-border)] shadow-xl gp-animate-scale">
+                    {/* Header Row */}
+                    <div className="grid grid-cols-[200px_1fr_1fr] bg-[var(--gp-primary)] text-white">
+                        <div className="gp-hero-title text-sm px-8 py-5 tracking-widest border-r border-white/10 uppercase">Component</div>
+                        <div className="gp-hero-title text-sm px-8 py-5 tracking-widest border-r border-white/10 uppercase">Minimum</div>
+                        <div className="gp-hero-title text-sm px-8 py-5 tracking-widest uppercase">Recommended</div>
                     </div>
 
-                    {rows.map((row, i) => (
-                        <div
-                            key={row.label}
-                            className={`grid grid-cols-[160px_1fr_1fr] border-t border-[var(--gp-border)]
-                ${i % 2 === 0 ? "bg-[var(--gp-bg-card)]" : "bg-[var(--gp-bg-card-alt)]"}`}
-                        >
-                            <div className="px-5 py-3 font-bold text-[13px] text-[var(--gp-text-body)]">{row.label}</div>
-                            <div className="px-5 py-3 text-[13px] text-[var(--gp-text-muted)] border-l border-[var(--gp-border)]">{row.min || "—"}</div>
-                            <div className="px-5 py-3 text-[13px] text-[var(--gp-text-muted)] border-l border-[var(--gp-border)]">{row.rec || "—"}</div>
-                        </div>
-                    ))}
+                    {/* Table Rows */}
+                    <div className="bg-white/80 backdrop-blur-md">
+                        {rows.map((row, i) => (
+                            <div
+                                key={row.label}
+                                className={`grid grid-cols-[200px_1fr_1fr] border-b border-[var(--gp-border)] last:border-0 hover:bg-[var(--gp-primary)]/5 transition-colors`}
+                            >
+                                <div className="px-8 py-5 font-black text-[var(--gp-text-body)] text-sm uppercase tracking-wider">{row.label}</div>
+                                <div className="px-8 py-5 text-[var(--gp-text-body)]/60 text-sm font-medium border-l border-[var(--gp-border)] uppercase">{row.min || "—"}</div>
+                                <div className="px-8 py-5 text-[var(--gp-text-body)]/60 text-sm font-medium border-l border-[var(--gp-border)] uppercase">{row.rec || "—"}</div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

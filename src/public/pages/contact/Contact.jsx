@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { usePageTheme } from '../../context/ThemeContext';
 
 export default function Contact() {
     const [form, setForm] = useState({ name: '', email: '', phone: '' });
     const [submitted, setSubmitted] = useState(false);
+    usePageTheme('contact');
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -15,10 +17,10 @@ export default function Contact() {
     };
 
     return (
-        <div className="min-h-screen bg-white font-inter text-ct-text">
+        <div className="theme-contact min-h-screen bg-[var(--theme-card)] font-inter text-[var(--theme-text)]">
 
             {/* ── Navbar ─────────────────────────────────────────── */}
-            <Navbar logoVariant="blue" loginVariant="blue" isDark={false} accent="blue" />
+            <Navbar />
 
             {/* ── HERO — dark teal + glow art ─────────────────────── */}
             <section
@@ -31,8 +33,7 @@ export default function Contact() {
             >
                 <div className="relative z-10 px-6 md:px-16 max-w-3xl">
                     <h1
-                        className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white tracking-tight mb-5"
-                        style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
+                        className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white tracking-tight mb-5 font-heading"
                     >
                         GET IN TOUCH WITH GZONESPHERE
                     </h1>
@@ -43,24 +44,24 @@ export default function Contact() {
             </section>
 
             {/* ── CONTACT BODY ─────────────────────────────────────── */}
-            <section className="section-padding md:py-20 bg-ct-bg">
+            <section className="section-padding md:py-20 bg-[var(--theme-bg)]">
                 <div className="container-global">
                     <div className="grid md:grid-cols-2 gap-10 items-start">
 
                         {/* ── Left: Contact info + video ─────────────────── */}
                         <div className="space-y-6">
                             {/* Info card */}
-                            <div className="bg-ct-card rounded-2xl border border-ct-border shadow-sm p-8">
-                                <h2 className="text-xl font-black uppercase tracking-wide text-ct-text mb-5">Contact</h2>
-                                <div className="space-y-3 text-sm text-ct-text-muted">
-                                    <p><span className="font-semibold text-ct-text">E-mail:</span> gzonesphere@gmail.com</p>
-                                    <p><span className="font-semibold text-ct-text">Instagram:</span> gzonesphere</p>
-                                    <p><span className="font-semibold text-ct-text">Discord:</span> gzonesphere</p>
+                            <div className="bg-[var(--theme-card)] rounded-2xl border border-[var(--theme-border)] shadow-sm p-8">
+                                <h2 className="text-xl font-black uppercase tracking-wide text-[var(--theme-text)] mb-5">Contact</h2>
+                                <div className="space-y-3 text-sm text-[var(--theme-text-muted)]">
+                                    <p><span className="font-semibold text-[var(--theme-text)]">E-mail:</span> gzonesphere@gmail.com</p>
+                                    <p><span className="font-semibold text-[var(--theme-text)]">Instagram:</span> gzonesphere</p>
+                                    <p><span className="font-semibold text-[var(--theme-text)]">Discord:</span> gzonesphere</p>
                                 </div>
                             </div>
 
                             {/* Video embed placeholder */}
-                            <div className="w-full aspect-video bg-black rounded-2xl border border-ct-border flex items-center justify-center cursor-pointer group">
+                            <div className="w-full aspect-video bg-black rounded-2xl border border-[var(--theme-border)] flex items-center justify-center cursor-pointer group">
                                 <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 group-hover:bg-white/30 transition-colors">
                                     <div className="w-0 h-0 border-y-[8px] border-y-transparent border-l-[14px] border-l-white ml-1" />
                                 </div>
@@ -68,16 +69,16 @@ export default function Contact() {
                         </div>
 
                         {/* ── Right: Contact form ─────────────────────────── */}
-                        <div className="bg-ct-card rounded-2xl border border-ct-border shadow-sm p-8">
+                        <div className="bg-[var(--theme-card)] rounded-2xl border border-[var(--theme-border)] shadow-sm p-8">
                             {submitted ? (
                                 <div className="py-10 text-center">
-                                    <p className="text-ct-accent font-bold text-lg mb-2">Message sent!</p>
-                                    <p className="text-ct-text-muted text-sm">We'll get back to you soon.</p>
+                                    <p className="text-[var(--theme-primary)] font-bold text-lg mb-2">Message sent!</p>
+                                    <p className="text-[var(--theme-text-muted)] text-sm">We'll get back to you soon.</p>
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-5">
                                     <div>
-                                        <label htmlFor="ct-name" className="block text-sm font-medium text-ct-text mb-2">
+                                        <label htmlFor="ct-name" className="block text-sm font-medium text-[var(--theme-text)] mb-2">
                                             Enter your Name
                                         </label>
                                         <input
@@ -88,11 +89,11 @@ export default function Contact() {
                                             value={form.name}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-ct-input-border bg-ct-input text-ct-text text-sm placeholder-ct-text-muted focus:outline-none focus:border-ct-accent transition-colors"
+                                            className="w-full px-4 py-3 rounded-lg border border-[var(--theme-border)] bg-[var(--theme-input)] text-[var(--theme-text)] text-sm placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="ct-email" className="block text-sm font-medium text-ct-text mb-2">
+                                        <label htmlFor="ct-email" className="block text-sm font-medium text-[var(--theme-text)] mb-2">
                                             Enter your E-mail
                                         </label>
                                         <input
@@ -103,11 +104,11 @@ export default function Contact() {
                                             value={form.email}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-ct-input-border bg-ct-input text-ct-text text-sm placeholder-ct-text-muted focus:outline-none focus:border-ct-accent transition-colors"
+                                            className="w-full px-4 py-3 rounded-lg border border-[var(--theme-border)] bg-[var(--theme-input)] text-[var(--theme-text)] text-sm placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="ct-phone" className="block text-sm font-medium text-ct-text mb-2">
+                                        <label htmlFor="ct-phone" className="block text-sm font-medium text-[var(--theme-text)] mb-2">
                                             Enter your Phone Number
                                         </label>
                                         <input
@@ -117,12 +118,12 @@ export default function Contact() {
                                             placeholder="Phone Number"
                                             value={form.phone}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 rounded-lg border border-ct-input-border bg-ct-input text-ct-text text-sm placeholder-ct-text-muted focus:outline-none focus:border-ct-accent transition-colors"
+                                            className="w-full px-4 py-3 rounded-lg border border-[var(--theme-border)] bg-[var(--theme-input)] text-[var(--theme-text)] text-sm placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
                                         />
                                     </div>
                                     <button
                                         type="submit"
-                                        className="inline-flex items-center gap-2 px-7 py-3 bg-ct-accent hover:bg-ct-accent-dark text-white text-sm font-bold uppercase tracking-wider rounded-sm transition-colors"
+                                        className="gzs-btn-primary"
                                     >
                                         SUBMIT <FiArrowUpRight className="w-4 h-4" />
                                     </button>
@@ -134,7 +135,7 @@ export default function Contact() {
             </section>
 
             {/* ── Footer — sky-blue variant ──────────────────────── */}
-            <Footer variant="light" accent="blue" />
+            <Footer />
         </div>
     );
 }

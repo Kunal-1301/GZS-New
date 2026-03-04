@@ -1,0 +1,41 @@
+/* ==========================================================
+   ESPORTS SECTION STYLES
+   Hybrid: Components with @apply + Theme Variable integration
+   ========================================================== */
+
+@layer components {
+  /* ── BUTTONS ─────────────────────────────────────────── */
+  .es-btn-primary {
+    @apply inline-flex items-center gap-2 px-7 py-3 bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)] text-[var(--theme-text-inverse)] text-sm font-bold uppercase tracking-wider rounded-sm transition-colors;
+  }
+  
+  .es-btn-secondary {
+    @apply px-7 py-3 border border-[var(--theme-border)] text-[var(--theme-text)] hover:bg-[var(--theme-card)] text-sm font-bold uppercase tracking-wider rounded-sm transition-colors;
+  }
+
+  /* ── CARDS ───────────────────────────────────────────── */
+  .es-card {
+    @apply bg-[var(--theme-card)] border border-[var(--theme-border)] rounded-xl overflow-hidden hover:border-[var(--theme-primary)] transition-colors;
+  }
+  
+  .es-tab-btn {
+    @apply px-5 py-2.5 text-xs font-bold uppercase tracking-widest rounded-sm border transition-all duration-200;
+  }
+  
+  .es-tab-btn-active {
+    @apply bg-[var(--theme-primary)] border-[var(--theme-primary)] text-[var(--theme-text-inverse)] shadow-lg;
+  }
+  
+  .es-tab-btn-inactive {
+    @apply bg-transparent border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-primary)] hover:text-[var(--theme-text-inverse)];
+  }
+
+  /* ── BADGES ──────────────────────────────────────────── */
+  .es-badge {
+    @apply inline-block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest rounded-sm;
+  }
+  
+  .es-badge-primary {
+    @apply bg-[var(--theme-primary)]/20 text-[var(--theme-primary)];
+  }
+}

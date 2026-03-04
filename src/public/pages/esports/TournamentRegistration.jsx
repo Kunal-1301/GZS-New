@@ -2,23 +2,28 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Breadcrumb from '../../components/Breadcrumb';
+import { usePageTheme } from '../../context/ThemeContext';
+import { useToast } from '../../components/Toast';
 
 export default function TournamentRegistration() {
     const { id } = useParams();
+    const { showToast } = useToast();
     // Simple toggle to show different form based on ID (e.g., FIFA=6)
     const isSolo = id === '6';
+    usePageTheme('esports');
 
     const [teamName, setTeamName] = useState('');
     const [agreeTerms, setAgreeTerms] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert('Registration Submitted!');
+        showToast('Registration Submitted!', 'success');
     };
 
     return (
-        <div className="min-h-screen bg-es-bg text-es-text font-inter flex flex-col">
-            <Navbar logoVariant="esports" loginVariant="esports" accent="esports" />
+        <div className="theme-esports min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)] font-inter flex flex-col">
+            <Navbar />
 
             {/* ── HERO ──────────────────────────────────────────── */}
             <section className="relative pt-32 pb-16 flex flex-col items-center justify-center text-center overflow-hidden">
@@ -29,36 +34,41 @@ export default function TournamentRegistration() {
                     }}
                     aria-hidden="true"
                 />
-                <div className="absolute top-0 left-0 w-full h-1 bg-es-primary" aria-hidden="true" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-[var(--theme-primary)]" aria-hidden="true" />
 
                 <div className="relative z-10 px-6 md:px-16 w-full max-w-4xl mx-auto">
                     <h1
-                        className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white leading-none mb-4"
-                        style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
+                        className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--theme-text-inverse)] leading-none mb-4 font-heading"
                     >
                         TOURNAMENT REGISTRATION
                     </h1>
-                    <p className="text-es-primary-light text-sm md:text-base tracking-widest uppercase mb-4 font-bold">
+                    <p className="text-[var(--theme-primary-light)] text-sm md:text-base tracking-widest uppercase mb-4 font-bold">
                         {isSolo ? 'SECURE YOUR SPOT. CLAIM YOUR VICTORY.' : 'SECURE YOUR SPOT. ASSEMBLE YOUR TEAM.'}
                     </p>
                 </div>
             </section>
 
             {/* ── FORM ──────────────────────────────────────────── */}
-            <section className="flex-1 py-12 md:py-20 bg-es-bg">
+            <section className="flex-1 py-12 md:py-20 bg-[var(--theme-bg)]">
                 <div className="max-w-4xl mx-auto px-6 md:px-12">
+                    <Breadcrumb items={[
+                        { label: 'Home', to: '/' },
+                        { label: 'Esports', to: '/esports' },
+                        { label: 'Tournaments', to: '/esports/tournaments' },
+                        { label: 'Register' },
+                    ]} />
 
-                    <div className="bg-es-card rounded-xl border border-es-border shadow-md overflow-hidden">
+                    <div className="bg-[var(--theme-card)] rounded-xl border border-[var(--theme-border)] shadow-md overflow-hidden">
                         {/* Header info */}
-                        <div className="bg-es-bg-section px-8 py-6 border-b border-es-border flex justify-between items-center flex-wrap gap-4">
+                        <div className="bg-[var(--theme-bg-section)] px-8 py-6 border-b border-[var(--theme-border)] flex justify-between items-center flex-wrap gap-4">
                             <div>
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-es-primary block mb-1">SELECTED TOURNAMENT</span>
-                                <h3 className="text-xl font-black uppercase tracking-wider text-es-text">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--theme-primary)] block mb-1">SELECTED TOURNAMENT</span>
+                                <h3 className="text-xl font-black uppercase tracking-wider text-[var(--theme-text)]">
                                     {isSolo ? 'FIFA 26 SOLO KNOCKOUT CUP' : 'VALORANT WINTER SHOWDOWN II 2026'}
                                 </h3>
                             </div>
                             <div className="text-right">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-es-text-muted block mb-1">ENTRY FEE</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--theme-text-muted)] block mb-1">ENTRY FEE</span>
                                 <span className="text-sm font-bold text-green-600 block">FREE</span>
                             </div>
                         </div>
@@ -67,25 +77,25 @@ export default function TournamentRegistration() {
 
                             {!isSolo && (
                                 <div className="space-y-6">
-                                    <h4 className="text-sm font-bold uppercase tracking-widest text-es-text border-b border-es-border pb-2">TEAM INFORMATION</h4>
+                                    <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--theme-text)] border-b border-[var(--theme-border)] pb-2">TEAM INFORMATION</h4>
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-xs font-bold uppercase text-es-text-muted mb-2">Team Name *</label>
+                                            <label className="block text-xs font-bold uppercase text-[var(--theme-text-muted)] mb-2">Team Name *</label>
                                             <input
                                                 type="text"
                                                 required
                                                 placeholder="e.g. Sentinels"
-                                                className="bg-es-bg-section border border-es-border text-es-text text-sm rounded-md px-4 py-3 w-full focus:outline-none focus:border-es-primary"
+                                                className="bg-[var(--theme-bg-section)] border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded-md px-4 py-3 w-full focus:outline-none focus:border-[var(--theme-primary)]"
                                                 value={teamName}
                                                 onChange={(e) => setTeamName(e.target.value)}
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold uppercase text-es-text-muted mb-2">Team Logo URL (Optional)</label>
+                                            <label className="block text-xs font-bold uppercase text-[var(--theme-text-muted)] mb-2">Team Logo URL (Optional)</label>
                                             <input
                                                 type="url"
                                                 placeholder="https://..."
-                                                className="bg-es-bg-section border border-es-border text-es-text text-sm rounded-md px-4 py-3 w-full focus:outline-none focus:border-es-primary"
+                                                className="bg-[var(--theme-bg-section)] border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded-md px-4 py-3 w-full focus:outline-none focus:border-[var(--theme-primary)]"
                                             />
                                         </div>
                                     </div>
@@ -94,44 +104,44 @@ export default function TournamentRegistration() {
 
                             {/* Roster Section */}
                             <div className="space-y-6">
-                                <h4 className="text-sm font-bold uppercase tracking-widest text-es-text border-b border-es-border pb-2">
+                                <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--theme-text)] border-b border-[var(--theme-border)] pb-2">
                                     {isSolo ? 'PLAYER INFORMATION' : 'MAIN ROSTER'}
                                 </h4>
 
                                 {isSolo ? (
-                                    <div className="bg-es-bg-section p-6 rounded-lg border border-es-border space-y-4">
+                                    <div className="bg-[var(--theme-bg-section)] p-6 rounded-lg border border-[var(--theme-border)] space-y-4">
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-[10px] font-bold uppercase text-es-text-muted mb-1">Full Name</label>
-                                                <input type="text" required placeholder="John Doe" className="bg-white border border-es-border text-es-text text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-es-primary" />
+                                                <label className="block text-[10px] font-bold uppercase text-[var(--theme-text-muted)] mb-1">Full Name</label>
+                                                <input type="text" required placeholder="John Doe" className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-[var(--theme-primary)]" />
                                             </div>
                                             <div>
-                                                <label className="block text-[10px] font-bold uppercase text-es-text-muted mb-1">PSN ID / Xbox Gamertag</label>
-                                                <input type="text" required placeholder="johndoe_99" className="bg-white border border-es-border text-es-text text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-es-primary" />
+                                                <label className="block text-[10px] font-bold uppercase text-[var(--theme-text-muted)] mb-1">PSN ID / Xbox Gamertag</label>
+                                                <input type="text" required placeholder="johndoe_99" className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-[var(--theme-primary)]" />
                                             </div>
                                             <div className="md:col-span-2">
-                                                <label className="block text-[10px] font-bold uppercase text-es-text-muted mb-1">Discord ID (For Match Comm)</label>
-                                                <input type="text" required placeholder="johndoe#1234" className="bg-white border border-es-border text-es-text text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-es-primary" />
+                                                <label className="block text-[10px] font-bold uppercase text-[var(--theme-text-muted)] mb-1">Discord ID (For Match Comm)</label>
+                                                <input type="text" required placeholder="johndoe#1234" className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-[var(--theme-primary)]" />
                                             </div>
                                         </div>
                                     </div>
                                 ) : (
                                     <div className="space-y-4">
                                         {[1, 2, 3, 4, 5].map((playerNum) => (
-                                            <div key={playerNum} className="bg-es-bg-section p-5 rounded-lg border border-es-border grid md:grid-cols-3 gap-4">
+                                            <div key={playerNum} className="bg-[var(--theme-bg-section)] p-5 rounded-lg border border-[var(--theme-border)] grid md:grid-cols-3 gap-4">
                                                 <div>
-                                                    <label className="block text-[10px] font-bold uppercase text-es-text-muted mb-1">
+                                                    <label className="block text-[10px] font-bold uppercase text-[var(--theme-text-muted)] mb-1">
                                                         {playerNum === 1 ? 'Player 1 (Captain) IGN' : `Player ${playerNum} IGN`} *
                                                     </label>
-                                                    <input type="text" required placeholder={`IGN`} className="bg-white border border-es-border text-es-text text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-es-primary" />
+                                                    <input type="text" required placeholder={`IGN`} className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-[var(--theme-primary)]" />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-bold uppercase text-es-text-muted mb-1">Riot ID (Name#TAG) *</label>
-                                                    <input type="text" required placeholder={`Name#TAG`} className="bg-white border border-es-border text-es-text text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-es-primary" />
+                                                    <label className="block text-[10px] font-bold uppercase text-[var(--theme-text-muted)] mb-1">Riot ID (Name#TAG) *</label>
+                                                    <input type="text" required placeholder={`Name#TAG`} className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-[var(--theme-primary)]" />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-bold uppercase text-es-text-muted mb-1">Discord ID</label>
-                                                    <input type="text" required={playerNum === 1} placeholder={playerNum === 1 ? "Required for Capt" : "Optional"} className="bg-white border border-es-border text-es-text text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-es-primary" />
+                                                    <label className="block text-[10px] font-bold uppercase text-[var(--theme-text-muted)] mb-1">Discord ID</label>
+                                                    <input type="text" required={playerNum === 1} placeholder={playerNum === 1 ? "Required for Capt" : "Optional"} className="bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded px-3 py-2 w-full focus:outline-none focus:border-[var(--theme-primary)]" />
                                                 </div>
                                             </div>
                                         ))}
@@ -140,12 +150,12 @@ export default function TournamentRegistration() {
                             </div>
 
                             {/* T&C */}
-                            <div className="pt-4 border-t border-es-border">
+                            <div className="pt-4 border-t border-[var(--theme-border)]">
                                 <label className="flex items-start gap-3 cursor-pointer group">
                                     <div className="relative flex items-center justify-center mt-0.5">
                                         <input
                                             type="checkbox"
-                                            className="peer appearance-none w-5 h-5 border-2 border-es-border rounded-sm bg-white checked:bg-es-primary checked:border-es-primary transition-colors cursor-pointer"
+                                            className="peer appearance-none w-5 h-5 border-2 border-[var(--theme-border)] rounded-sm bg-transparent checked:bg-[var(--theme-primary)] checked:border-[var(--theme-primary)] transition-colors cursor-pointer"
                                             checked={agreeTerms}
                                             onChange={(e) => setAgreeTerms(e.target.checked)}
                                             required
@@ -154,11 +164,11 @@ export default function TournamentRegistration() {
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <span className="text-xs text-es-text-muted leading-relaxed group-hover:text-es-text transition-colors">
+                                    <span className="text-xs text-[var(--theme-text-muted)] leading-relaxed group-hover:text-[var(--theme-text)] transition-colors">
                                         I confirm that all provided information is accurate. I have read and agree to the
-                                        <a href="#" className="font-bold text-es-primary ml-1 hover:underline">Tournament Rules & Regulations</a>,
-                                        <a href="#" className="font-bold text-es-primary ml-1 hover:underline">Terms of Service</a>, and
-                                        <a href="#" className="font-bold text-es-primary ml-1 hover:underline">Privacy Policy</a>.
+                                        <button type="button" className="font-bold text-[var(--theme-primary)] ml-1 hover:underline">Tournament Rules & Regulations</button>,
+                                        <button type="button" className="font-bold text-[var(--theme-primary)] ml-1 hover:underline">Terms of Service</button>, and
+                                        <button type="button" className="font-bold text-[var(--theme-primary)] ml-1 hover:underline">Privacy Policy</button>.
                                     </span>
                                 </label>
                             </div>
@@ -167,13 +177,13 @@ export default function TournamentRegistration() {
                             <div className="flex justify-end gap-4 pt-4">
                                 <Link
                                     to={`/esports/tournament/${id || '1'}`}
-                                    className="px-6 py-3 border border-es-border text-es-text text-sm font-bold uppercase tracking-wider rounded-md hover:bg-es-bg-section transition-colors"
+                                    className="gzs-btn-outline !px-6 no-underline"
                                 >
                                     CANCEL
                                 </Link>
                                 <button
                                     type="submit"
-                                    className="px-8 py-3 bg-es-primary hover:bg-es-primary-dark text-white text-sm font-black uppercase tracking-wider rounded-md transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="gzs-btn-primary !px-8 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
                                 >
                                     SUBMIT REGISTRATION
                                 </button>
@@ -184,7 +194,7 @@ export default function TournamentRegistration() {
                 </div>
             </section>
 
-            <Footer variant="light" accent="esports" />
+            <Footer />
         </div>
     );
 }

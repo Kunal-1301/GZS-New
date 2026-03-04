@@ -13,13 +13,13 @@ export default function PrivacyDefaults() {
     const toggleSwitch = (key) => setSwitches(s => ({ ...s, [key]: !s[key] }));
 
     const Switch = ({ label, description, stateKey }) => (
-        <div className="flex items-center justify-between p-4 border border-pr-border rounded-xl bg-pr-surface hover:bg-white transition-colors cursor-pointer" onClick={() => toggleSwitch(stateKey)}>
+        <div className="flex items-center justify-between p-4 border border-[var(--theme-border)] rounded-xl bg-[var(--theme-bg-section)] hover:bg-[var(--theme-bg-alt)] transition-colors cursor-pointer" onClick={() => toggleSwitch(stateKey)}>
             <div className="mr-6">
-                <h4 className="text-sm font-bold uppercase tracking-widest text-pr-text mb-1">{label}</h4>
-                <p className="text-[11px] text-pr-text-muted leading-relaxed">{description}</p>
+                <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--theme-text)] mb-1">{label}</h4>
+                <p className="text-[11px] text-[var(--theme-text-muted)] leading-relaxed">{description}</p>
             </div>
-            <div className={`relative w-11 h-6 shrink-0 rounded-full transition-colors ${switches[stateKey] ? 'bg-pr-primary' : 'bg-gray-300'}`}>
-                <span className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${switches[stateKey] ? 'translate-x-5' : 'translate-x-0'}`} />
+            <div className={`relative w-11 h-6 shrink-0 rounded-full transition-colors ${switches[stateKey] ? 'bg-[var(--theme-primary)]' : 'bg-gray-300'}`}>
+                <span className={`absolute top-1 left-1 bg-[var(--theme-card)] w-4 h-4 rounded-full transition-transform ${switches[stateKey] ? 'translate-x-5' : 'translate-x-0'}`} />
             </div>
         </div>
     );
@@ -75,14 +75,14 @@ export default function PrivacyDefaults() {
             </section>
 
             {/* Account Deletion */}
-            <section className="mt-4 pt-8 border-t border-pr-border">
+            <section className="mt-4 pt-8 border-t border-[var(--theme-border)]">
                 <h3 className="text-base font-black uppercase tracking-widest text-red-600 mb-2">
                     Danger Zone
                 </h3>
-                <p className="text-xs text-pr-text-muted mb-4 max-w-xl">
+                <p className="text-xs text-[var(--theme-text-muted)] mb-4 max-w-xl">
                     Once you delete your account, there is no going back. Please be certain. All your data, tournament history, and subscriptions will be permanently erased.
                 </p>
-                <button className="px-6 py-2.5 border border-red-200 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white text-xs font-black uppercase tracking-widest rounded-lg transition-colors">
+                <button className="gzs-btn-danger shadow-sm">
                     Delete Account
                 </button>
             </section>

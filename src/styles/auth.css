@@ -1,15 +1,65 @@
-@layer components {
-  /* ── AUTH PAGES ─────────────────────────────────────────── */
-  .au-label {
-    @apply text-[10px] font-bold uppercase tracking-widest text-[#a6d8e8];
-  }
-  .au-input {
-    @apply bg-au-input-bg border border-au-input-border text-white text-sm rounded-[4px] px-3.5 py-2.5 outline-none placeholder-white/40 transition-colors focus:border-white;
-  }
-  .au-btn-primary {
-    @apply bg-white text-au-card px-8 py-2.5 text-xs font-black uppercase tracking-wider rounded-sm transition-opacity hover:opacity-90 disabled:opacity-50;
-  }
-  .au-link {
-    @apply text-au-link text-xs font-bold uppercase tracking-wider hover:text-white transition-colors cursor-pointer bg-transparent border-none;
-  }
+/* ── AUTH PAGES ─────────────────────────────────────────── */
+.au-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--theme-text-muted);
+}
+
+.au-input {
+  background-color: var(--theme-input);
+  border: 1px solid var(--theme-border);
+  color: var(--theme-text);
+  font-size: 0.875rem;
+  border-radius: 4px;
+  padding: 0.625rem 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.au-input::placeholder {
+  color: var(--theme-text-muted);
+  opacity: 0.6;
+}
+
+.au-input:focus {
+  border-color: var(--theme-primary);
+}
+
+.au-btn-primary {
+  background-color: var(--theme-text); /* White in auth theme */
+  color: var(--theme-text-inverse);
+  padding: 0.625rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 0.125rem;
+  transition: opacity 0.2s;
+}
+
+.au-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.au-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.au-link {
+  color: var(--theme-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.au-link:hover {
+  color: var(--theme-text);
 }

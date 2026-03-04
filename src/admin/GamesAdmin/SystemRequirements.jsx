@@ -29,11 +29,11 @@ export default function SystemRequirements() {
         <div className="grid grid-cols-[160px_1fr_1fr] gap-3 mb-3">
           <div />
           <div className="text-center text-[11px] font-bold uppercase tracking-[0.1em]
-                          text-white bg-admin-accent py-2 px-3.5 rounded-[4px]">
+                          text-white bg-[var(--theme-primary)] py-2 px-3.5 rounded-[4px]">
             MINIMUM
           </div>
           <div className="text-center text-[11px] font-bold uppercase tracking-[0.1em]
-                          text-white bg-admin-accent-dark py-2 px-3.5 rounded-[4px]">
+                          text-white bg-[var(--theme-primary)]-dark py-2 px-3.5 rounded-[4px]">
             RECOMMENDED
           </div>
         </div>

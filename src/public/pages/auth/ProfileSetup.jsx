@@ -81,12 +81,12 @@ export default function ProfileSetup() {
                                 value={formData.gender}
                                 onChange={handleChange}
                                 required
-                                className="bg-au-input-bg border border-au-input-border text-white text-sm rounded-[4px] px-3.5 py-2.5 focus:border-white focus:outline-none transition-colors appearance-none cursor-pointer"
+                                className="bg-[var(--theme-input)] border border-[var(--theme-border)] text-[var(--theme-text)] text-sm rounded-[4px] px-3.5 py-2.5 focus:border-white focus:outline-none transition-colors appearance-none cursor-pointer"
                             >
-                                <option value="" disabled className="text-white/40">Select Gender</option>
-                                <option value="male" className="bg-au-card">Male</option>
-                                <option value="female" className="bg-au-card">Female</option>
-                                <option value="other" className="bg-au-card">Other</option>
+                                <option value="" disabled className="text-[var(--theme-text-muted)]">Select Gender</option>
+                                <option value="male" className="bg-[var(--theme-card)]">Male</option>
+                                <option value="female" className="bg-[var(--theme-card)]">Female</option>
+                                <option value="other" className="bg-[var(--theme-card)]">Other</option>
                             </select>
                         </div>
                     </>
@@ -133,7 +133,7 @@ export default function ProfileSetup() {
                 <div>
                     <button
                         type="submit"
-                        className="au-btn-primary"
+                        className="gzs-btn-primary"
                     >
                         {step === 1 ? 'NEXT' : 'DONE'}
                     </button>
@@ -144,7 +144,7 @@ export default function ProfileSetup() {
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
                     <div className="bg-white p-8 max-w-sm w-full rounded-md shadow-2xl text-center">
-                        <h3 className="text-xl font-black text-[#085c7a] uppercase tracking-wide mb-3">
+                        <h3 className="text-xl font-black text-[var(--theme-primary-dark)] uppercase tracking-wide mb-3">
                             WELCOME TO GZONESPHERE
                         </h3>
                         <p className="text-sm text-neutral-600 mb-6">
@@ -152,7 +152,7 @@ export default function ProfileSetup() {
                         </p>
                         <button
                             onClick={completeSetup}
-                            className="px-8 py-2.5 bg-[#085c7a] text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors hover:bg-[#05445c]"
+                            className="gzs-btn-primary px-8"
                         >
                             OK
                         </button>

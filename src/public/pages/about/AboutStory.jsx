@@ -1,5 +1,8 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Breadcrumb from '../../components/Breadcrumb';
+import { usePageTheme } from '../../context/ThemeContext';
+import { images } from '../../data/images';
 
 const STORY_SECTIONS = [
     {
@@ -66,25 +69,25 @@ The third layer is opportunity. Career pathways, competitive stages, creative sh
 ];
 
 export default function AboutStory() {
+    usePageTheme('about');
     return (
-        <div className="min-h-screen bg-ab-bg text-ab-text font-inter">
+        <div className="theme-about min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)] font-inter">
 
             {/* ── Navbar ─────────────────────────────────────────── */}
-            <Navbar logoVariant="blue" loginVariant="blue" isDark={false} accent="blue" />
+            <Navbar />
 
             {/* ── HERO — dark starfield ─────────────────────────── */}
             <section
                 className="relative min-h-[56vh] flex flex-col items-center justify-center text-center overflow-hidden"
                 style={{
-                    backgroundImage: "linear-gradient(rgba(10,30,50,0.84),rgba(2,15,30,0.92)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920')",
+                    backgroundImage: `linear-gradient(rgba(10,30,50,0.84),rgba(2,15,30,0.92)), url(${images.aboutHero})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}
             >
                 <div className="relative z-10 px-6 md:px-16 max-w-3xl">
                     <h1
-                        className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white tracking-tight mb-4"
-                        style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
+                        className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white tracking-tight mb-4 font-heading"
                     >
                         THE GZONESPHERE
                     </h1>
@@ -95,18 +98,24 @@ export default function AboutStory() {
             </section>
 
             {/* ── Story Sections ───────────────────────────────── */}
+            <div className="container-global pt-6">
+                <Breadcrumb items={[
+                    { label: 'Home', to: '/' },
+                    { label: 'About', to: '/about' },
+                    { label: 'Our Story' },
+                ]} />
+            </div>
             {STORY_SECTIONS.map((section, idx) => (
-                <section key={section.id} className={`py-18 md:py-24 ${idx % 2 === 0 ? 'bg-ab-bg' : 'bg-ab-bg-section'}`}>
+                <section key={section.id} className={`py-18 md:py-24 ${idx % 2 === 0 ? 'bg-[var(--theme-bg)]' : 'bg-[var(--theme-bg)]-section'}`}>
                     <div className="container-global">
                         {/* Section heading */}
                         <div className="text-center mb-12">
                             <h2
-                                className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-ab-dark mb-3"
-                                style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
+                                className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-[var(--theme-text)] mb-3 font-heading"
                             >
                                 {section.title}
                             </h2>
-                            <p className="text-ab-text-muted text-sm sm:text-base max-w-xl mx-auto">
+                            <p className="text-[var(--theme-text-muted)] text-sm sm:text-base max-w-xl mx-auto">
                                 {section.subtitle}
                             </p>
                         </div>
@@ -114,44 +123,50 @@ export default function AboutStory() {
                         {/* Layout variants */}
                         {section.layout === 'video-left' && (
                             <div className="grid lg:grid-cols-2 gap-14 items-start">
-                                <div className="h-64 md:h-80 bg-black/70 rounded-2xl flex items-center justify-center text-ab-text-muted text-sm">
+                                <div className="h-64 md:h-80 bg-black/70 rounded-2xl flex items-center justify-center text-[var(--theme-text-muted)] text-sm">
                                     Story Video
                                 </div>
-                                <p className="text-ab-text text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                                <p className="text-[var(--theme-text)] text-sm sm:text-base leading-relaxed whitespace-pre-line">
                                     {section.body}
                                 </p>
                             </div>
                         )}
 
                         {section.layout === 'text-only' && (
-                            <div className="max-w-3xl mx-auto space-y-5 text-ab-text text-sm sm:text-base leading-relaxed">
+                            <div className="max-w-3xl mx-auto space-y-5 text-[var(--theme-text)] text-sm sm:text-base leading-relaxed">
                                 <p className="whitespace-pre-line">{section.body}</p>
                                 {section.bold && (
-                                    <p className="font-bold text-ab-dark">{section.bold}</p>
+                                    <p className="font-bold text-[var(--theme-text)]">{section.bold}</p>
                                 )}
                             </div>
                         )}
 
                         {section.layout === 'text-gallery' && (
                             <div className="space-y-10">
-                                <p className="max-w-3xl mx-auto text-ab-text text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                                <p className="max-w-3xl mx-auto text-[var(--theme-text)] text-sm sm:text-base leading-relaxed whitespace-pre-line">
                                     {section.body}
                                 </p>
                                 {/* 3-col placeholder grid */}
                                 <div className="grid grid-cols-3 gap-4">
-                                    {[1, 2, 3].map(i => (
-                                        <div key={i} className="h-32 bg-black/40 rounded-xl" />
-                                    ))}
+                                    <div className="h-44 overflow-hidden rounded-xl">
+                                        <img src="/images/pc.png" className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="h-44 overflow-hidden rounded-xl">
+                                        <img src="/images/playstation.png" className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="h-44 overflow-hidden rounded-xl">
+                                        <img src="/images/xbox.png" className="w-full h-full object-cover" />
+                                    </div>
                                 </div>
                             </div>
                         )}
 
                         {section.layout === 'video-right' && (
                             <div className="grid lg:grid-cols-2 gap-14 items-start">
-                                <p className="text-ab-text text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                                <p className="text-[var(--theme-text)] text-sm sm:text-base leading-relaxed whitespace-pre-line">
                                     {section.body}
                                 </p>
-                                <div className="h-64 md:h-80 bg-black/70 rounded-2xl flex items-center justify-center text-ab-text-muted text-sm">
+                                <div className="h-64 md:h-80 bg-black/70 rounded-2xl flex items-center justify-center text-[var(--theme-text-muted)] text-sm">
                                     Story Video
                                 </div>
                             </div>
@@ -159,13 +174,13 @@ export default function AboutStory() {
 
                         {section.layout === 'contact-block' && (
                             <div className="grid lg:grid-cols-2 gap-14 items-start">
-                                <p className="text-ab-text text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                                <p className="text-[var(--theme-text)] text-sm sm:text-base leading-relaxed whitespace-pre-line">
                                     {section.body}
                                 </p>
-                                <div className="bg-ab-card rounded-2xl p-8 border border-ab-border shadow-sm space-y-4">
-                                    <h4 className="font-black text-sm uppercase tracking-widest text-ab-dark mb-4">Connect With Us</h4>
+                                <div className="bg-[var(--theme-card)] rounded-2xl p-8 border border-[var(--theme-border)] shadow-sm space-y-4">
+                                    <h4 className="font-black text-sm uppercase tracking-widest text-[var(--theme-text)] mb-4">Connect With Us</h4>
                                     {Object.entries(section.contact).map(([key, val]) => (
-                                        <p key={key} className="text-sm text-ab-text">
+                                        <p key={key} className="text-sm text-[var(--theme-text)]">
                                             <span className="font-semibold capitalize">{key}:</span> {val}
                                         </p>
                                     ))}
@@ -177,7 +192,7 @@ export default function AboutStory() {
             ))}
 
             {/* ── Footer ─────────────────────────────────────────── */}
-            <Footer variant="light" accent="blue" />
+            <Footer />
         </div>
     );
 }

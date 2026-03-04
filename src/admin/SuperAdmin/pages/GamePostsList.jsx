@@ -57,7 +57,7 @@ export default function GamePostsList() {
                             <button
                                 key={f}
                                 onClick={() => setFilter(f)}
-                                className={`admin-filter-btn ${filter === f ? "!bg-admin-accent !text-admin-accent-text !border-admin-accent" : ""}`}
+                                className={`admin-filter-btn ${filter === f ? "!bg-[var(--theme-primary)] !text-[var(--theme-text-inverse)] !border-[var(--theme-primary)]" : ""}`}
                             >
                                 {f}
                             </button>
@@ -74,13 +74,13 @@ export default function GamePostsList() {
                         </tr></thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan="5" className="text-center py-6 text-admin-text-muted">Loading posts...</td></tr>
+                                <tr><td colSpan="5" className="text-center py-6 text-[var(--theme-text-muted)]">Loading posts...</td></tr>
                             ) : filtered.length === 0 ? (
-                                <tr><td colSpan="5" className="text-center py-6 text-admin-text-muted">No posts found.</td></tr>
+                                <tr><td colSpan="5" className="text-center py-6 text-[var(--theme-text-muted)]">No posts found.</td></tr>
                             ) : filtered.map(row => (
                                 <tr key={row.id}>
-                                    <td className="text-admin-text-muted text-xs">{row.id}</td>
-                                    <td className="font-semibold text-admin-text">{row.title}</td>
+                                    <td className="text-[var(--theme-text-muted)] text-xs">{row.id}</td>
+                                    <td className="font-semibold text-[var(--theme-text)]">{row.title}</td>
                                     <td><StatusBadge status={row.status} /></td>
                                     <td className="text-xs">{row.date ? new Date(row.date).toLocaleString() : 'N/A'}</td>
                                     <td>

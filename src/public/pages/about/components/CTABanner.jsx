@@ -3,14 +3,14 @@
  *
  * Props:
  *   text       {string}   – Banner text (displayed in all-caps)
- *   bgClass    {string}   – Tailwind bg class, default "bg-ab-primary"
+ *   bgClass    {string}   – Tailwind bg class, default "bg-[var(--theme-primary)]"
  *   textClass  {string}   – Tailwind text class, default "text-white"
  *   size       {string}   – "sm" | "md" | "lg" — controls padding and font size
  *   className  {string}   – Additional wrapper classes
  */
 function CTABanner({
     text = '',
-    bgClass = 'bg-ab-primary',
+    bgClass = 'bg-[var(--theme-primary)]',
     textClass = 'text-white',
     size = 'md',
     className = '',
@@ -26,7 +26,6 @@ function CTABanner({
             <div className="container-global text-center">
                 <h2
                     className={`font-black uppercase tracking-wider leading-tight ${sizeClasses} ${textClass}`}
-                    style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
                 >
                     {text}
                 </h2>

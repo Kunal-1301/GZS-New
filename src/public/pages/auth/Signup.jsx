@@ -78,7 +78,7 @@ export default function Signup() {
                 <div className="flex items-center justify-between mt-6">
                     <button
                         type="submit"
-                        className="au-btn-primary"
+                        className="gzs-btn-primary"
                     >
                         OTP
                     </button>

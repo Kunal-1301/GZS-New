@@ -37,11 +37,11 @@ export default function Media() {
       <div className="admin-card">
         <div className="admin-section-title">Game Gallery Upload</div>
         <div className="admin-upload-zone mb-6">
-          <FiUpload size={28} className="text-admin-text-muted mx-auto mb-2.5" />
+          <FiUpload size={28} className="text-[var(--theme-text-muted)] mx-auto mb-2.5" />
           <div className="admin-upload-zone-text">
             <strong>Click to upload multiple images</strong>
           </div>
-          <p className="text-[11px] text-admin-text-disabled mt-1">PNG, JPG, WEBP — Up to 20MB each</p>
+          <p className="text-[11px] text-[var(--theme-text-muted)] mt-1">PNG, JPG, WEBP — Up to 20MB each</p>
         </div>
 
         <div className="flex items-center justify-between mb-3">

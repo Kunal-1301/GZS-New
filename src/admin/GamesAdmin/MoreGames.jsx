@@ -14,7 +14,7 @@ export default function MoreGames() {
 
       <div className="admin-card">
         <div className="admin-section-title">Related Games</div>
-        <p className="text-sm text-admin-text-muted mb-5">
+        <p className="text-sm text-[var(--theme-text-muted)] mb-5">
           Add game slugs and titles to display in the "More Like This" section on the public game post page.
         </p>
 

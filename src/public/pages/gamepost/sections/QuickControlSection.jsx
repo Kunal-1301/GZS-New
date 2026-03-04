@@ -1,28 +1,34 @@
 export default function QuickControlSection({ controls }) {
     return (
-        <section className="max-w-[1350px] mx-auto px-4 lg:px-8 py-20 font-jetmono">
+        <section className="container-global section-padding">
 
-            {/* Section Title */}
-            <h2 className="text-[36px] font-black uppercase text-red-600 text-center tracking-wide mb-14">
-                Quick Control Overview
-            </h2>
+            <div className="text-center mb-16 gp-animate-in">
+                <span className="gp-section-label">THE BASICS</span>
+                <h2 className="gp-hero-title text-4xl">
+                    QUICK CONTROL OVERVIEW
+                </h2>
+            </div>
 
-            {/* Controls Grid */}
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {controls.map((c, i) => (
                     <div
                         key={i}
-                        className="bg-[#e7bcbc] border border-black/40 rounded-2xl p-8 flex gap-6 items-start"
+                        className="bg-white/60 backdrop-blur-sm border border-[var(--gp-border)] rounded-2xl p-8 flex gap-8 items-center gp-card-hover gp-animate-in"
+                        style={{ animationDelay: `${i * 100}ms` }}
                     >
-                        {/* Left Icon Placeholder */}
-                        <div className="w-12 h-12 border-2 border-black/40 rotate-45 flex-shrink-0 mt-1" />
+                        {/* Diamond Icon Container */}
+                        <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center relative">
+                            <div className="absolute inset-0 border-2 border-[var(--gp-primary)] opacity-20 rotate-45 rounded-sm" />
+                            <div className="absolute inset-2 border border-[var(--gp-primary)] rotate-45 rounded-sm" />
+                            {/* Icon Placeholder */}
+                            <div className="relative z-10 w-6 h-6 bg-[var(--gp-primary)] opacity-40 rounded-full" />
+                        </div>
 
-                        {/* Text Content */}
                         <div>
-                            <h3 className="text-[14px] font-bold uppercase tracking-wide mb-2">
+                            <h3 className="gp-hero-title text-xl mb-2 tracking-wide text-[var(--gp-primary)]">
                                 {c.qco_title}
                             </h3>
-                            <p className="text-[13px] leading-relaxed text-black/80">
+                            <p className="gzs-body text-[var(--gp-text-body)]/70 font-medium">
                                 {c.qco_title_desc}
                             </p>
                         </div>

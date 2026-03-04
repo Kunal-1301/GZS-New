@@ -1,33 +1,34 @@
 export default function GameplaySection({ gameplay }) {
     return (
-        <section className="max-w-[1200px] mx-auto px-6 py-20 font-jetmono">
+        <section className="container-global section-padding">
 
-            {/* Section Title */}
-            <h2 className="text-[40px] font-black uppercase tracking-wide text-red-600 mb-10">
-                Gameplay
-            </h2>
+            <div className="gp-animate-in">
+                <span className="gp-section-label">THE EXPERIENCE</span>
+                <h2 className="gp-hero-title text-5xl mb-10">
+                    GAMEPLAY
+                </h2>
 
-            {/* Intro Paragraph */}
-            <p className="text-[20px] leading-relaxed text-black mb-8 max-w-4xl">
-                VALORANT is a tactical 5v5 first-person shooter that emphasizes precision,
-                strategy, and teamwork. Every match is divided into rounds where players
-                take on the role of attackers or defenders, with success depending on
-                coordination, positioning, and smart decision-making rather than raw
-                firepower alone.
-            </p>
+                <p className="gzs-body text-xl !leading-relaxed max-w-4xl mb-16 text-[var(--gp-text-body)]">
+                    VALORANT is a tactical 5v5 first-person shooter that emphasizes precision,
+                    strategy, and teamwork. Every match is divided into rounds where players
+                    take on the role of attackers or defenders, with success depending on
+                    coordination, positioning, and smart decision-making rather than raw
+                    firepower alone.
+                </p>
 
-            {/* Bullet Gameplay Points */}
-            <div className="space-y-6 max-w-4xl">
-                {gameplay.map((g, i) => (
-                    <div key={i}>
-                        <p className="text-[20px] leading-relaxed text-black">
-                            <span className="font-bold uppercase">
-                                • {g.gameplay_title}
-                            </span>{" "}
-                            : {g.gameplay_title_desc}
-                        </p>
-                    </div>
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {gameplay.map((g, i) => (
+                        <div key={i} className="gp-animate-in p-8 bg-white/40 backdrop-blur-sm border border-[var(--gp-border)] rounded-2xl gp-card-hover" style={{ animationDelay: `${i * 100}ms` }}>
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="w-10 h-[2px] bg-[var(--gp-primary)]" />
+                                <h3 className="gp-hero-title text-2xl tracking-wide">{g.gameplay_title}</h3>
+                            </div>
+                            <p className="gzs-body text-[var(--gp-text-body)]/70 leading-relaxed font-medium">
+                                {g.gameplay_title_desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

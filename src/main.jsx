@@ -5,6 +5,8 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <div className="app-canvas shadow-2xl">
+      <App />
+    </div>
   </StrictMode>,
 )

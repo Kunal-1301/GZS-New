@@ -1,311 +1,251 @@
 /* ==========================================================
-   TAILWIND DESIGN TOKENS  (@theme generates Tailwind utilities)
-   Naming: --color-{prefix}-{name} → bg-{prefix}-{name}
+   GLOBAL THEME ARCHITECTURE
+   Plain CSS Variable definitions scoped by theme classes.
+   These are designed to be consumed by neutral Tailwind utilities
+   (e.g. bg-[var(--theme-bg)] instead of bg-es-bg)
    ========================================================== */
 
-@theme {
-  /* ── Global Brand ─────────────────────────────────────── */
-  --color-brand-black:    #050505;
-  --color-brand-white:    #F5F5F5;
-  --color-brand-accent:   #D4F234;
+/* ── Fallback (Global/Root) Theme ── */
+:root {
+  /* ── Typography Tokens ── */
+  --font-heading:         'Impact', 'Arial Narrow', sans-serif;
+  --font-body:            'Inter', system-ui, -apple-system, sans-serif;
 
-  /* ── Dark UI Backgrounds ──────────────────────────────── */
-  --color-bg-primary:   #0A0A0A;
-  --color-bg-secondary: #121212;
-  --color-bg-surface:   #1E1E1E;
-  --color-bg-elevated:  #2A2A2A;
-  --color-bg-glass:     rgba(255, 255, 255, 0.03);
+  /* ── Layout Tokens ── */
+  --width-content:        1280px;
+  --radius-xl:            1rem;
+  --radius-lg:            0.75rem;
+  --radius-md:            0.5rem;
+  --radius-sm:            0.25rem;
 
-  /* ── Dark UI Text ─────────────────────────────────────── */
-  --color-text-primary:   #EDEDED;
-  --color-text-secondary: #A1A1A1;
-  --color-text-muted:     #666666;
-  --color-text-inverse:   #0A0A0A;
+  /* ── Spacing Tokens ── */
+  --space-1:              0.25rem;
+  --space-2:              0.5rem;
+  --space-3:              0.75rem;
+  --space-4:              1rem;
+  --space-6:              1.5rem;
+  --space-8:              2rem;
+  --space-10:             2.5rem;
+  --space-12:             3rem;
+  --space-16:             4rem;
+  --space-20:             5rem;
 
-  /* ── Dark UI Borders ──────────────────────────────────── */
-  --color-border-light: #333333;
-  --color-border-dark:  rgba(255, 255, 255, 0.08);
+  /* ── Typography Scale ── */
+  --text-xs:              0.75rem;
+  --text-sm:              0.875rem;
+  --text-base:            1rem;
+  --text-lg:              1.125rem;
+  --text-xl:              1.25rem;
+  --text-2xl:             1.5rem;
+  --text-3xl:             1.875rem;
+  --text-4xl:             2.25rem;
+  --text-5xl:             3rem;
+  --text-6xl:             3.75rem;
 
-  /* ── Accent Colors ────────────────────────────────────── */
-  --color-accent-cyan:   #22D3EE;
-  --color-accent-purple: #A855F7;
-  --color-accent-green:  #4ADE80;
-  --color-accent-red:    #EF4444;
+  --leading-tight:        1.1;
+  --leading-snug:         1.3;
+  --leading-normal:       1.5;
+  --leading-relaxed:      1.625;
 
-  /* ── Neutral Grays ────────────────────────────────────── */
-  --color-neutral-50:  #FAFAFA;
-  --color-neutral-100: #F5F5F5;
-  --color-neutral-200: #E5E5E5;
-  --color-neutral-300: #D4D4D4;
-  --color-neutral-400: #A3A3A3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
+  --tracking-tighter:     -0.05em;
+  --tracking-tight:       -0.025em;
+  --tracking-normal:      0em;
+  --tracking-wide:        0.025em;
+  --tracking-wider:       0.05em;
+  --tracking-widest:      0.1em;
 
-  /* ── Fonts ────────────────────────────────────────────── */
-  --font-jetmono: "JetBrains Mono", monospace;
-  --font-inter:   "Inter", sans-serif;
-
-  /* ── Typography Scale ─────────────────────────────────── */
-  --font-size-xs:        0.625rem;
-  --font-size-sm:        0.75rem;
-  --font-size-base:      0.875rem;
-  --font-size-lg:        1rem;
-  --font-size-xl:        1.25rem;
-  --font-size-2xl:       1.5rem;
-  --font-size-3xl:       1.875rem;
-  --font-size-heading-sm: 1.75rem;
-  --font-size-heading-md: 2rem;
-  --font-size-heading-lg: 2.5rem;
-  --font-size-heading-xl: clamp(2.5rem, 5vw, 4rem);
-
-  /* ── Spacing Scale ────────────────────────────────────── */
-  --spacing-container:   4rem;
-  --spacing-section:     6rem;
-  --spacing-card-padding: 1.5rem;
-  --spacing-section-gap: 2rem;
-
-  /* ── Border Radius ────────────────────────────────────── */
-  --radius-sm: 0.125rem;
-  --radius-md: 0.25rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
-  --radius-card: 0.25rem;
-  --radius-button: 0.25rem;
-
-  /* ── Widths ───────────────────────────────────────────── */
-  --width-content: 1440px;
-  --width-wide: 1920px;
-
-  /* ── Responsive Layout ─────────────────────────────────── */
-  --spacing-px-page-sm:  1rem;
-  --spacing-px-page-md:  2.5rem;
-  --spacing-px-page-lg:  6rem;
-
-  /* ──────────────────────────────────────────────────────
-     ESPORTS PUBLIC TOKENS  →  bg-es-*, text-es-*, etc.
-     Light/Green theme for public Esports pages
-     ────────────────────────────────────────────────────── */
-  --color-es-primary:       #379730;
-  --color-es-primary-dark:  #2f8626;
-  --color-es-primary-light: #52ba44;
-  --color-es-bg:            #eef7ee; 
-  --color-es-bg-section:    #dff0df;
-  --color-es-card:          #ffffff;
-  --color-es-card-alt:      #f4fbf4;
-  --color-es-border:        rgba(55, 151, 48, 0.25);
-  --color-es-text:          #112911;
-  --color-es-text-muted:    #4d694d;
-  --color-es-accent:        #55c421;
-  --color-es-navbar:        #ffffff;
-
-  /* ──────────────────────────────────────────────────────
-     BLOG TOKENS  →  bg-bl-*, text-bl-*, etc.
-     Warm amber/cream theme for Blog pages
-     ────────────────────────────────────────────────────── */
-  --color-bl-bg:            #FEF9E7;
-  --color-bl-bg-alt:        #FDF3C8;
-  --color-bl-accent:        #F59E0B;
-  --color-bl-accent-dark:   #D97706;
-  --color-bl-accent-hover:  #B45309;
-  --color-bl-card:          #ffffff;
-  --color-bl-card-border:   rgba(245,158,11,0.20);
-  --color-bl-text:          #1a1a1a;
-  --color-bl-text-muted:    #6b6b6b;
-  --color-bl-text-sec:      #333333;
-  --color-bl-cta-bg:        #f2f2f0;
-
-  /* ──────────────────────────────────────────────────────
-     ABOUT TOKENS  →  bg-ab-*, text-ab-*, etc.
-     Sky-blue/teal theme for About pages
-     ────────────────────────────────────────────────────── */
-  --color-ab-primary:       #0f6f8c;
-  --color-ab-primary-dark:  #0a4f68;
-  --color-ab-bg:            #d7f0fa;
-  --color-ab-bg-mid:        #b8e4f5;
-  --color-ab-bg-section:    #c0e9f5;
-  --color-ab-dark:          #1a3a5a;
-  --color-ab-dark-alt:      #0d2236;
-  --color-ab-card:          #ffffff;
-  --color-ab-text:          #1a3a5a;
-  --color-ab-text-muted:    #4a6a8a;
-  --color-ab-accent:        #4fc3dc;
-  --color-ab-border:        rgba(15,111,140,0.30);
-  --color-ab-tag-filled:    #0f6f8c;
-  --color-ab-tag-border:    rgba(15,111,140,0.40);
-
-  /* ──────────────────────────────────────────────────────
-     AUTH TOKENS  →  bg-au-*, text-au-*, etc.
-     Teal layout for login/signup flows
-     ────────────────────────────────────────────────────── */
-  --color-au-bg-strip:      #8ab9c9;
-  --color-au-card:          #085c7a;
-  --color-au-card-dark:     #05445c;
-  --color-au-input-bg:      #2b738c;
-  --color-au-input-border:  #538ea3;
-  --color-au-text:          #ffffff;
-  --color-au-link:          #8ee0ff;
-
-  /* ──────────────────────────────────────────────────────
-     PROFILE TOKENS  →  bg-pr-*, text-pr-*, etc.
-     Purple/Violet theme for User Dashboard
-     ────────────────────────────────────────────────────── */
-  --color-pr-primary:       #8b5cf6;
-  --color-pr-primary-dark:  #7c3aed;
-  --color-pr-primary-light: #a78bfa;
-  --color-pr-bg:            #faf5ff;
-  --color-pr-sidebar:       #ffffff;
-  --color-pr-card:          #ffffff;
-  --color-pr-text:          #1f2937;
-  --color-pr-text-muted:    #6b7280;
-  --color-pr-border:        #e5e7eb;
-  --color-pr-border-focus:  #c4b5fd;
-  --color-pr-btn:           #8b5cf6;
-  --color-pr-btn-text:      #ffffff;
-  --color-pr-btn-hover:     #7c3aed;
-  /* Soft purple bg for inputs or tags */
-  --color-pr-surface:       #ede9fe;
-
-  /* ──────────────────────────────────────────────────────
-     CONTACT TOKENS  →  bg-ct-*, text-ct-*, etc.
-     Sky-blue body + dark hero for Contact page
-     ────────────────────────────────────────────────────── */
-  --color-ct-bg:            #E0F4FB;
-  --color-ct-bg-alt:        #c8ecf6;
-  --color-ct-hero:          #042232;
-  --color-ct-hero-alt:      #0a3348;
-  --color-ct-accent:        #1a4a5e;
-  --color-ct-accent-dark:   #0d3a4e;
-  --color-ct-card:          #ffffff;
-  --color-ct-text:          #1a3650;
-  --color-ct-text-muted:    #4a6a80;
-  --color-ct-border:        rgba(26,74,94,0.20);
-  --color-ct-input:         #f4f8fa;
-  --color-ct-input-border:  #c5dce6;
-
-  /* ──────────────────────────────────────────────────────
-     ADMIN PANEL TOKENS  →  bg-admin-*, text-admin-*, etc.
-     ────────────────────────────────────────────────────── */
-  --color-admin-bg:             #f4f4f4;
-  --color-admin-sidebar:        #e9e9e9;
-  --color-admin-navbar:         #f8f8f8;
-  --color-admin-card:           #ffffff;
-  --color-admin-surface:        #f0f0f0;
-  --color-admin-border:         #d1d5db;
-  --color-admin-border-light:   #e5e7eb;
-
-  /* Admin Accent — orange */
-  --color-admin-accent:         #f97316;
-  --color-admin-accent-dark:    #ea580c;
-  --color-admin-accent-light:   #fed7aa;
-  --color-admin-accent-text:    #ffffff;
-
-  /* Admin Typography */
-  --color-admin-text:           #111827;
-  --color-admin-text-secondary: #374151;
-  --color-admin-text-muted:     #6b7280;
-  --color-admin-text-disabled:  #9ca3af;
-
-  /* Admin Inputs */
-  --color-admin-input:          #ffffff;
-  --color-admin-input-border:   #d1d5db;
-  --color-admin-input-focus:    #f97316;
-
-  /* Admin Stats */
-  --color-admin-stat:           #f97316;
-  --color-admin-stat-text:      #ffffff;
-  --color-admin-stat-label:     rgba(255, 255, 255, 0.85);
-
-  /* Admin Table */
-  --color-admin-table-header:      #fff7ed;
-  --color-admin-table-header-text: #92400e;
-  --color-admin-table-hover:       #fef3c7;
-  --color-admin-table-border:      #e5e7eb;
-
-  /* Admin Status Badges */
-  --color-admin-status-pub:        #16a34a;
-  --color-admin-status-draft:      #ca8a04;
-  --color-admin-status-review:     #2563eb;
-  --color-admin-status-bg-pub:     #dcfce7;
-  --color-admin-status-bg-draft:   #fef9c3;
-  --color-admin-status-bg-review:  #dbeafe;
-
-  /* Admin Layout */
-  --width-admin-sidebar:  220px;
-  --height-admin-navbar:  72px;
-
-  /* ──────────────────────────────────────────────────────
-     PUBLIC GAME COLLECTION TOKENS  →  bg-gc-*, text-gc-*, etc.
-     ────────────────────────────────────────────────────── */
-  --color-gc-bg:           #cfeaf6;
-  --color-gc-bg-section:   #e8f4fc;
-  --color-gc-accent:       #0ea5e9;
-  --color-gc-accent-dark:  #0284c7;
-  --color-gc-accent-text:  #ffffff;
-  --color-gc-text:         #0f172a;
-  --color-gc-text-sec:     #334155;
-  --color-gc-text-muted:   #64748b;
-  --color-gc-card:         #ffffff;
-  --color-gc-card-border:  rgba(14, 165, 233, 0.20);
-  --color-gc-cat-active:   #0f172a;
-  --color-gc-cat-text:     #0f172a;
-
-  /* ──────────────────────────────────────────────────────
-     GAME POST THEME DEFAULT TOKENS  →  bg-gp-*, text-gp-*, etc.
-     These are ALSO set dynamically on :root by GameThemeContext
-     at runtime — the @theme defaults are just fallbacks.
-     ────────────────────────────────────────────────────── */
-  --color-gp-primary:       #e53935;
-  --color-gp-primary-dark:  #c62828;
-  --color-gp-primary-light: #ef5350;
-  --color-gp-bg:            #fff5f5;
-  --color-gp-bg-section:    #ffebee;
-  --color-gp-card:          #ffffff;
-  --color-gp-card-alt:      #fff8f8;
-  --color-gp-border:        #ffcdd2;
-  --color-gp-border-strong: #ef9a9a;
-  --color-gp-heading:       #c62828;
-  --color-gp-body:          #1f2937;
-  --color-gp-muted:         #6b7280;
-  --color-gp-on-accent:     #ffffff;
-  --color-gp-tag-bg:        rgba(229, 57, 53, 0.10);
-  --color-gp-quote:         #e53935;
-  --color-gp-table:         #e53935;
-  --color-gp-table-text:    #ffffff;
+  --theme-primary:        #D4F234;
+  --theme-primary-dark:   #b8d922;
+  --theme-primary-light:  #e2f759;
+  
+  --theme-bg:             #050505;
+  --theme-bg-alt:         #0A0A0A;
+  --theme-bg-section:     #121212;
+  --theme-card:           #1E1E1E;
+  
+  --theme-text:           #EDEDED;
+  --theme-text-muted:     #A1A1A1;
+  --theme-text-inverse:   #050505;
+  
+  --theme-border:         #333333;
+  --theme-input:          #2A2A2A;
 }
 
-/* ── Runtime-only gp vars (set by GameThemeContext via JS) ── */
-/* These mirror the @theme tokens so CSS var() lookups work     */
-:root {
-  --gp-primary:        var(--color-gp-primary);
-  --gp-primary-dark:   var(--color-gp-primary-dark);
-  --gp-primary-light:  var(--color-gp-primary-light);
+/* ── Esports Theme ── */
+.theme-esports {
+  --theme-primary:        #379730;
+  --theme-primary-dark:   #2f8626;
+  --theme-primary-light:  #52ba44;
+  
+  --theme-bg:             #eef7ee; 
+  --theme-bg-alt:         #f4fbf4;
+  --theme-bg-section:     #dff0df;
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #112911;
+  --theme-text-muted:     #4d694d;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         rgba(55, 151, 48, 0.25);
+  --theme-input:          #ffffff;
+}
+
+/* ── Blog Theme ── */
+.theme-blog {
+  --theme-primary:        #F59E0B;
+  --theme-primary-dark:   #D97706;
+  --theme-primary-light:  #fbbf24;
+  
+  --theme-bg:             #FEF9E7;
+  --theme-bg-alt:         #f2f2f0;
+  --theme-bg-section:     #FDF3C8;
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #1a1a1a;
+  --theme-text-muted:     #6b6b6b;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         rgba(245,158,11,0.20);
+  --theme-input:          #ffffff;
+}
+
+/* ── About Theme ── */
+.theme-about {
+  --theme-primary:        #0f6f8c;
+  --theme-primary-dark:   #0a4f68;
+  --theme-primary-light:  #4fc3dc;
+  
+  --theme-bg:             #d7f0fa;
+  --theme-bg-alt:         #b8e4f5;
+  --theme-bg-section:     #c0e9f5;
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #1a3a5a;
+  --theme-text-muted:     #4a6a8a;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         rgba(15,111,140,0.30);
+  --theme-input:          #ffffff;
+}
+
+/* ── Auth Theme ── */
+.theme-auth {
+  --theme-primary:        #8ee0ff;
+  --theme-primary-dark:   #538ea3;
+  --theme-primary-light:  #b3ecff;
+  
+  --theme-bg:             #8ab9c9;
+  --theme-bg-alt:         #085c7a;
+  --theme-bg-section:     #05445c;
+  --theme-card:           #085c7a;
+  
+  --theme-text:           #ffffff;
+  --theme-text-muted:     #e0f7fa;
+  --theme-text-inverse:   #085c7a;
+  
+  --theme-border:         #538ea3;
+  --theme-input:          #2b738c;
+}
+
+/* ── Profile Theme ── */
+.theme-profile {
+  --theme-primary:        #8b5cf6;
+  --theme-primary-dark:   #7c3aed;
+  --theme-primary-light:  #a78bfa;
+  
+  --theme-bg:             #faf5ff;
+  --theme-bg-alt:         #ede9fe;
+  --theme-bg-section:     #ffffff; /* often used for sidebar */
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #1f2937;
+  --theme-text-muted:     #6b7280;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         #e5e7eb;
+  --theme-input:          #ffffff;
+}
+
+/* ── Contact Theme ── */
+.theme-contact {
+  --theme-primary:        #1a4a5e;
+  --theme-primary-dark:   #0d3a4e;
+  --theme-primary-light:  #2f6d8a;
+  
+  --theme-bg:             #E0F4FB;
+  --theme-bg-alt:         #c8ecf6;
+  --theme-bg-section:     #042232; /* often used for hero */
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #1a3650;
+  --theme-text-muted:     #4a6a80;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         rgba(26,74,94,0.20);
+  --theme-input:          #f4f8fa;
+}
+
+/* ── Admin Theme ── */
+.theme-admin {
+  --theme-primary:        #f97316;
+  --theme-primary-dark:   #ea580c;
+  --theme-primary-light:  #fed7aa;
+  
+  --theme-bg:             #f4f4f4;
+  --theme-bg-alt:         #e9e9e9; /* Sidebar */
+  --theme-bg-section:     #f8f8f8; /* Navbar */
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #111827;
+  --theme-text-muted:     #6b7280;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         #d1d5db;
+  --theme-input:          #ffffff;
+}
+
+/* ── Game Collection Theme ── */
+.theme-collection {
+  --theme-primary:        #0ea5e9;
+  --theme-primary-dark:   #0284c7;
+  --theme-primary-light:  #7dd3fc;
+  
+  --theme-bg:             #cfeaf6;
+  --theme-bg-alt:         #e8f4fc;
+  --theme-bg-section:     #ffffff;
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #0f172a;
+  --theme-text-muted:     #64748b;
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         rgba(14, 165, 233, 0.20);
+  --theme-input:          #ffffff;
+}
+
+/* ── Game Post / Dynamic Defaults (Used if context isn't applied) ── */
+.theme-gamepost {
+  --gp-primary:        #e53935;
+  --gp-primary-dark:   #c62828;
+  --gp-primary-light:  #ef5350;
   --gp-primary-alpha:  rgba(229, 57, 53, 0.12);
-  --gp-bg-page:        var(--color-gp-bg);
-  --gp-bg-section:     var(--color-gp-bg-section);
-  --gp-bg-card:        var(--color-gp-card);
-  --gp-bg-card-alt:    var(--color-gp-card-alt);
-  --gp-border:         var(--color-gp-border);
-  --gp-border-strong:  var(--color-gp-border-strong);
-  --gp-text-heading:   var(--color-gp-heading);
-  --gp-text-body:      var(--color-gp-body);
-  --gp-text-muted:     var(--color-gp-muted);
-  --gp-text-on-accent: var(--color-gp-on-accent);
-  --gp-tag-bg:         var(--color-gp-tag-bg);
-  --gp-tag-border:     var(--color-gp-primary);
-  --gp-tag-text:       var(--color-gp-primary);
-  --gp-table-header:   var(--color-gp-table);
-  --gp-table-text:     var(--color-gp-table-text);
-  --gp-btn-bg:         var(--color-gp-primary);
-  --gp-btn-hover:      var(--color-gp-primary-dark);
-  --gp-quote-bg:       var(--color-gp-quote);
-  --gp-icon-circle-bg: var(--color-gp-bg-section);
-  --gp-icon-circle-fg: var(--color-gp-primary);
-  --gp-cta-gradient:   linear-gradient(135deg, var(--color-gp-primary) 0%, var(--color-gp-primary-dark) 100%);
+  --gp-bg-page:        #fff5f5;
+  --gp-bg-section:     #ffebee;
+  --gp-bg-card:        #ffffff;
+  --gp-bg-card-alt:    #fff8f8;
+  --gp-border:         #ffcdd2;
+  --gp-border-strong:  #ef9a9a;
+  --gp-text-heading:   #c62828;
+  --gp-text-body:      #1f2937;
+  --gp-text-muted:     #6b7280;
+  --gp-text-on-accent: #ffffff;
+  --gp-tag-bg:         rgba(229, 57, 53, 0.10);
+  --gp-btn-bg:         #e53935;
+  --gp-btn-hover:      #c62828;
+  --gp-quote-bg:       #e53935;
+  --gp-icon-circle-bg: #ffebee;
+  --gp-icon-circle-fg: #e53935;
+  --gp-cta-gradient:   linear-gradient(135deg, #e53935 0%, #c62828 100%);
   --gp-hero-overlay:   rgba(0, 0, 0, 0.60);
-  --gp-accent-bar:     3px solid var(--color-gp-primary);
+  --gp-accent-bar:     3px solid #e53935;
 }

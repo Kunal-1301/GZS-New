@@ -2,80 +2,200 @@
 
   /* ── LAYOUT ─────────────────────────────────────────────── */
   .admin-layout {
-    @apply flex min-h-screen bg-admin-bg text-admin-text font-inter;
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
   }
   .admin-main {
-    @apply flex flex-col flex-1 bg-admin-bg min-w-0;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    background-color: var(--theme-bg);
+    min-width: 0;
   }
   .admin-content {
-    @apply px-16 py-10 bg-admin-bg flex-1;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    background-color: var(--theme-bg);
+    flex: 1 1 0%;
     min-height: calc(100vh - 72px);
   }
 
   /* ── NAVBAR ──────────────────────────────────────────────── */
   .admin-navbar {
-    @apply h-[72px] bg-admin-navbar border-b border-admin-border
-           flex items-center justify-between px-10 sticky top-0 z-40
-           shadow-sm;
+    height: 72px;
+    background-color: var(--theme-bg-section);
+    border-bottom: 1px solid var(--theme-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
   .admin-navbar-logo {
-    @apply text-2xl font-black tracking-wider text-admin-accent uppercase;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: var(--theme-primary);
+    text-transform: uppercase;
   }
   .admin-navbar-title {
-    @apply text-[11px] font-bold tracking-[0.15em] uppercase text-admin-text-secondary;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--theme-text);
   }
   .admin-navbar-search {
-    @apply flex-1 max-w-sm mx-8 relative;
+    flex: 1 1 0%;
+    max-width: 24rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    position: relative;
   }
   .admin-navbar-search input {
-    @apply w-full bg-admin-input border border-admin-border rounded-lg
-           pl-9 pr-4 py-2 text-[13px] text-admin-text outline-none
-           transition focus:border-admin-accent focus:ring-2 focus:ring-admin-accent-light;
+    width: 100%;
+    background-color: var(--theme-input);
+    border: 1px solid var(--theme-border);
+    border-radius: 0.5rem;
+    padding-left: 2.25rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 13px;
+    color: var(--theme-text);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  .admin-navbar-search input:focus {
+    border-color: var(--theme-primary);
+    /* box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--theme-primary-light); */
   }
   .admin-navbar-search-icon {
-    @apply absolute left-3 top-1/2 -translate-y-1/2 text-admin-text-muted pointer-events-none;
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--theme-text-muted);
+    pointer-events: none;
   }
   .admin-navbar-actions {
-    @apply flex items-center gap-3 flex-shrink-0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
   }
 
   /* ── SIDEBAR ─────────────────────────────────────────────── */
   .admin-sidebar {
-    @apply w-[220px] min-h-screen bg-admin-sidebar border-r border-admin-border
-           pt-10 px-4 flex flex-col gap-1 flex-shrink-0;
+    width: 220px;
+    min-height: 100vh;
+    background-color: var(--theme-bg-section);
+    border-right: 1px solid var(--theme-border);
+    padding-top: 2.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex-shrink: 0;
   }
   .admin-nav-link {
-    @apply block w-full px-4 py-[10px] text-[11px] font-bold tracking-[0.12em]
-           uppercase text-admin-text-muted rounded-[4px] transition
-           hover:text-admin-text hover:bg-admin-border-light;
+    display: block;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--theme-text-muted);
+    border-radius: 4px;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
     text-decoration: none;
   }
+  .admin-nav-link:hover {
+    color: var(--theme-text);
+    background-color: var(--theme-bg-alt);
+  }
   .admin-nav-link.active {
-    @apply bg-admin-accent text-admin-accent-text;
+    background-color: var(--theme-primary);
+    color: var(--theme-text-inverse);
   }
 
   /* ── PAGE HEADER ─────────────────────────────────────────── */
   .admin-page-title {
-    @apply text-[2rem] font-black tracking-[0.06em] uppercase text-admin-text mb-8;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--theme-text);
+    margin-bottom: 2rem;
   }
   .admin-section-title {
-    @apply text-[11px] font-bold uppercase tracking-[0.15em] text-admin-text-muted mb-5;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--theme-text-muted);
+    margin-bottom: 1.25rem;
   }
 
   /* ── CONTENT LIST HEADER ─────────────────────────────────── */
   .admin-list-card {
-    @apply overflow-hidden rounded-xl border border-admin-border bg-admin-card shadow-sm;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    border: 1px solid var(--theme-border);
+    background-color: var(--theme-card);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
   .admin-list-header {
-    @apply flex items-center justify-between px-5 py-4 border-b border-admin-border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--theme-border);
   }
   .admin-list-title {
-    @apply text-[13px] font-black uppercase tracking-[0.1em]
-           bg-admin-text text-admin-card px-4 py-2 rounded-[4px] inline-block;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: var(--theme-text);
+    color: var(--theme-card);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
   }
 
   /* ── DIVIDER ─────────────────────────────────────────────── */
   .admin-divider {
-    @apply border-0 border-t border-admin-border my-6;
+    border-width: 0px;
+    border-top-width: 1px;
+    border-color: var(--theme-border);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 }

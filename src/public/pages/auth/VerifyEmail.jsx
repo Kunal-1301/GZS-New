@@ -40,17 +40,17 @@ export default function VerifyEmail() {
                             value={data}
                             onChange={e => handleChange(e.target, index)}
                             onFocus={e => e.target.select()}
-                            className="w-10 h-12 md:w-12 md:h-14 bg-au-input-bg border border-au-input-border text-white text-center text-lg md:text-xl rounded-[4px] focus:border-white focus:outline-none transition-colors"
+                            className="w-10 h-12 md:w-12 md:h-14 bg-[var(--theme-input)] border border-[var(--theme-border)] text-[var(--theme-text)] text-center text-lg md:text-xl rounded-[4px] focus:border-white focus:outline-none transition-colors"
                         />
                     ))}
                 </div>
 
                 {/* Resend & Timer */}
                 <div className="flex items-center gap-4 text-xs">
-                    <button type="button" className="text-au-link font-bold uppercase tracking-wider hover:text-white transition-colors cursor-pointer bg-transparent border-none">
+                    <button type="button" className="text-[var(--theme-primary)] font-bold uppercase tracking-wider hover:text-[var(--theme-text)] transition-colors cursor-pointer bg-transparent border-none">
                         Resend Code
                     </button>
-                    <span className="text-[#a6d8e8]">02:00</span>
+                    <span className="text-[var(--theme-text-muted)]">02:00</span>
                 </div>
 
                 {/* Actions spacer */}
@@ -60,7 +60,7 @@ export default function VerifyEmail() {
                 <div>
                     <button
                         type="submit"
-                        className="au-btn-primary"
+                        className="gzs-btn-primary"
                     >
                         VERIFY
                     </button>

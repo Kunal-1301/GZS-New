@@ -83,7 +83,7 @@ export default function Dashboard() {
                                 key={f}
                                 onClick={() => setFilter(f)}
                                 className={`admin-filter-btn ${filter === f
-                                        ? "!bg-admin-accent !text-admin-accent-text !border-admin-accent"
+                                        ? "!bg-[var(--theme-primary)] !text-[var(--theme-text-inverse)] !border-[var(--theme-primary)]"
                                         : ""
                                     }`}
                             >
@@ -112,8 +112,8 @@ export default function Dashboard() {
                         <tbody>
                             {filtered.map(row => (
                                 <tr key={row.id}>
-                                    <td className="text-admin-text-muted text-xs">{row.id}</td>
-                                    <td className="font-semibold text-admin-text">{row.title}</td>
+                                    <td className="text-[var(--theme-text-muted)] text-xs">{row.id}</td>
+                                    <td className="font-semibold text-[var(--theme-text)]">{row.title}</td>
                                     <td>{row.type}</td>
                                     <td><StatusBadge status={row.status} /></td>
                                     <td>{row.updated}</td>

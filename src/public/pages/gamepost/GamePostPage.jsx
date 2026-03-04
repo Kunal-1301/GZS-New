@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import PageLoader from "../../components/PageLoader";
 import { GameThemeProvider } from "../../context/GameThemeContext";
 import { GAMES } from "../../data/gameData";
 
@@ -57,41 +58,51 @@ export default function GamePostPage({ previewData }) {
     }
   }, [slug, previewData]);
 
-  if (loading) return <div className="text-white text-center p-20">Loading...</div>;
-  if (!data) return <div className="text-white text-center p-20">Game not found</div>;
+  if (loading) return <PageLoader />;
+  if (!data) return <div className="min-h-screen bg-[var(--theme-bg)] flex items-center justify-center p-20 font-body text-[var(--theme-text)]">Game not found</div>;
 
   // For API data, construct a default theme if not present
   const theme = data.theme || {
     primary: "#e53935",
-    accent: "#ff4b4b",
-    secondary: "#1f2326",
-    bgPage: "#0f1923"
+    primaryDark: "#c62828",
+    primaryLight: "#ef5350",
+    bgPage: "#fff5f5",
+    bgSection: "#ffebee",
+    border: "#ffcdd2",
+    textHeading: "#c62828"
   };
 
   return (
     <GameThemeProvider theme={theme}>
-      <div style={{ backgroundColor: "var(--gp-bg-page)", minHeight: "100vh" }}>
-        <Navbar logoVariant="theme" loginVariant="theme" accent="theme" />
-        <div style={{ height: "3px", backgroundColor: "var(--gp-primary)" }} />
+      <div className="gp-page-bg text-[var(--gp-text-body)]">
+        {/* Background Decorative Elements */}
+        <div className="gp-bg-blob gp-bg-blob-1" />
+        <div className="gp-bg-blob gp-bg-blob-2" />
+        <div className="gp-bg-blob gp-bg-blob-3" />
 
-        <HeroSection hero={data.hero} />
-        <StorylineSection storyline={data.storyline} info={data.game_info} />
-        <MediaGallerySection carousel={data.carousel} />
-        <GameplaySection gameplay={data.gameplay} />
-        <QuickControlSection controls={data.quick_control_overview?.qco_title ? JSON.parse(data.quick_control_overview.qco_title) : [data.quick_control_overview]} />
-        <ModesSection modes={data.modes} />
-        <SystemRequirementSection sys={data.system_requirement} />
+        <Navbar />
+        <div style={{ height: "3px", backgroundColor: "var(--gp-primary)", position: "relative", zIndex: 100 }} />
 
-        {/* Pass down data to these sections even if they initially might not use it */}
-        <ReviewsSection expert={data.expert_reviews} user={data.user_reviews} />
-        <GetGameSection getGame={data.get_game} />
-        <StoreExtrasSection dlcs={data.dlcs} awards={data.awards_and_achievements} />
-        <MoreLikeThisSection />
-        <CommunitySection />
-        <CriticRatingSection />
-        <JoinCommunitySection community={data.join_our_community} />
+        <div className="relative z-10">
+          <HeroSection hero={data.hero} />
+          <StorylineSection storyline={data.storyline} info={data.game_info} />
+          <MediaGallerySection carousel={data.carousel} />
+          <GameplaySection gameplay={data.gameplay} />
+          <QuickControlSection controls={data.quick_control_overview?.qco_title ? JSON.parse(data.quick_control_overview.qco_title) : [data.quick_control_overview]} />
+          <ModesSection modes={data.modes} />
+          <SystemRequirementSection sys={data.system_requirement} />
 
-        <Footer accent="theme" />
+          {/* Pass down data to these sections even if they initially might not use it */}
+          <ReviewsSection expert={data.expert_reviews} user={data.user_reviews} />
+          <GetGameSection getGame={data.get_game} />
+          <StoreExtrasSection dlcs={data.dlcs} awards={data.awards_and_achievements} />
+          <MoreLikeThisSection />
+          <CommunitySection />
+          <CriticRatingSection />
+          <JoinCommunitySection community={data.join_our_community} />
+        </div>
+
+        <Footer />
       </div>
     </GameThemeProvider>
   );

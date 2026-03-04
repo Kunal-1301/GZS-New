@@ -5,10 +5,13 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Breadcrumb from '../../components/Breadcrumb';
+import { usePageTheme } from '../../context/ThemeContext';
 import { categories, blogTypes } from '../../data/blogData';
 import { addUserBlog } from '../../data/blogService';
 
 function WriteBlog() {
+  usePageTheme('blog');
   const navigate = useNavigate();
 
   // Controlled form state
@@ -73,30 +76,35 @@ function WriteBlog() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FEF9E7]">
-      <Navbar logoVariant="yellow" loginVariant="yellow" isDark={false} />
+    <div className="theme-blog min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)]">
+      <Navbar />
 
       {/* Page Header */}
-      <section className="py-12 bg-[#FEF9E7]">
-        <div className="container mx-auto px-6 lg:px-16">
-          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-wide text-neutral-900 mb-2">
+      <section className="section-padding !pb-0 bg-[var(--theme-bg)]">
+        <div className="container-global">
+          <Breadcrumb items={[
+            { label: 'Home', to: '/' },
+            { label: 'Blog', to: '/blog' },
+            { label: 'Write a Blog' },
+          ]} className="mb-4" />
+          <h1 className="gzs-h1 mb-2">
             Write a Blog
           </h1>
-          <p className="text-neutral-600 text-sm">
+          <p className="gzs-body-sm">
             Share your insights, guides, or reviews with the GzoneSphere community.
           </p>
         </div>
       </section>
 
       {/* Form Section */}
-      <section className="pb-16 bg-[#FEF9E7]">
-        <div className="container mx-auto px-6 lg:px-16">
+      <section className="section-padding bg-[var(--theme-bg)]">
+        <div className="container-global">
           <form onSubmit={handleSubmit} className="max-w-3xl">
             {/* Blog Title */}
             <div className="mb-6">
               <label
                 htmlFor="title"
-                className="bl-label"
+                className="gzs-label mb-2 block"
               >
                 Blog Title
               </label>
@@ -107,7 +115,7 @@ function WriteBlog() {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Enter your blog title"
-                className={`w-full px-4 py-3 bg-white border rounded-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors ${errors.title ? 'border-red-500' : 'border-neutral-300'
+                className={`w-full px-4 py-3 bg-[var(--theme-card)] border rounded-sm text-[var(--theme-text)] placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] transition-colors ${errors.title ? 'border-red-500' : 'border-[var(--theme-border)]'
                   }`}
               />
               {errors.title && (
@@ -119,7 +127,7 @@ function WriteBlog() {
             <div className="mb-6">
               <label
                 htmlFor="author"
-                className="bl-label"
+                className="gzs-label mb-2 block"
               >
                 Author Name
               </label>
@@ -130,7 +138,7 @@ function WriteBlog() {
                 value={formData.author}
                 onChange={handleChange}
                 placeholder="Enter your name"
-                className={`w-full px-4 py-3 bg-white border rounded-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors ${errors.author ? 'border-red-500' : 'border-neutral-300'
+                className={`w-full px-4 py-3 bg-[var(--theme-card)] border rounded-sm text-[var(--theme-text)] placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] transition-colors ${errors.author ? 'border-red-500' : 'border-[var(--theme-border)]'
                   }`}
               />
               {errors.author && (
@@ -144,7 +152,7 @@ function WriteBlog() {
               <div>
                 <label
                   htmlFor="category"
-                  className="bl-label"
+                  className="gzs-label mb-2 block"
                 >
                   Blog Category
                 </label>
@@ -154,15 +162,15 @@ function WriteBlog() {
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className={`w-full appearance-none px-4 py-3 bg-white border rounded-sm text-neutral-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors ${errors.category ? 'border-red-500' : 'border-neutral-300'
-                      } ${!formData.category ? 'text-neutral-400' : ''}`}
+                    className={`w-full appearance-none px-4 py-3 bg-[var(--theme-card)] border rounded-sm text-[var(--theme-text)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] transition-colors ${errors.category ? 'border-red-500' : 'border-[var(--theme-border)]'
+                      } ${!formData.category ? 'text-[var(--theme-text-muted)]' : ''}`}
                   >
                     <option value="">Select category</option>
                     {categories.filter(c => c !== 'All').map((cat) => (
                       <option key={cat} value={cat}>{cat}</option>
                     ))}
                   </select>
-                  <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
+                  <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--theme-text-muted)] pointer-events-none" />
                 </div>
                 {errors.category && (
                   <p className="mt-1 text-xs text-red-500">{errors.category}</p>
@@ -173,7 +181,7 @@ function WriteBlog() {
               <div>
                 <label
                   htmlFor="type"
-                  className="bl-label"
+                  className="gzs-label mb-2 block"
                 >
                   Blog Type
                 </label>
@@ -183,15 +191,15 @@ function WriteBlog() {
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className={`w-full appearance-none px-4 py-3 bg-white border rounded-sm text-neutral-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors ${errors.type ? 'border-red-500' : 'border-neutral-300'
-                      } ${!formData.type ? 'text-neutral-400' : ''}`}
+                    className={`w-full appearance-none px-4 py-3 bg-[var(--theme-card)] border rounded-sm text-[var(--theme-text)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] transition-colors ${errors.type ? 'border-red-500' : 'border-[var(--theme-border)]'
+                      } ${!formData.type ? 'text-[var(--theme-text-muted)]' : ''}`}
                   >
                     <option value="">Select type</option>
                     {blogTypes.map((type) => (
                       <option key={type} value={type}>{type}</option>
                     ))}
                   </select>
-                  <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
+                  <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--theme-text-muted)] pointer-events-none" />
                 </div>
                 {errors.type && (
                   <p className="mt-1 text-xs text-red-500">{errors.type}</p>
@@ -203,7 +211,7 @@ function WriteBlog() {
             <div className="mb-8">
               <label
                 htmlFor="content"
-                className="bl-label"
+                className="gzs-label mb-2 block"
               >
                 Blog Content
               </label>
@@ -214,13 +222,13 @@ function WriteBlog() {
                 onChange={handleChange}
                 placeholder="Write your blog content here..."
                 rows={12}
-                className={`w-full px-4 py-3 bg-white border rounded-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors resize-y ${errors.content ? 'border-red-500' : 'border-neutral-300'
+                className={`w-full px-4 py-3 bg-[var(--theme-card)] border rounded-sm text-[var(--theme-text)] placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] transition-colors resize-y ${errors.content ? 'border-red-500' : 'border-[var(--theme-border)]'
                   }`}
               />
               {errors.content && (
                 <p className="mt-1 text-xs text-red-500">{errors.content}</p>
               )}
-              <p className="mt-2 text-xs text-neutral-500">
+              <p className="mt-2 text-xs text-[var(--theme-text-muted)]">
                 {formData.content.length} characters
               </p>
             </div>
@@ -230,7 +238,7 @@ function WriteBlog() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bl-btn-primary"
+                className="gzs-btn-primary"
               >
                 {isSubmitting ? 'Publishing...' : 'Publish Blog'}
                 <FiArrowUpRight className="w-4 h-4" />
@@ -238,7 +246,7 @@ function WriteBlog() {
               <button
                 type="button"
                 onClick={() => navigate('/blog')}
-                className="bl-btn-outline"
+                className="gzs-btn-outline"
               >
                 Cancel
               </button>

@@ -26,7 +26,7 @@ export default function SecurityPassword() {
                             placeholder="New password"
                             className="pr-input"
                         />
-                        <p className="text-[10px] text-pr-text-muted mt-1">Must be at least 8 characters</p>
+                        <p className="text-[10px] text-[var(--theme-text-muted)] mt-1">Must be at least 8 characters</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <label className="pr-label">Confirm New Password</label>
@@ -37,7 +37,7 @@ export default function SecurityPassword() {
                         />
                     </div>
                     <div className="mt-4">
-                        <button className="pr-btn-primary">
+                        <button className="gzs-btn-primary shadow-sm">
                             Update Password
                         </button>
                     </div>
@@ -49,12 +49,12 @@ export default function SecurityPassword() {
                 <h3 className="pr-section-title">
                     Two-Factor Authentication
                 </h3>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 border border-pr-border rounded-xl bg-pr-surface">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 border border-[var(--theme-border)] rounded-xl bg-[var(--theme-bg-section)]">
                     <div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-pr-text mb-1">
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--theme-text)] mb-1">
                             Authenticator App
                         </h4>
-                        <p className="text-xs text-pr-text-muted leading-relaxed max-w-lg">
+                        <p className="text-xs text-[var(--theme-text-muted)] leading-relaxed max-w-lg">
                             Protect your account from unauthorized access by requiring a second authentication method in addition to your password.
                         </p>
                     </div>
@@ -62,8 +62,8 @@ export default function SecurityPassword() {
                         <button
                             onClick={() => setIs2FAEnabled(!is2FAEnabled)}
                             className={`px-6 py-2.5 text-xs font-black uppercase tracking-widest rounded-lg transition-colors shadow-sm border ${is2FAEnabled
-                                    ? 'bg-red-50 text-red-600 border-red-200 hover:bg-red-100'
-                                    : 'bg-pr-primary text-white border-transparent hover:bg-pr-primary-dark'
+                                ? 'bg-red-50 text-red-600 border-red-200 hover:bg-red-100'
+                                : 'bg-[var(--theme-primary)] text-[var(--theme-text-inverse)] border-transparent hover:bg-[var(--theme-primary-dark)]'
                                 }`}
                         >
                             {is2FAEnabled ? 'Disable 2FA' : 'Enable 2FA'}

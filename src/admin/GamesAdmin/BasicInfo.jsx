@@ -43,11 +43,11 @@ export default function BasicInfo() {
         <div className="admin-field mb-4">
           <label className="admin-label">Hero Background Image</label>
           <div className="admin-upload-zone">
-            <FiUpload size={24} className="text-admin-text-muted mx-auto mb-2" />
+            <FiUpload size={24} className="text-[var(--theme-text-muted)] mx-auto mb-2" />
             <div className="admin-upload-zone-text">
               <strong>Click to upload</strong> or drag and drop hero image
             </div>
-            <p className="text-[11px] text-admin-text-disabled mt-1">
+            <p className="text-[11px] text-[var(--theme-text-muted)] mt-1">
               PNG, JPG, WEBP up to 10MB — Recommended: 1920×1080
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function BasicInfo() {
 
         {/* Theme Color Picker */}
         <div className="admin-section-title">Game Post Color Theme</div>
-        <p className="text-sm text-admin-text-muted mb-4">
+        <p className="text-sm text-[var(--theme-text-muted)] mb-4">
           Sets the accent color used throughout the public game post page.
         </p>
 
@@ -73,10 +73,10 @@ export default function BasicInfo() {
               onClick={() => setThemeColor(c.value)}
               className={`
                 inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] cursor-pointer
-                text-[11px] font-semibold bg-admin-card transition
+                text-[11px] font-semibold bg-[var(--theme-card)] transition
                 ${themeColor === c.value
                   ? "border-2 border-admin-text"
-                  : "border border-admin-border"
+                  : "border border-[var(--theme-border)]"
                 }
               `}
             >
@@ -97,7 +97,7 @@ export default function BasicInfo() {
                 type="color"
                 value={customColor}
                 onChange={e => { setCustomColor(e.target.value); setThemeColor(e.target.value); }}
-                className="w-10 h-10 border border-admin-border rounded-[4px] cursor-pointer p-0.5"
+                className="w-10 h-10 border border-[var(--theme-border)] rounded-[4px] cursor-pointer p-0.5"
               />
               <input
                 className="admin-input font-mono"
@@ -110,7 +110,7 @@ export default function BasicInfo() {
           <div>
             <label className="admin-label">Preview</label>
             <div
-              className="w-24 h-10 rounded-[4px] border border-admin-border"
+              className="w-24 h-10 rounded-[4px] border border-[var(--theme-border)]"
               style={{ backgroundColor: themeColor }}
             />
           </div>

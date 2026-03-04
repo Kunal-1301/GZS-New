@@ -6,7 +6,7 @@ import { AdminGamePostProvider } from "../context/AdminGamePostContext";
 const AdminLayout = () => {
   return (
     <AdminGamePostProvider>
-      <div className="admin-layout">
+      <div className="theme-admin admin-layout min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)]">
         <Sidebar />
         <div className="admin-main">
           <Navbar />

@@ -3,13 +3,13 @@ import { useState } from 'react';
 // Reusable Input Component
 const PrInput = ({ label, placeholder, type = 'text' }) => (
     <div className="flex flex-col gap-1.5 mb-4">
-        <label className="text-[10px] font-bold uppercase tracking-widest text-pr-text-muted">
+        <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--theme-text-muted)]">
             {label}
         </label>
         <input
             type={type}
             placeholder={placeholder}
-            className="bg-white border border-pr-border text-sm text-pr-text rounded-[4px] px-3.5 py-2.5 focus:border-pr-primary focus:outline-none focus:ring-1 focus:ring-pr-primary transition-colors"
+            className="bg-[var(--theme-bg-section)] border border-[var(--theme-border)] text-sm text-[var(--theme-text)] rounded-[4px] px-3.5 py-2.5 focus:border-[var(--theme-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--theme-primary)] transition-colors"
         />
     </div>
 );
@@ -19,13 +19,13 @@ const PrModal = ({ title, isOpen, onClose, children }) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-pr-card border border-pr-border w-full max-w-lg rounded-xl shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="bg-[var(--theme-card)] border border-[var(--theme-border)] w-full max-w-lg rounded-xl shadow-2xl flex flex-col max-h-[90vh]">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-pr-border">
-                    <h2 className="text-[13px] font-black uppercase tracking-widest text-[#a6d8e8]">
+                <div className="flex items-center justify-between p-6 border-b border-[var(--theme-border)]">
+                    <h2 className="text-[13px] font-black uppercase tracking-widest text-[var(--theme-primary)]">
                         {title}
                     </h2>
-                    <button onClick={onClose} className="text-pr-text-muted hover:text-pr-primary transition-colors">
+                    <button onClick={onClose} className="text-[var(--theme-text-muted)] hover:text-[var(--theme-primary)] transition-colors">
                         ✕
                     </button>
                 </div>
@@ -58,8 +58,8 @@ export default function ProfileEsports() {
                         onClick={() => setSubTab(tab)}
                         className={`px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-full transition-colors
               ${subTab === tab
-                                ? 'bg-pr-surface text-pr-primary'
-                                : 'bg-transparent text-pr-text-muted hover:bg-white hover:text-pr-text border border-transparent hover:border-pr-border'
+                                ? 'bg-[var(--theme-bg-section)] text-[var(--theme-primary)]'
+                                : 'bg-transparent text-[var(--theme-text-muted)] hover:bg-white hover:text-[var(--theme-text)] border border-transparent hover:border-[var(--theme-border)]'
                             }`}
                     >
                         {tab}
@@ -71,45 +71,45 @@ export default function ProfileEsports() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
 
                     {/* Action Card: Register Event */}
-                    <div className="bg-pr-card border border-pr-border rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                    <div className="bg-[var(--theme-card)] border border-[var(--theme-border)] rounded-xl p-6 shadow-sm flex flex-col justify-between">
                         <div>
-                            <h3 className="text-xs font-black uppercase tracking-widest text-pr-text mb-2">
+                            <h3 className="text-xs font-black uppercase tracking-widest text-[var(--theme-text)] mb-2">
                                 Register For BGMI Event
                             </h3>
-                            <p className="text-sm text-pr-text-muted leading-relaxed mb-6">
+                            <p className="text-sm text-[var(--theme-text-muted)] leading-relaxed mb-6">
                                 Join our upcoming weekly clash. Form your squad or register solo and prove your skills in the arena. Limited slots available.
                             </p>
                         </div>
                         <button
                             onClick={() => setShowEventModal(true)}
-                            className="bg-pr-surface text-pr-primary hover:bg-pr-primary hover:text-white border border-pr-border-focus text-[11px] font-bold uppercase tracking-widest py-2.5 rounded-md transition-colors self-start px-6"
+                            className="gzs-btn-primary"
                         >
                             REGISTER
                         </button>
                     </div>
 
                     {/* Action Card: Create Team */}
-                    <div className="bg-pr-card border border-pr-border rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                    <div className="bg-[var(--theme-card)] border border-[var(--theme-border)] rounded-xl p-6 shadow-sm flex flex-col justify-between">
                         <div>
-                            <h3 className="text-xs font-black uppercase tracking-widest text-pr-text mb-2">
+                            <h3 className="text-xs font-black uppercase tracking-widest text-[var(--theme-text)] mb-2">
                                 Create A New Team
                             </h3>
-                            <p className="text-sm text-pr-text-muted leading-relaxed mb-6">
+                            <p className="text-sm text-[var(--theme-text-muted)] leading-relaxed mb-6">
                                 Build your professional roster. Manage your players, track your tournament standings, and easily enroll in team-based events.
                             </p>
                         </div>
                         <button
                             onClick={() => setShowTeamModal(true)}
-                            className="bg-pr-surface text-pr-primary hover:bg-pr-primary hover:text-white border border-pr-border-focus text-[11px] font-bold uppercase tracking-widest py-2.5 rounded-md transition-colors self-start px-6"
+                            className="gzs-btn-outline"
                         >
                             CREATE TEAM
                         </button>
                     </div>
 
                     {/* Existing Team Example Card */}
-                    <div className="md:col-span-2 bg-pr-card border border-pr-border rounded-xl p-6 shadow-sm">
+                    <div className="md:col-span-2 bg-[var(--theme-card)] border border-[var(--theme-border)] rounded-xl p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-[13px] font-black uppercase tracking-widest text-[#a6d8e8]">
+                            <h3 className="text-[13px] font-black uppercase tracking-widest text-[var(--theme-primary)]">
                                 TEAM GZONESPHERE
                             </h3>
                             <span className="px-3 py-1 bg-green-100 text-green-700 text-[10px] uppercase font-bold tracking-widest rounded-full">
@@ -119,12 +119,12 @@ export default function ProfileEsports() {
 
                         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                             {[1, 2, 3, 4, 5].map((player) => (
-                                <div key={player} className="bg-pr-surface rounded-lg p-4 text-center border border-pr-border">
-                                    <div className="w-10 h-10 bg-pr-primary/20 text-pr-primary rounded-full mx-auto mb-2 flex items-center justify-center text-xs font-black">
+                                <div key={player} className="bg-[var(--theme-bg-section)] rounded-lg p-4 text-center border border-[var(--theme-border)]">
+                                    <div className="w-10 h-10 bg-[var(--theme-primary)]/20 text-[var(--theme-primary)] rounded-full mx-auto mb-2 flex items-center justify-center text-xs font-black">
                                         P{player}
                                     </div>
-                                    <p className="text-[10px] font-bold uppercase tracking-wider text-pr-text mb-1">Player {player}</p>
-                                    <p className="text-[9px] uppercase tracking-wider text-pr-text-muted">Assault / Support</p>
+                                    <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--theme-text)] mb-1">Player {player}</p>
+                                    <p className="text-[9px] uppercase tracking-wider text-[var(--theme-text-muted)]">Assault / Support</p>
                                 </div>
                             ))}
                         </div>
@@ -134,7 +134,7 @@ export default function ProfileEsports() {
             )}
 
             {subTab === 'PENDING APPROVALS' && (
-                <div className="bg-pr-card border border-pr-border rounded-xl p-8 text-center text-pr-text-muted text-sm">
+                <div className="bg-[var(--theme-card)] border border-[var(--theme-border)] rounded-xl p-8 text-center text-[var(--theme-text-muted)] text-sm">
                     You have no pending tournament registration approvals.
                 </div>
             )}
@@ -148,13 +148,13 @@ export default function ProfileEsports() {
                     <PrInput label="Contact Number" placeholder="+91 XXXXX XXXXX" />
 
                     <label className="flex items-start gap-3 my-4 cursor-pointer group">
-                        <input type="checkbox" required className="mt-1 w-4 h-4 rounded-sm border-pr-border text-pr-primary focus:ring-pr-primary" />
-                        <span className="text-xs text-pr-text-muted leading-relaxed group-hover:text-pr-text transition-colors">
+                        <input type="checkbox" required className="mt-1 w-4 h-4 rounded-sm border-[var(--theme-border)] text-[var(--theme-primary)] focus:ring-pr-primary" />
+                        <span className="text-xs text-[var(--theme-text-muted)] leading-relaxed group-hover:text-[var(--theme-text)] transition-colors">
                             I accept the tournament rules, code of conduct, and prize distribution guidelines.
                         </span>
                     </label>
 
-                    <button type="submit" className="mt-2 w-full bg-pr-btn hover:bg-pr-btn-hover text-white text-xs font-bold uppercase tracking-widest py-3 rounded-md transition-colors">
+                    <button type="submit" className="gzs-btn-primary w-full shadow-md">
                         SUBMIT REGISTRATION
                     </button>
                 </form>
@@ -176,7 +176,7 @@ export default function ProfileEsports() {
 
                     <PrInput label="Captain In-Game ID" placeholder="Ex. 543290123" />
 
-                    <button type="submit" className="mt-6 w-full bg-pr-btn hover:bg-pr-btn-hover text-white text-xs font-bold uppercase tracking-widest py-3 rounded-md transition-colors">
+                    <button type="submit" className="gzs-btn-primary w-full shadow-md">
                         CREATE TEAM
                     </button>
                 </form>

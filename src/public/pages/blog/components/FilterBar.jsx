@@ -24,7 +24,7 @@ function FilterBar({
         <select
           value={selectedCategory}
           onChange={(e) => onCategoryChange?.(e.target.value)}
-          className="appearance-none bg-transparent border border-neutral-400 rounded-sm px-4 py-2 pr-10 text-sm font-medium text-neutral-800 cursor-pointer hover:border-neutral-600 focus:outline-none focus:border-neutral-800 transition-colors"
+          className="appearance-none bg-transparent border border-[var(--theme-border)] rounded-sm px-4 py-2 pr-10 text-sm font-medium text-[var(--theme-text)] cursor-pointer hover:border-neutral-600 focus:outline-none focus:border-[var(--theme-border)] transition-colors"
         >
           <option value="" disabled>FILTER</option>
           {categories.map((category) => (
@@ -33,7 +33,7 @@ function FilterBar({
             </option>
           ))}
         </select>
-        <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600 pointer-events-none" />
+        <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--theme-text-muted)] pointer-events-none" />
       </div>
 
       {/* Sort Dropdown */}
@@ -41,7 +41,7 @@ function FilterBar({
         <select
           value={selectedSort}
           onChange={(e) => onSortChange?.(e.target.value)}
-          className="appearance-none bg-transparent border border-neutral-400 rounded-sm px-4 py-2 pr-10 text-sm font-medium text-neutral-800 cursor-pointer hover:border-neutral-600 focus:outline-none focus:border-neutral-800 transition-colors"
+          className="appearance-none bg-transparent border border-[var(--theme-border)] rounded-sm px-4 py-2 pr-10 text-sm font-medium text-[var(--theme-text)] cursor-pointer hover:border-neutral-600 focus:outline-none focus:border-[var(--theme-border)] transition-colors"
         >
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -49,7 +49,7 @@ function FilterBar({
             </option>
           ))}
         </select>
-        <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600 pointer-events-none" />
+        <HiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--theme-text-muted)] pointer-events-none" />
       </div>
     </div>
   );

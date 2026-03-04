@@ -1,108 +1,134 @@
-# GzoneSphere CSS Architecture Documentation
+# 🏰 GzoneSphere CSS Architecture & Design System
 
-This document provides a comprehensive overview of the CSS architecture and styling strategy used in the GzoneSphere frontend application. The styling is exclusively handled via **Tailwind CSS (v4)** leveraging the modern `@theme` directive, combined with thoughtful abstractions.
-
-## Architecture Overview
-
-The system strictly avoids scattered inline `style={{...}}` blocks or disjointed pure CSS files. Everything stems from our central configuration, achieving two primary goals:
-1. **Separation of Concerns and Contexts**: Distinct logical segments of the site (e.g., Esports, About, Profile, Admin) get their own targeted, namespaced design tokens.
-2. **Standardization**: Tailwind's constraints combined with `@apply` layers guarantee visual consistency. 
-
-All core styling rules originate from `src/index.css`.
+This document outlines the systematic approach used to maintain, scale, and theme the GzoneSphere frontend codebase. We employ a **Hybrid Styling Architecture** combining the foundational power of **CSS Custom Properties (Variables)** with the speed and utility of **Tailwind CSS v4**.
 
 ---
 
-## 1. Global Theming Strategy (`index.css` & `@theme`)
+## 🏛️ 1. High-Level Architecture Flow
 
-Tailwind v4 replaces the traditional `tailwind.config.js` with CSS-native `@theme` blocks inside `index.css`.
+The following diagram represents how styling is composed and consumed across the application:
 
-### 1.1 Namespaced Color Tokens
-To avoid monolithic token structures, colors are categorically namespaced. This defines distinct themes natively accessible via Tailwind utility classes (e.g., `bg-au-card`, `text-admin-text`).
+```mermaid
+graph TD
+    subgraph "Design Tokens Layer"
+        T[theme.css]
+        G[Global Variables]
+        S[Scoped Theme Classes]
+    end
 
-| Context / Section | Prefix | Description | Example utility class |
-| :--- | :--- | :--- | :--- |
-| **Global Brand** | `brand-` | Base global colors | `bg-brand-accent` |
-| **Dark UI** | `bg-`, `text-` | Core dark UI theme | `bg-bg-surface` |
-| **Esports** | `es-` | Green-centric esports theme | `text-es-primary` |
-| **Blog** | `bl-` | Warm amber/cream theme | `bg-bl-bg` |
-| **About Hub** | `ab-` | Sky-blue/teal theme | `border-ab-border` |
-| **Auth Flow** | `au-` | Solid teal login/signup theme | `bg-au-card` |
-| **User Profile** | `pr-` | Purple/Violet dashboard theme | `text-pr-text-muted` |
-| **Contact** | `ct-` | Sky-blue soft theme | `bg-ct-hero-alt` |
-| **Admin Panel** | `admin-` | Soft gray and orange backend | `bg-admin-bg` |
-| **Game Post/Coll.** | `gp-`, `gc-`| Dynamic game pages and listings | `bg-gp-primary` |
+    subgraph "Logic & Framework"
+        TW[Tailwind CSS v4 Engine]
+        UT[utilities.css]
+    end
 
-### 1.2 Global Typography, Spacing, and Shapes
-Beyond colors, global variables dictate universal layout properties.
-* **Fonts:** `--font-jetmono`, `--font-inter`
-* **Spacing:** `--spacing-container`, `--spacing-section`, `--spacing-section-gap`
-* **Border Radius:** Scaled from `--radius-sm` to `--radius-3xl`.
+    subgraph "Domain Component Layer"
+        ES[esports.css]
+        BL[blog.css]
+        PR[profile.css]
+        AD[admin.css]
+    end
 
-These seamlessly translate into classes like `font-inter`, `p-section`, or `rounded-2xl`.
+    subgraph "Consumption Layer"
+        RC[React Components .jsx]
+    end
 
----
+    T --> G
+    T --> S
+    G --> RC
+    S --> RC
+    TW --> UT
+    TW --> ES
+    TW --> BL
+    TW --> PR
+    TW --> AD
+    UT --> RC
+    ES --> RC
+    BL --> RC
+    PR --> RC
+    AD --> RC
 
-## 2. Public Facing Pages & Components
-
-### 2.1 Pure Utility Usage
-Public pages exclusively use pure Tailwind utility classes constructed safely from the namespaced tokens. There are no `@apply` component classes extracted for public components. 
-Instead of writing complex CSS, UI is formed using granular utility blocks in the `.jsx` files:
-
-```jsx
-// Example from Auth
-<div className="bg-au-card-dark text-au-text border border-au-input-border rounded-xl ...">
+    style T fill:#f9f,stroke:#333,stroke-width:2px
+    style TW fill:#06b6d4,stroke:#fff,stroke-width:2px
+    style RC fill:#61dafb,stroke:#333,stroke-width:2px
 ```
 
-### 2.2 Dynamic CSS Variables (`GameThemeContext`)
-Because the **Games Posts** require unique, dynamic thematic colors injected from PostgreSQL schema (e.g., Valorant is red, Cyberpunk is yellow), public pages use a dynamic hybrid approach.
+---
 
-While standard Tailwind provides static `--color-gp-primary`, we have mapped root layout colors:
-```css
-:root {
-  --gp-primary: var(--color-gp-primary);
-  /* ... */
-}
-```
+## 📁 2. File Roles & Descriptions
 
-The `GameThemeProvider` overwrites these root variables at runtime via Javascript. The public components consume them automatically utilizing the `--gp-*` CSS custom properties, achieving instant responsive theming per game page route.
+Every file in `src/styles/` has a predefined purpose. Adhering to these roles prevents "CSS Sprawl" and simplifies maintenance.
+
+| File / Folder | Role | Characteristics |
+| :--- | :--- | :--- |
+| **`theme.css`** | **Foundational** | The **Source of Truth**. Defines all Design Tokens (Colors, Shadows, Radii). No layout logic. |
+| **`index.css`** | **Integration** | The **Entry Point**. Imports Tailwind base and all modular CSS files in order. |
+| **`utilities.css`**| **Helper** | Global layout utilities that extend Tailwind. Example: `.container-global`, `.scrollbar-hide`. |
+| **`esports.css`** | **Feature Library** | Semantic components for Esports (`.es-card`, `.es-btn-primary`). Uses `@apply`. |
+| **`blog.css`** | **Feature Library** | Semantic components for the Blog system (`.bl-label`, `.bl-post-card`). |
+| **`profile.css`** | **Feature Library** | Components for User Dashboard and Settings (`.pr-input`, `.pr-btn-danger`). |
+| **`auth.css`** | **Feature Library** | Shared components for Login and Registration flows (`.auth-card`). |
+| **`admin/`** | **Scoped Module** | Fragmented styles for the admin dashboard components (Tables, Forms, Nav). |
+| **`gamepost.css`** | **Structural** | Animations and base layouts for dynamic Game Posts. |
 
 ---
 
-## 3. Admin Panel Architecture (`admin.css`)
+## 🎨 3. Theming Mechanism
 
-The Admin subsystem (managing Content and Games Sub-Admin) requires dense mapping of identical elements (cards, tables, buttons, inputs). Scattering Tailwind utilities here violates DRY (Don't Repeat Yourself) principles and clutters component visibility.
+We support two distinct types of theming: **Static** (Standard Sections) and **Dynamic** (Per-Game Sections).
 
-Therefore, the Admin panel uses an **`@apply` Component abstraction layer** maintained separately in `src/styles/admin.css`. 
+### 3.1 Static Theming (Namespace Scoping)
+Standard sections use specific classes fixed on the page container. Variables are defined globally but scoped to these classes in `theme.css`.
 
-### 3.1 Semantic Component Classes
-Admin components use clean, precompiled, semantic class names:
-`admin-layout`, `admin-card`, `admin-input`, `admin-btn-primary`, `admin-table`.
+- **Example**: `<div className="theme-esports">`
+- **Logic**: Tailwind utilities like `text-[var(--theme-primary)]` will resolve to the values defined under `.theme-esports` in `theme.css`.
 
-### 3.2 Structure Inside `admin.css`
-The file leverages `@apply` inside the `@layer components { ... }` directive to compile complex utilities down into single classes.
+### 3.2 Dynamic Theming (JS-Driven Context)
+Game Posts require runtime colors based on the game's identity. This is handled by a direct connection between React and the DOM.
 
-**Benefits for Admin Pages:**
-* **Forms:** Standardized forms via `<input className="admin-input" />` or `<div className="admin-field">`.
-* **Buttons:** Consistent action triggers with `admin-btn-primary` or `admin-action-btn delete`.
-* **Tables:** List views look identical across all endpoints securely managed by `.admin-table` structure blocks.
-* **Layouts:** Shared `admin-page-title` and `admin-section-title` keep hierarchy uniform.
+```mermaid
+sequenceDiagram
+    participant D as gameData.js
+    participant C as GameThemeContext
+    participant H as HTML root.style
+    participant S as gamepost.css
 
-### 3.3 Strict Adherence to Tokens
-Even within `.admin-*` custom classes, all underlying structures only request verified tokens generated by `index.css`:
-```css
-  .admin-input {
-    @apply w-full bg-admin-input border border-admin-input-border rounded-[4px]
-           px-[14px] py-[10px] text-sm text-admin-text outline-none transition
-           focus:border-admin-accent focus:ring-2 focus:ring-admin-accent-light;
-  }
+    D->>C: Pass game colors (hex codes)
+    C->>H: setProperty('--gp-primary', color)
+    H->>S: Variables injected into the style sheet
+    S-->>RC: Component uses .gp-page-bg
 ```
-No raw hex codes (`#FFFFFF`), `rgb()`, or `px` values are heavily utilized in `admin.css`.
 
 ---
 
-## Summary Best Practices & Guidelines
+## 🏷️ 4. Naming Convention (Namespacing)
 
-1. **Adding New Colors:** Always modify the `@theme` block in `index.css`. NEVER hardcode hexes in `className="bg-[#123123]"`.
-2. **Writing Public Code:** Write inline Tailwind utility loops mapping to the assigned namespace (e.g., building a blog feature? Stick exclusively to `bl-*` utility tags).
-3. **Writing Admin Code:** Leverage the `.admin-*` class names inside `admin.css`. Avoid adding unique structural utility classes directly mapped into Admin HTML elements unless accommodating a profound edge case. 
-4. **Consistency Enforcement:** Ensure all new components draw tokens from the overarching typography, standard sizes, and pre-negotiated root settings preventing drifting designs.
+To avoid collisions and make the intent obvious, we use specific prefixes for different domains:
+
+- **`.es-*`** : Esports (Tournaments, Home)
+- **`.bl-*`** : Blog (Feed, Post, Creative Panels)
+- **`.pr-*`** : Profile (User Dashboard, Subscriptions)
+- **`.auth-*`**: Auth (Login, Register)
+- **`.admin-*`**: Admin Panel (Inventory, Users, Tables)
+- **`.gp-*`** : Game Post (Dynamic structural styles)
+
+---
+
+## 🛠️ 5. Development Rules
+
+### Rule 1: Literal Colors are "Illegal" 🚫
+Never hardcode hex codes or standard Tailwind colors (e.g., `text-blue-500`) in UI components. 
+*   **Wrong**: `className="text-white bg-[#FF5500]"`
+*   **Correct**: `className="text-[var(--theme-text-inverse)] bg-[var(--theme-primary)]"`
+
+### Rule 2: Layout Belongs to Tailwind 📐
+Use Tailwind utility classes for the foundation of every element.
+*   **Use Utilities for**: `flex`, `grid`, `margins`, `padding`, `gap`, `aspect-ratio`.
+*   **Use @apply for**: Complex, reusable UI units (Buttons, Input Fields, Domain Cards).
+
+### Rule 3: Responsive Visibility 📱
+Always use Tailwind's responsive prefixes (`md:`, `lg:`) instead of media queries in plain CSS files unless the logic is extremely complex (e.g., custom SVG path animations).
+
+### Rule 4: Variable Naming 📝
+All globally themed variables must follow the `--theme-{property}-{variant}` pattern.
+- Correct: `--theme-bg-alt`, `--theme-text-muted`.
+- Wrong: `--primary-color`, `--dark-bg`.

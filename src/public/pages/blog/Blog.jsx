@@ -10,16 +10,18 @@ import FilterBar from './components/FilterBar';
 import Pagination from './components/Pagination';
 import Footer from '../../components/Footer';
 import GalleryCard from './components/GalleryCard';
+import { usePageTheme } from '../../context/ThemeContext';
 
 import { galleryImages, categories, sortOptions } from '../../data/blogData';
 import { getAllBlogs } from '../../data/blogService';
-import placeholderWhite from '../../assets/images/placeholderWhite.svg';
+import placeholderWhite, { images } from '../../data/images';
 
 /* ── Anime hero image (blog Figma uses game character art) ── */
-const HERO_BG = 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=1920';
+const HERO_BG = images.blogHero;
 
 export default function Blog() {
   const navigate = useNavigate();
+  usePageTheme('blog');
   const [blogs, setBlogs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedSort, setSelectedSort] = useState('latest');
@@ -56,7 +58,7 @@ export default function Blog() {
   const mostReadSlice = mostRead.slice((mostReadPage - 1) * ITEMS_PER_PAGE, mostReadPage * ITEMS_PER_PAGE);
 
   return (
-    <div className="min-h-screen bg-bl-bg font-inter text-bl-text">
+    <div className="theme-blog min-h-screen bg-[var(--theme-bg)] font-inter text-[var(--theme-text)]">
 
       {/* ── Navbar ─────────────────────────────────────────── */}
       <Navbar logoVariant="yellow" loginVariant="yellow" isDark={false} accent="yellow" />
@@ -72,19 +74,18 @@ export default function Blog() {
       >
         <div className="relative z-10 px-6 md:px-16">
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white tracking-tight mb-4"
-            style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
+            className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-[var(--theme-text-inverse)] tracking-tight mb-4 font-heading"
           >
             BLOGS &amp; GUIDES
           </h1>
-          <p className="text-white/75 text-sm sm:text-base max-w-2xl">
+          <p className="text-[var(--theme-text-inverse)]/75 text-sm sm:text-base max-w-2xl">
             Insights, reviews, and expert content connected to games, platforms, and competitive play on GzoneSphere.
           </p>
         </div>
       </section>
 
       {/* ── Filter / Sort Bar ──────────────────────────────── */}
-      <div className="bg-bl-bg border-b border-bl-card-border">
+      <div className="bg-[var(--theme-bg)] border-b border-[var(--theme-border)]">
         <div className="container-global">
           <FilterBar
             categories={categories}
@@ -98,7 +99,7 @@ export default function Blog() {
       </div>
 
       {/* ── Recently Added ─────────────────────────────────── */}
-      <section className="section-padding bg-bl-bg">
+      <section className="section-padding bg-[var(--theme-bg)]">
         <div className="container-global">
           {/* Section Header */}
           <SectionHeader
@@ -130,7 +131,7 @@ export default function Blog() {
       </section>
 
       {/* ── Most Read ──────────────────────────────────────── */}
-      <section className="section-padding bg-bl-bg">
+      <section className="section-padding bg-[var(--theme-bg)]">
         <div className="container-global">
           <SectionHeader
             title="MOST READ BLOG & GUIDES"
@@ -156,20 +157,20 @@ export default function Blog() {
       </section>
 
       {/* ── CTA — Have Something Worth Sharing? ───────────── */}
-      <section className="py-12 bg-bl-cta-bg">
+      <section className="py-12 bg-[var(--theme-bg-alt)]">
         <div className="container-global">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-bl-text mb-2">
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-[var(--theme-text)] mb-2">
                 HAVE SOMETHING WORTH SHARING?
               </h2>
-              <p className="text-bl-text-muted text-sm max-w-lg">
+              <p className="text-[var(--theme-text-muted)] text-sm max-w-lg">
                 Write guides, reviews, or analysis for the GzoneSphere community and build your reputation.
               </p>
             </div>
             <button
               onClick={() => navigate('/write-blog')}
-              className="inline-flex items-center gap-2 px-7 py-3 bg-bl-accent hover:bg-bl-accent-dark text-white text-sm font-bold uppercase tracking-wider rounded-sm transition-colors shrink-0 cursor-pointer"
+              className="gzs-btn-primary shrink-0 cursor-pointer"
             >
               WRITE A BLOG <FiArrowUpRight className="w-4 h-4" />
             </button>
@@ -178,23 +179,23 @@ export default function Blog() {
       </section>
 
       {/* ── Game Gallery ───────────────────────────────────── */}
-      <section className="section-padding bg-bl-bg">
+      <section className="section-padding bg-[var(--theme-bg)]">
         <div className="container-global">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-bl-text">
+            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-[var(--theme-text)]">
               GAME GALLERY
             </h2>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => scrollGallery('prev')}
-                className="w-9 h-9 flex items-center justify-center border border-neutral-300 rounded-full hover:bg-neutral-100 transition-colors text-neutral-700"
+                className="bl-icon-btn"
                 aria-label="Previous"
               >
                 <HiArrowLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={() => scrollGallery('next')}
-                className="w-9 h-9 flex items-center justify-center bg-bl-accent hover:bg-bl-accent-dark rounded-full transition-colors text-white"
+                className="bl-icon-btn bg-[var(--theme-primary)] border-[var(--theme-primary)] text-[var(--theme-text-inverse)] hover:bg-[var(--theme-primary-dark)]"
                 aria-label="Next"
               >
                 <HiArrowRight className="w-4 h-4" />

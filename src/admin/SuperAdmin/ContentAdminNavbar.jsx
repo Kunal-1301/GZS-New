@@ -10,11 +10,11 @@ const ContentAdminNavbar = () => {
 
             {/* Left: Logo + Panel Title */}
             <div className="flex items-center gap-4 flex-shrink-0">
-                <span className="admin-navbar-logo text-admin-accent font-black tracking-widest text-sm">
+                <span className="admin-navbar-logo text-[var(--theme-primary)] font-black tracking-widest text-sm">
                     GZONSPHERE
                 </span>
                 <div className="hidden sm:block w-px h-5 bg-admin-border" />
-                <span className="hidden sm:block admin-navbar-title text-admin-text-secondary font-semibold text-xs uppercase tracking-wider">
+                <span className="hidden sm:block admin-navbar-title text-[var(--theme-text-muted)] font-semibold text-xs uppercase tracking-wider">
                     ESPORTS PANEL
                 </span>
             </div>
@@ -27,7 +27,7 @@ const ContentAdminNavbar = () => {
                     value={query}
                     onChange={e => setQuery(e.target.value)}
                     placeholder="Search for Tournaments, Games, Registrations..."
-                    className="w-full bg-transparent text-sm text-admin-text placeholder-admin-text-disabled outline-none"
+                    className="w-full bg-transparent text-sm text-[var(--theme-text)] placeholder-[var(--theme-text-muted)] outline-none"
                 />
             </div>
 
@@ -40,7 +40,7 @@ const ContentAdminNavbar = () => {
                     <HiOutlineBell size={17} />
                 </button>
                 <button
-                    className="admin-icon-btn w-8 h-8 rounded-full bg-admin-accent text-white flex items-center justify-center"
+                    className="admin-icon-btn w-8 h-8 rounded-full bg-[var(--theme-primary)] text-white flex items-center justify-center"
                     aria-label="User menu"
                 >
                     <HiOutlineUser size={15} />

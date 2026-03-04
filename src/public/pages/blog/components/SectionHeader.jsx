@@ -25,18 +25,18 @@ function SectionHeader({
   const accentButtonClass = {
     green: 'bg-green-600 hover:bg-green-700',
     red: 'bg-red-500 hover:bg-red-600',
-    blue: 'bg-[#1a4a5e] hover:bg-[#0d3a4e]',
-    yellow: 'bg-yellow-500 hover:bg-yellow-600',
-  }[accent] ?? 'bg-yellow-500 hover:bg-yellow-600';
+    blue: 'bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)]',
+    yellow: 'bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)]',
+  }[accent] ?? 'bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)]';
 
   return (
     <div className={`flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8 ${showNavigation ? '' : alignmentClass}`}>
       <div className={align === 'center' && !showNavigation ? 'w-full' : ''}>
-        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-neutral-900 mb-2">
+        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-[var(--theme-text)] mb-2">
           {title}
         </h2>
         {subtitle && (
-          <p className="text-neutral-600 text-sm max-w-xl">
+          <p className="text-[var(--theme-text-muted)] text-sm max-w-xl">
             {subtitle}
           </p>
         )}

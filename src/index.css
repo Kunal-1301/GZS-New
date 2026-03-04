@@ -4,8 +4,40 @@
 @import "./styles/theme.css";
 @import "./styles/utilities.css";
 
-/* Organized style imports */
+/* Organised style imports */
 @import "./styles/admin.css";
 @import "./styles/auth.css";
 @import "./styles/profile.css";
 @import "./styles/blog.css";
+@import "./styles/gamepost.css";
+@import "./styles/esports.css";
+
+@layer base {
+  html {
+    @apply font-body;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply gzs-body bg-[var(--theme-bg)];
+  }
+
+  h1 { @apply gzs-h1; }
+  h2 { @apply gzs-h2; }
+  h3 { @apply gzs-h3; }
+  
+  p { @apply mb-4; }
+  
+  /* Standardise spacing for sections */
+  section {
+    @apply section-padding;
+  }
+}
+
+/* Toast slide-in animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(2rem) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}

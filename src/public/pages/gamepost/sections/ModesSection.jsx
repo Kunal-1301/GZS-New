@@ -1,30 +1,35 @@
 export default function ModesSection({ modes }) {
     return (
-        <section className="container-global px-6 py-20">
-            <h2 className="text-center text-[2.25rem] font-black uppercase tracking-[0.08em]
-                     mb-16 text-[var(--gp-text-heading)]">
-                Game Modes
-            </h2>
+        <section className="container-global section-padding">
 
-            <div className="grid md:grid-cols-3 gap-6 lg:grid-cols-4">
+            <div className="text-center mb-16 gp-animate-in">
+                <span className="gp-section-label">CHOOSE YOUR PATH</span>
+                <h2 className="gp-hero-title text-4xl">
+                    GAME MODES
+                </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {modes?.map((m, i) => (
                     <div
                         key={i}
-                        className="bg-[var(--gp-bg-card-alt)] border border-[var(--gp-border)]
-                       rounded-2xl p-10 text-center transition-shadow cursor-pointer
-                       hover:shadow-md"
+                        className="bg-white border border-[var(--gp-border)]
+                       rounded-2xl p-10 text-center cursor-pointer gp-card-hover gp-animate-in group"
+                        style={{ animationDelay: `${i * 100}ms` }}
                     >
-                        {/* Diamond icon */}
+                        {/* Diamond icon with hover effect */}
                         <div
-                            className="w-12 h-12 mx-auto mb-8 rotate-45 rounded-[4px]
-                         border-2 border-[var(--gp-primary)]"
-                        />
-                        <h3 className="text-base font-black uppercase tracking-[0.1em] mb-3
-                           text-[var(--gp-text-body)]">
+                            className="w-14 h-14 mx-auto mb-8 rotate-45 rounded-lg
+                         border-2 border-[var(--gp-primary)] flex items-center justify-center transition-all duration-300 group-hover:bg-[var(--gp-primary)]"
+                        >
+                            <div className="w-4 h-4 bg-[var(--gp-primary)] -rotate-45 group-hover:bg-white transition-colors" />
+                        </div>
+
+                        <h3 className="gp-hero-title text-xl mb-4 group-hover:text-[var(--gp-primary)] transition-colors">
                             {m.mode_title}
                         </h3>
-                        <p className="text-[13px] text-[var(--gp-text-muted)] leading-relaxed">
-                            {m.mode_desc || "Engage in this exciting game mode."}
+                        <p className="gzs-body text-[var(--gp-text-body)]/60 text-sm font-medium leading-relaxed">
+                            {m.mode_desc || "Engage in this exciting game mode and prove your skills on the battlefield."}
                         </p>
                     </div>
                 ))}
