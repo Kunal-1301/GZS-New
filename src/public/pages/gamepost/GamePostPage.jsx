@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import PageLoader from "../../components/PageLoader";
-import { GameThemeProvider } from "../../context/GameThemeContext";
-import { GAMES } from "../../data/gameData";
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import PageLoader from '@components/PageLoader';
+import { GameThemeProvider } from '@context/GameThemeContext';
+import { GAMES } from '@data/gameData';
+import { Helmet } from 'react-helmet-async';
 
 import {
   HeroSection,
@@ -74,6 +75,14 @@ export default function GamePostPage({ previewData }) {
 
   return (
     <GameThemeProvider theme={theme}>
+      <Helmet>
+        <title>{`${data.hero?.title || 'Game'} | GzoneSphere Gaming Catalogue`}</title>
+        <meta name="description" content={data.storyline?.summary || `Experience ${data.hero?.title} on GzoneSphere. Explore gameplay, system requirements, and community reviews.`} />
+        <meta property="og:title" content={`${data.hero?.title} on GzoneSphere`} />
+        <meta property="og:description" content={data.storyline?.summary || "Game details, system requirements, and more."} />
+        <meta property="og:image" content={data.hero?.bgImage || ""} />
+        <link rel="canonical" href={`https://gzonesphere.com/games/${slug}`} />
+      </Helmet>
       <div className="gp-page-bg text-[var(--gp-text-body)]">
         {/* Background Decorative Elements */}
         <div className="gp-light-pattern fixed inset-0 pointer-events-none" />

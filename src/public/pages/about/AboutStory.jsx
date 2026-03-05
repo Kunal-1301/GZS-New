@@ -1,8 +1,8 @@
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
-import { images } from '../../data/images';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
+import { images } from '@data/images';
 
 /* ── Story section data ──────────────────────────────────── */
 const STORY_SECTIONS = [

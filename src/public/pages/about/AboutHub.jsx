@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import { usePageTheme } from '../../context/ThemeContext';
-import { images } from '../../data/images';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import { usePageTheme } from '@context/ThemeContext';
+import { images } from '@data/images';
 
 export default function AboutHub() {
   usePageTheme('about');

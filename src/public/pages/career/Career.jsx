@@ -1,6 +1,6 @@
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
 
 function Career() {
   return (

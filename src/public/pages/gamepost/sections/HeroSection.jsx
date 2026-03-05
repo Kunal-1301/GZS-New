@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import placeholderWhite from "../../../assets/images/placeholderWhite.svg";
+import placeholderWhite from '@assets/images/placeholderWhite.svg';
 
 export default function HeroSection({ hero }) {
     const navigate = useNavigate();

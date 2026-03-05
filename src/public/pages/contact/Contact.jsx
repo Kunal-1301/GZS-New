@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import { usePageTheme } from '../../context/ThemeContext';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import { usePageTheme } from '@context/ThemeContext';
 
 export default function Contact() {
     const [form, setForm] = useState({ name: '', email: '', phone: '' });

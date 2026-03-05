@@ -166,6 +166,25 @@
   --theme-input:          #ffffff;
 }
 
+/* ── Community Theme ── */
+.theme-community {
+  --theme-primary:        #7C3AED;
+  --theme-primary-dark:   #6D28D9;
+  --theme-primary-light:  #A78BFA;
+  
+  --theme-bg:             #fafafa; /* neutral-50 approximation */
+  --theme-bg-alt:         #f5f5f5;
+  --theme-bg-section:     #ffffff;
+  --theme-card:           #ffffff;
+  
+  --theme-text:           #171717; /* neutral-900 */
+  --theme-text-muted:     #737373; /* neutral-500 */
+  --theme-text-inverse:   #ffffff;
+  
+  --theme-border:         #e5e5e5; /* neutral-200 */
+  --theme-input:          #ffffff;
+}
+
 /* ── Contact Theme ── */
 .theme-contact {
   --theme-primary:        #1a4a5e;

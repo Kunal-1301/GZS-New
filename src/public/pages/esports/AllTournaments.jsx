@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowUpRight, FiSearch, FiFilter } from 'react-icons/fi';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
-import { mockApiService } from '../../services/mockApiService';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
+import { mockApiService } from '@services/mockApiService';
 
 export default function AllTournaments() {
     const [tournaments, setTournaments] = useState([]);

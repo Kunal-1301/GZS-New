@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
-import { useToast } from '../../components/Toast';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
+import { useToast } from '@components/Toast';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 /* ── Tournament Config ───────────────────────────────────── */

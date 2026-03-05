@@ -1,20 +1,22 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
 
-import Navbar from '../../components/Navbar';
-import BlogCard from './components/BlogCard';
-import SectionHeader from './components/SectionHeader';
-import FilterBar from './components/FilterBar';
-import Pagination from './components/Pagination';
-import Footer from '../../components/Footer';
-import GalleryCard from './components/GalleryCard';
-import { usePageTheme } from '../../context/ThemeContext';
+import Navbar from '@components/Navbar';
+import BlogCard from '@components/BlogCard';
+import SectionHeader from '@components/SectionHeader';
+import FilterBar from '@components/FilterBar';
+import Pagination from '@components/Pagination';
+import Footer from '@components/Footer';
+import GalleryCard from '@components/GalleryCard';
+import { usePageTheme } from '@context/ThemeContext';
+import { Helmet } from 'react-helmet-async';
 
-import { galleryImages, categories, sortOptions } from '../../data/blogData';
-import placeholderWhite, { images } from '../../data/images';
-import { mockApiService } from '../../services/mockApiService';
+import { galleryImages, categories, sortOptions } from '@data/blogData';
+import placeholderWhite, { images } from '@data/images';
+import { blogApi } from '@services/api/blogApi';
 
 /* ── Anime hero image (blog Figma uses game character art) ── */
 const HERO_BG = images.blogHero;
@@ -22,22 +24,27 @@ const HERO_BG = images.blogHero;
 export default function Blog() {
   const navigate = useNavigate();
   usePageTheme('blog');
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: rawBlogs = [], isLoading } = useQuery({
+    queryKey: ['public-blogs'],
+    queryFn: async () => {
+      // Fallback to mock for now if API fails
+      try {
+        const data = await blogApi.getPublicBlogs();
+        return data;
+      } catch (err) {
+        // Fallback to legacy mock during transition
+        const { mockApiService: legacyMock } = await import('@services/mockApiService');
+        return legacyMock.getPublicBlogs();
+      }
+    }
+  });
+
+  const blogs = rawBlogs.map(b => ({ ...b, image: b.image || placeholderWhite }));
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedSort, setSelectedSort] = useState('latest');
   const [recentlyAddedPage, setRecentlyAddedPage] = useState(1);
   const [mostReadPage, setMostReadPage] = useState(1);
   const galleryRef = useRef(null);
-
-  useEffect(() => {
-    const load = async () => {
-      const data = await mockApiService.getPublicBlogs();
-      setBlogs(data.map(b => ({ ...b, image: b.image || placeholderWhite })));
-      setLoading(false);
-    };
-    load();
-  }, []);
 
   /* Filtering */
   const filtered = [...blogs]
@@ -65,6 +72,13 @@ export default function Blog() {
 
   return (
     <div className="theme-blog min-h-screen bg-[var(--theme-bg)] font-inter text-[var(--theme-text)]">
+      <Helmet>
+        <title>Blogs & Guides | GzoneSphere Editorial Hub</title>
+        <meta name="description" content="Explore expert gaming insights, in-depth reviews, and comprehensive guides curated by the GzoneSphere community. Stay informed on the latest trends in the gaming universe." />
+        <meta property="og:title" content="GzoneSphere | Blogs, Guides & Expert Insights" />
+        <meta property="og:description" content="Your go-to source for gaming knowledge, strategy, and trends within the GzoneSphere ecosystem." />
+        <link rel="canonical" href="https://gzonesphere.com/blog" />
+      </Helmet>
 
       {/* ── Navbar ─────────────────────────────────────────── */}
       <Navbar logoVariant="yellow" loginVariant="yellow" isDark={false} accent="yellow" />
@@ -114,18 +128,24 @@ export default function Blog() {
             align="center"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            {(recentSlice.length ? recentSlice : recentPosts.slice(0, 3)).map(post => (
-              <BlogCard
-                key={post.id}
-                id={post.id}
-                image={post.image}
-                title={post.title}
-                description={post.description}
-                likes={post.likes}
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+              {[1, 2, 3].map(i => <div key={i} className="h-64 bg-neutral-100 animate-pulse rounded-3xl" />)}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+              {(recentSlice.length ? recentSlice : recentPosts.slice(0, 3)).map(post => (
+                <BlogCard
+                  key={post.id}
+                  id={post.id}
+                  image={post.image}
+                  title={post.title}
+                  description={post.description}
+                  likes={post.likes}
+                />
+              ))}
+            </div>
+          )}
 
           <Pagination
             currentPage={recentlyAddedPage}

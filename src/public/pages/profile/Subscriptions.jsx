@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useToast } from '../../components/Toast';
+import { useToast } from '@components/Toast';
 
 export default function Subscriptions() {
     const [showCancelModal, setShowCancelModal] = useState(false);

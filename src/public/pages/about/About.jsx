@@ -1,9 +1,9 @@
-import CTABanner from './components/CTABanner';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
-import { images } from '../../data/images';
+import CTABanner from '@components/CTABanner';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
+import { images } from '@data/images';
 
 const IDENTITY_TAGS = [
   { text: 'An identity that grows with you.', filled: true },

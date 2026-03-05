@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiArrowUpRight, FiChevronLeft, FiChevronRight, FiHeart, FiBookmark } from "react-icons/fi";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import { usePageTheme } from "../../context/ThemeContext";
-import { images } from "../../data/images";
-import { PLATFORMS, GAME_CATEGORIES, GALLERY_ITEMS } from "../../data/collectionsData";
-import { mockApiService } from "../../services/mockApiService";
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import { usePageTheme } from '@context/ThemeContext';
+import { images } from '@data/images';
+import { PLATFORMS, GAME_CATEGORIES, GALLERY_ITEMS } from '@data/collectionsData';
+import { mockApiService } from '@services/mockApiService';
 
 /* ── Placeholder Card ──────────────────────────────────────── */
 function PlaceholderImage({ src, color = "#1a1a2e", label, className = "" }) {

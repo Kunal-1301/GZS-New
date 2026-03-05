@@ -21,11 +21,11 @@ export default function ProfileSkillLayout({
     children,
 }) {
     return (
-        <div className="min-h-screen flex flex-col bg-white font-inter">
+        <div className="min-h-screen flex flex-col bg-[var(--theme-bg)] theme-profile font-body">
 
             {/* ── Top purple banner ──────────────────────────── */}
-            <header className="w-full bg-[#7C3AED] py-3 flex items-center justify-center">
-                <span className="text-white text-sm font-black tracking-[0.3em] uppercase">
+            <header className="w-full bg-[var(--theme-primary)] py-3 flex items-center justify-center">
+                <span className="text-[var(--theme-text-inverse)] text-sm font-black tracking-[0.3em] uppercase">
                     GZONESPHERE
                 </span>
             </header>
@@ -35,12 +35,12 @@ export default function ProfileSkillLayout({
                 <div className="w-full max-w-4xl mx-auto px-6 pt-10 pb-2 flex items-start justify-between gap-4">
                     <div>
                         {title && (
-                            <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-gray-900 leading-tight">
+                            <h1 className="gzs-h1 !text-2xl md:!text-3xl">
                                 {title}
                             </h1>
                         )}
                         {subtitle && (
-                            <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+                            <p className="gzs-body-sm mt-1">{subtitle}</p>
                         )}
                     </div>
                     {badge === 'setup' && (
@@ -69,8 +69,8 @@ export default function ProfileSkillLayout({
 
             {/* ── Footer ─────────────────────────────────────── */}
             {footer && (
-                <footer className="w-full bg-[#7C3AED] py-4 flex items-center justify-center px-6">
-                    <p className="text-white/80 text-xs italic text-center">{footer}</p>
+                <footer className="w-full bg-[var(--theme-primary)] py-4 flex items-center justify-center px-6">
+                    <p className="text-[var(--theme-text-inverse)]/80 text-xs italic text-center">{footer}</p>
                 </footer>
             )}
         </div>

@@ -1,4 +1,3 @@
-import { Navigate, Outlet } from 'react-router-dom';
 
 /**
  * Basic Auth Guard for the Admin Panel.

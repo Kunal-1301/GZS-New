@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ProfileSkillLayout from './ProfileSkillLayout';
-import { SKILL_GROUPS, SKILL_LEVELS, PROOF_TYPES } from '../../data/profileSkillData';
+import { SUB_PROFILES, SKILL_LEVELS, PROOF_TYPES } from '@data/profileSkillData';
 
 /* ── Reusable skill form block ─────────────────────────────────── */
-function SkillFormBlock({ index, onSave }) {
+function SkillFormBlock({ index, skillGroups, onSave, onAddNew }) {
     const [selectedLevel, setSelectedLevel] = useState('Competent');
     const [selectedProofs, setSelectedProofs] = useState([]);
-    const [group, setGroup] = useState('');
+    const [category, setCategory] = useState('');
 
     const toggleProof = (pt) => {
         setSelectedProofs((prev) =>
@@ -16,32 +15,32 @@ function SkillFormBlock({ index, onSave }) {
     };
 
     return (
-        <div className="border border-gray-200 rounded-xl p-6 mb-6 bg-white">
+        <div className="border border-[var(--theme-border)] rounded-3xl p-8 mb-8 bg-white shadow-sm font-body">
             {/* Row: dropdown + skill levels */}
-            <div className="grid md:grid-cols-2 gap-6 mb-5">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
                 {/* Skill group dropdown */}
                 <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-2">
+                    <label className="gzs-label !text-[var(--theme-text)] block mb-3 uppercase tracking-widest text-[10px] font-black">
                         Select a Skill Group
                     </label>
                     <div className="relative">
                         <select
-                            value={group}
-                            onChange={(e) => setGroup(e.target.value)}
-                            className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-500 appearance-none bg-[#F9FAFB] focus:outline-none focus:border-[#7C3AED] transition-colors pr-8"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="w-full border border-[var(--theme-border)] rounded-xl px-5 py-4 gzs-body-sm appearance-none bg-[#F9FAFB] focus:outline-none focus:border-[var(--theme-primary)] transition-colors pr-10 text-[var(--theme-text)] font-medium"
                         >
-                            <option value="">Choose the category that best fits this skill.</option>
-                            {SKILL_GROUPS.map((g) => (
-                                <option key={g} value={g}>{g}</option>
+                            <option value="" disabled>Choose the category that best fits this skill.</option>
+                            {skillGroups.map((c) => (
+                                <option key={c} value={c}>{c}</option>
                             ))}
                         </select>
-                        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[var(--theme-text-muted)] text-sm">▾</span>
                     </div>
                 </div>
 
                 {/* Skill level pills */}
                 <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-2">
+                    <label className="gzs-label !text-[var(--theme-text)] block mb-3 uppercase tracking-widest text-[10px] font-black">
                         Your Skill Level
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -49,9 +48,9 @@ function SkillFormBlock({ index, onSave }) {
                             <button
                                 key={lvl}
                                 onClick={() => setSelectedLevel(lvl)}
-                                className={`px-4 py-1.5 rounded-lg text-xs font-medium border transition-all ${selectedLevel === lvl
-                                        ? 'border-[#7C3AED] text-[#7C3AED] bg-white'
-                                        : 'border-gray-200 text-gray-500 bg-[#F9FAFB] hover:border-gray-300'
+                                className={`px-5 py-2.5 rounded-xl text-xs font-bold border transition-all ${selectedLevel === lvl
+                                    ? 'border-[var(--theme-primary)] text-[var(--theme-primary)] bg-purple-50 ring-2 ring-[var(--theme-primary)]/10'
+                                    : 'border-[var(--theme-border)] text-[var(--theme-text-muted)] bg-[var(--theme-bg-alt)] hover:border-[var(--theme-border-alt)]'
                                     }`}
                             >
                                 {lvl}
@@ -62,38 +61,38 @@ function SkillFormBlock({ index, onSave }) {
             </div>
 
             {/* Proof checkboxes */}
-            <div className="mb-4">
-                <label className="text-xs font-bold text-gray-700 block mb-2">
+            <div className="mb-6">
+                <label className="gzs-label !text-[var(--theme-text)] block mb-3 uppercase tracking-widest text-[10px] font-black">
                     Add Proof (Optional for Now)
                 </label>
-                <div className="flex flex-wrap gap-x-5 gap-y-1">
+                <div className="flex flex-wrap gap-x-8 gap-y-3">
                     {PROOF_TYPES.map((pt) => (
-                        <label key={pt} className="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer">
+                        <label key={pt} className="flex items-center gap-2.5 gzs-body-sm cursor-pointer group">
                             <input
                                 type="checkbox"
                                 checked={selectedProofs.includes(pt)}
                                 onChange={() => toggleProof(pt)}
-                                className="w-3 h-3 accent-[#7C3AED]"
+                                className="w-4 h-4 rounded-md border-gray-300 text-[var(--theme-primary)] focus:ring-[var(--theme-primary)] accent-[var(--theme-primary)]"
                             />
-                            {pt}
+                            <span className={`text-xs font-bold uppercase tracking-tight transition-colors ${selectedProofs.includes(pt) ? 'text-[var(--theme-text)]' : 'text-[var(--theme-text-muted)] group-hover:text-[var(--theme-text)]'}`}>{pt}</span>
                         </label>
                     ))}
                 </div>
             </div>
 
-            <p className="text-xs italic text-[#7C3AED] mb-4">You can add more skills after this.</p>
+            <p className="gzs-body-sm !italic !font-bold !text-[var(--theme-primary)] mb-8 text-[11px]">You can add more skills after this.</p>
 
             {/* Action buttons */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4 border-t border-[var(--theme-border)] pt-8">
                 <button
                     onClick={onSave}
-                    className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-black uppercase tracking-widest px-6 py-2.5 rounded-lg transition-colors flex items-center gap-2"
+                    className="gzs-btn-primary !px-10 !rounded-xl shadow-lg shadow-[var(--theme-primary)]/20"
                 >
                     SAVE SKILL
                 </button>
                 <button
-                    onClick={onSave}
-                    className="border border-gray-300 text-gray-700 text-xs font-black uppercase tracking-widest px-6 py-2.5 rounded-lg hover:border-gray-400 transition-colors"
+                    onClick={onAddNew}
+                    className="gzs-btn-outline !px-10 !rounded-xl !border-[var(--theme-border)] hover:!border-[var(--theme-primary)]/50"
                 >
                     ADD NEW
                 </button>
@@ -105,28 +104,33 @@ function SkillFormBlock({ index, onSave }) {
 /* ── Skill Added Success Modal ─────────────────────────────────── */
 function SkillAddedModal({ onContinue, onAddMore }) {
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-10 text-center">
-                <h2 className="text-2xl font-black uppercase text-gray-900 mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-12 text-center border border-[var(--theme-border)] font-body">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6 text-[var(--theme-primary)]">
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h2 className="gzs-h1 !text-2xl mb-4 tracking-tight">
                     SKILL ADDED SUCCESSFULLY
                 </h2>
-                <p className="text-sm italic font-semibold text-gray-700 mb-3">
+                <p className="gzs-body-sm !italic !font-bold mb-4 !text-purple-900/70 !text-sm">
                     Your skill has been added to your profile.<br />
                     It's visible, but not verified yet.
                 </p>
-                <p className="text-sm text-gray-400 mb-8">
+                <p className="gzs-body-sm !text-xs mb-10 text-[var(--theme-text-muted)] border-t border-gray-100 pt-6">
                     Verification happens after proof is submitted or platform activity is completed.
                 </p>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <button
                         onClick={onContinue}
-                        className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-black uppercase tracking-widest px-8 py-3 rounded-lg transition-colors"
+                        className="gzs-btn-primary !w-full sm:!w-auto !px-10 !py-3.5 !rounded-xl"
                     >
                         CONTINUE
                     </button>
                     <button
                         onClick={onAddMore}
-                        className="border border-gray-300 text-gray-700 text-xs font-black uppercase tracking-widest px-8 py-3 rounded-lg hover:border-gray-400 transition-colors"
+                        className="gzs-btn-outline !w-full sm:!w-auto !px-10 !py-3.5 !rounded-xl"
                     >
                         ADD MORE
                     </button>
@@ -139,27 +143,42 @@ function SkillAddedModal({ onContinue, onAddMore }) {
 /* ── Page ──────────────────────────────────────────────────────── */
 export default function ProfileSkillAdd() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [showModal, setShowModal] = useState(false);
-    const [formCount, setFormCount] = useState(2); // start with 2 forms per Figma
+    const [formBlocks, setFormBlocks] = useState([0]);
+
+    const profileId = location.state?.profileId || 'art-visual';
+    const activeProfile = SUB_PROFILES.find(p => p.id === profileId) || SUB_PROFILES[4];
 
     const handleSave = () => setShowModal(true);
-    const handleContinue = () => navigate('/profile/skill-verify');
+    const handleContinue = () => navigate('/profile/skill-verify', { state: { profileId } });
     const handleAddMore = () => {
         setShowModal(false);
-        setFormCount((c) => c + 1);
+        setFormBlocks((prev) => [...prev, prev.length]);
+    };
+    const handleAddNew = () => {
+        setFormBlocks((prev) => [...prev, prev.length]);
     };
 
     return (
         <>
             <ProfileSkillLayout
-                title="ART, VISUAL & CHARACTER DESIGN"
-                subtitle="Create the visual identity and assets of games."
+                title={activeProfile.title}
+                subtitle={activeProfile.description}
                 badge="setup"
                 footer="Your profile grows with your work — not with speed."
             >
-                {Array.from({ length: formCount }).map((_, i) => (
-                    <SkillFormBlock key={i} index={i} onSave={handleSave} />
-                ))}
+                <div className="pb-10">
+                    {formBlocks.map((id, i) => (
+                        <SkillFormBlock
+                            key={id}
+                            index={i}
+                            skillGroups={activeProfile.skillGroups}
+                            onSave={handleSave}
+                            onAddNew={handleAddNew}
+                        />
+                    ))}
+                </div>
             </ProfileSkillLayout>
 
             {showModal && (

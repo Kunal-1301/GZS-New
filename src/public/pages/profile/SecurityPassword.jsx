@@ -4,7 +4,7 @@ export default function SecurityPassword() {
     const [is2FAEnabled, setIs2FAEnabled] = useState(false);
 
     return (
-        <div className="flex flex-col gap-10 font-inter">
+        <div className="theme-profile flex flex-col gap-10 font-body">
             {/* Change Password Section */}
             <section>
                 <h3 className="pr-section-title">

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
 import { FiArrowUpRight, FiUsers, FiMapPin, FiCalendar, FiAward } from 'react-icons/fi';
-import { images } from '../../data/images';
+import { images } from '@data/images';
 
 /* ── Tournament Data ─────────────────────────────────────── */
 const TOURNAMENTS = {

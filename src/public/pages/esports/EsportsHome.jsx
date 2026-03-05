@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import { usePageTheme } from '../../context/ThemeContext';
-import { images } from '../../data/images';
-import { mockApiService } from '../../services/mockApiService';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import { usePageTheme } from '@context/ThemeContext';
+import { images } from '@data/images';
+import { mockApiService } from '@services/mockApiService';
+import { Helmet } from 'react-helmet-async';
 
 
 /* ── Static Data ─────────────────────────────────────────── */
@@ -48,6 +49,13 @@ export default function EsportsHome() {
 
   return (
     <div className="theme-esports min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)] font-inter">
+      <Helmet>
+        <title>Esports Arena | GzoneSphere Competitive Universe</title>
+        <meta name="description" content="Enter the GzoneSphere Esports Arena. Compete in live tournaments, track rankings, and win real rewards in the ultimate competitive gaming ecosystem." />
+        <meta property="og:title" content="GzoneSphere Esports | Compete & Win" />
+        <meta property="og:description" content="Fair play, pro-grade tournaments, and real rewards. Join the GzoneSphere competitive network today." />
+        <link rel="canonical" href="https://gzonesphere.com/esports" />
+      </Helmet>
       <Navbar />
 
       {/* ── HERO ──────────────────────────────────────── */}

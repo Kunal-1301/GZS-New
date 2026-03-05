@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { HiChevronDown } from 'react-icons/hi';
 import { FiArrowUpRight } from 'react-icons/fi';
 
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
-import { categories, blogTypes } from '../../data/blogData';
-import { addUserBlog } from '../../data/blogService';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
+import { categories, blogTypes } from '@data/blogData';
+import { addUserBlog } from '@data/blogService';
 
 function WriteBlog() {
   usePageTheme('blog');

@@ -18,12 +18,15 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@components': fileURLToPath(new URL('./src/public/components', import.meta.url)),
+      '@components': fileURLToPath(new URL('./src/global/common_ui', import.meta.url)),
       '@pages': fileURLToPath(new URL('./src/public/pages', import.meta.url)),
-      '@data': fileURLToPath(new URL('./src/public/data', import.meta.url)),
-      '@assets': fileURLToPath(new URL('./src/public/assets', import.meta.url)),
+      '@data': fileURLToPath(new URL('./src/data', import.meta.url)),
+      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@styles': fileURLToPath(new URL('./src/styles', import.meta.url)),
-      '@context': fileURLToPath(new URL('./src/public/context', import.meta.url)),
+      '@context': fileURLToPath(new URL('./src/global/context', import.meta.url)),
+      '@auth': fileURLToPath(new URL('./src/global/auth', import.meta.url)),
+      '@services': fileURLToPath(new URL('./src/services', import.meta.url)),
+      '@studio': fileURLToPath(new URL('./src/public/studio', import.meta.url)),
     },
   },
 })

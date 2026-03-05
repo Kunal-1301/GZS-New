@@ -3,16 +3,16 @@ import { useEffect, useState, useRef } from 'react';
 import { FiArrowUpRight, FiHeart, FiShare2 } from 'react-icons/fi';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
 
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import Breadcrumb from '../../components/Breadcrumb';
-import { usePageTheme } from '../../context/ThemeContext';
-import BlogCard from './components/BlogCard';
-import GalleryCard from './components/GalleryCard';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import Breadcrumb from '@components/Breadcrumb';
+import { usePageTheme } from '@context/ThemeContext';
+import BlogCard from '@components/BlogCard';
+import GalleryCard from '@components/GalleryCard';
 
-import { getAllBlogs } from '../../data/blogService';
-import { galleryImages } from '../../data/blogData';
-import placeholderWhite from '../../assets/images/placeholderWhite.svg';
+import { getAllBlogs } from '@data/blogService';
+import { galleryImages } from '@data/blogData';
+import placeholderWhite from '@assets/images/placeholderWhite.svg';
 
 const HERO_BG = 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=1920';
 
