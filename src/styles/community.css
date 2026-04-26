@@ -1,0 +1,89 @@
+/* ==========================================================
+   COMMUNITY MODULE STYLES
+   Community Hub, Branches, Channels, Groups, Chat
+   ----------------------------------------------------------
+   AUDIT NOTES (rewrite 2026-04-15)
+   - No classes removed: no exact duplicates of utilities.css found.
+   - .community-card-lift: related to `card-standard` utility but
+     is a lift-only modifier (no bg/border/radius) — kept distinct.
+   - .community-message-text: related to `gzs-body-sm` but uses
+     --theme-text (not muted) and adds word-break — kept distinct.
+   - All hard-coded px/rem values replaced with --space-* / --radius-*
+     / --text-* tokens. One colour (#22c55e) mapped to --status-success.
+   ========================================================== */
+
+/* ── Scrollbars ─────────────────────────────────────────── */
+.custom-scrollbar::-webkit-scrollbar       { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--theme-border);
+  border-radius: var(--radius-xl);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--theme-primary); }
+
+.hide-scrollbar                          { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar       { display: none; }
+
+/* ── Card lift modifier (behaviour-only; see also card-standard utility) ── */
+.community-card-lift { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.community-card-lift:hover { transform: translateY(-3px); box-shadow: 0 16px 32px -10px rgba(0,0,0,0.08); }
+
+/* ── Layout panels ──────────────────────────────────────── */
+.community-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--theme-card);
+}
+
+.community-sidebar {
+  background-color: var(--theme-bg-alt);
+  border-right: 1px solid var(--theme-border);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* ── Messages ───────────────────────────────────────────── */
+.community-message {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  transition: background-color 0.15s;
+}
+.community-message:hover { background-color: var(--theme-bg-alt); }
+
+.community-message-content { flex: 1; min-width: 0; }
+
+.community-message-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+/* 0.8125rem rounded to nearest token --text-sm (0.875rem) */
+.community-message-author { font-size: var(--text-sm); font-weight: 700; color: var(--theme-text); }
+
+/* 0.6875rem rounded to nearest token --text-xs (0.75rem) */
+.community-message-time { font-size: var(--text-xs); color: var(--theme-text-muted); }
+
+/* see also gzs-body-sm — differs in color (--theme-text) and word-break */
+.community-message-text {
+  font-size: var(--text-sm);
+  color: var(--theme-text);
+  line-height: var(--leading-normal);
+  word-break: break-word;
+}
+
+/* ── Presence indicator ─────────────────────────────────── */
+/* #22c55e mapped to nearest semantic token --status-success (#10b981) */
+.community-online-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--status-success);
+  border-radius: 50%;
+  border: 2px solid var(--theme-card);
+  flex-shrink: 0;
+}

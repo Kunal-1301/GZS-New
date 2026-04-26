@@ -1,21 +1,21 @@
 @layer components {
-  /* ── PROFILE PAGES ─────────────────────────────────────────── */
+  /* ── PROFILE ARCHITECTURE ─────────────────────────────────────── */
   .pr-section-title {
-    @apply text-base font-black uppercase tracking-widest text-[var(--theme-text)] mb-6 border-b border-[var(--theme-border)] pb-3;
+    @apply text-base font-black uppercase tracking-[0.2em] text-[var(--theme-text)] mb-8 border-b-2 border-[var(--theme-border)] pb-4 italic;
   }
   .pr-label {
-    @apply text-[10px] font-bold uppercase text-[var(--theme-text-muted)] tracking-widest;
+    @apply text-[10px] font-black uppercase text-[var(--theme-text-muted)] tracking-[0.4em] italic opacity-40;
   }
   .pr-input {
-    @apply px-4 py-2.5 bg-[var(--theme-bg-section)] border border-[var(--theme-border)] rounded-lg text-sm text-[var(--theme-text)] outline-none transition-colors w-full focus:border-[var(--theme-primary)];
+    @apply px-6 py-4 bg-[var(--theme-bg-alt)] border-2 border-[var(--theme-border)] rounded-2xl text-[12px] font-black uppercase tracking-widest text-[var(--theme-text)] outline-none transition-all w-full focus:border-[var(--theme-primary)]/40 italic shadow-inner;
   }
   .pr-btn-primary {
-    @apply px-8 py-3 bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-dark)] text-[var(--theme-text-inverse)] text-xs font-black uppercase tracking-widest rounded-lg transition-colors shadow-sm whitespace-nowrap;
+    @apply px-10 py-4 bg-[var(--theme-text)] hover:bg-[var(--theme-primary)] text-[var(--theme-bg)] hover:text-white text-[10px] font-black uppercase tracking-[0.4em] rounded-2xl transition-all shadow-xl italic active:scale-95;
   }
   .pr-btn-danger {
-    @apply px-8 py-3 bg-[var(--theme-card)] border border-red-200 text-red-500 hover:bg-red-50 hover:border-red-300 text-[10px] font-black uppercase tracking-widest rounded-lg transition-colors shadow-sm whitespace-nowrap;
+    @apply px-10 py-4 bg-[var(--theme-bg-alt)] border-2 border-[var(--theme-border)] text-[var(--status-error)] hover:bg-[var(--status-error)] hover:text-white hover:border-transparent text-[10px] font-black uppercase tracking-[0.4em] rounded-2xl transition-all shadow-sm italic active:scale-95;
   }
   .pr-logout-btn {
-    @apply w-full text-left px-4 py-3 rounded-lg text-sm font-black uppercase tracking-widest text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors mt-4 border border-transparent hover:border-red-100;
+    @apply w-full text-left px-6 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.4em] text-[var(--status-error)] hover:bg-[var(--status-error)] hover:text-white transition-all mt-6 border-2 border-transparent hover:border-transparent italic shadow-sm;
   }
 }

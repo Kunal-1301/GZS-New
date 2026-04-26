@@ -1,9 +1,9 @@
-import { cmsClient } from './clients';
+import { cms } from './cms';
 
 export const gamesApi = {
     // CMS access for game listings
-    getGames: () => cmsClient.get('/games'),
+    getGames: () => cms.get('/games'),
 
     // Update game status
-    updateGameStatus: (id, status) => cmsClient.patch(`/games/${id}/status`, { status }),
+    updateGameStatus: (id, status) => cms.patch(`/games/${id}/status`, { status }),
 };

@@ -17,10 +17,10 @@
     background-color: var(--theme-bg-alt);
   }
   .admin-table thead th {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
     text-align: left;
     font-size: 11px;
     font-weight: 700;
@@ -43,11 +43,92 @@
     border-bottom-width: 0px;
   }
   .admin-table tbody td {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
     color: var(--theme-text);
     white-space: nowrap;
+  }
+
+  .admin-table-page {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .admin-filter-bar {
+    display: grid;
+    grid-template-columns: minmax(280px, 1.4fr) repeat(4, minmax(150px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .admin-filter-bar .admin-input,
+  .admin-filter-bar .admin-select {
+    min-height: 48px;
+  }
+
+  .admin-filter-bar input,
+  .admin-filter-bar select {
+    min-height: 48px;
+    width: 100%;
+    padding: 0.75rem 0.95rem;
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--theme-bg-alt) 68%, white);
+    color: var(--theme-text);
+  }
+
+  .admin-table-title-cell {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 220px;
+    white-space: normal;
+  }
+
+  .admin-table-title-cell__title {
+    font-weight: 700;
+    color: var(--theme-text);
+  }
+
+  .admin-table-title-cell__meta {
+    font-size: var(--text-xs);
+    color: var(--theme-text-muted);
+    white-space: normal;
+  }
+
+  .admin-action-row {
+    display: flex;
+    gap: var(--space-2);
+    justify-content: flex-end;
+  }
+
+  .admin-action-row .admin-btn-outline-accent,
+  .admin-action-row .admin-btn-secondary {
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+  }
+
+  .admin-table-empty {
+    text-align: center;
+    color: var(--theme-text-muted);
+    padding: var(--space-10);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  @media (max-width: 1200px) {
+    .admin-filter-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .admin-filter-bar {
+      grid-template-columns: 1fr;
+    }
   }
 }

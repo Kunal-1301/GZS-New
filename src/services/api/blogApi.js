@@ -1,12 +1,12 @@
-import { fastapiClient } from './clients';
+import { core } from './core';
 
 export const blogApi = {
     // Get all public blogs
-    getPublicBlogs: () => fastapiClient.get('/blogs/public'),
+    getPublicBlogs: () => core.get('/blogs/public'),
 
     // Get specific blog detail
-    getBlogDetail: (id) => fastapiClient.get(`/blogs/${id}`),
+    getBlogDetail: (id) => core.get(`/blogs/${id}`),
 
     // Create a new blog post (Requires Auth)
-    createBlog: (data) => fastapiClient.post('/blogs', data),
+    createBlog: (data) => core.post('/blogs', data),
 };

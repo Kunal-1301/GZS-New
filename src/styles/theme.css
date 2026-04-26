@@ -1,131 +1,231 @@
 /* ==========================================================
    GLOBAL THEME ARCHITECTURE
    Plain CSS Variable definitions scoped by theme classes.
-   These are designed to be consumed by neutral Tailwind utilities
-   (e.g. bg-[var(--theme-bg)] instead of bg-es-bg)
    ========================================================== */
+
+@import "./variables/colors.css";
+@import "./variables/typography.css";
+@import "./variables/spacing.css";
+@import "./layouts/navbar.css";
+
+/* ── Home Theme ── Clean Light Theme */
+.theme-home {
+  /* ── Brand Primary ── */
+  --theme-primary:        #1D6ADB;   /* GZS Blue — authority, trust */
+  --theme-primary-dark:   #1558B8;
+  --theme-primary-light:  #3B82F6;
+  --theme-primary-soft:   rgba(29, 106, 219, 0.08);
+  --theme-primary-rgb:    29, 106, 219;
+
+  /* ── Backgrounds ── */
+  --theme-bg:             #FFFFFF;
+  --theme-bg-alt:         #F8FAFC;
+  --theme-bg-section:     #F1F5F9;
+  --theme-bg-dark:        #0F172A;   /* hero + final CTA */
+  --theme-card:           #FFFFFF;
+
+  /* ── Text ── */
+  --theme-text:           #0F172A;   /* near-black, not pure black */
+  --theme-text-muted:     #64748B;
+  --theme-text-subtle:    #94A3B8;
+  --theme-text-inverse:   #FFFFFF;
+
+  /* ── Borders ── */
+  --theme-border:         #E2E8F0;
+  --theme-border-strong:  #CBD5E1;
+
+  /* ── Section-specific accent washes ── */
+  --home-games-bg:        #F0F9FF;   /* sky-50 */
+  --home-games-accent:    #0EA5E9;   /* sky-500 */
+  --home-tourney-bg:      #F0FDF4;   /* green-50 */
+  --home-tourney-accent:  #16A34A;   /* green-600 */
+  --home-profile-bg:      #FAF5FF;   /* purple-50 */
+  --home-profile-accent:  #7C3AED;   /* violet-600 */
+  --home-community-bg:    #FFF7ED;   /* orange-50 */
+  --home-community-accent:#EA580C;   /* orange-600 */
+}
 
 /* ── Fallback (Global/Root) Theme ── */
 :root {
-  /* ── Typography Tokens ── */
-  --font-heading:         'Impact', 'Arial Narrow', sans-serif;
-  --font-body:            'Inter', system-ui, -apple-system, sans-serif;
-
-  /* ── Layout Tokens ── */
-  --width-content:        1280px;
-  --radius-xl:            1rem;
-  --radius-lg:            0.75rem;
-  --radius-md:            0.5rem;
-  --radius-sm:            0.25rem;
-
-  /* ── Spacing Tokens ── */
-  --space-1:              0.25rem;
-  --space-2:              0.5rem;
-  --space-3:              0.75rem;
-  --space-4:              1rem;
-  --space-6:              1.5rem;
-  --space-8:              2rem;
-  --space-10:             2.5rem;
-  --space-12:             3rem;
-  --space-16:             4rem;
-  --space-20:             5rem;
-
-  /* ── Typography Scale ── */
-  --text-xs:              0.75rem;
-  --text-sm:              0.875rem;
-  --text-base:            1rem;
-  --text-lg:              1.125rem;
-  --text-xl:              1.25rem;
-  --text-2xl:             1.5rem;
-  --text-3xl:             1.875rem;
-  --text-4xl:             2.25rem;
-  --text-5xl:             3rem;
-  --text-6xl:             3.75rem;
-
-  --leading-tight:        1.1;
-  --leading-snug:         1.3;
-  --leading-normal:       1.5;
-  --leading-relaxed:      1.625;
-
-  --tracking-tighter:     -0.05em;
-  --tracking-tight:       -0.025em;
-  --tracking-normal:      0em;
-  --tracking-wide:        0.025em;
-  --tracking-wider:       0.05em;
-  --tracking-widest:      0.1em;
-
-  --theme-primary:        #D4F234;
-  --theme-primary-dark:   #b8d922;
-  --theme-primary-light:  #e2f759;
+  /* Default Brand Mapping */
+  --theme-primary:        var(--brand-primary);
+  --theme-primary-dark:   var(--brand-primary-dark);
+  --theme-primary-light:  var(--brand-primary-light);
   
-  --theme-bg:             #050505;
-  --theme-bg-alt:         #0A0A0A;
+  --theme-bg:             var(--color-black);
+  --theme-bg-alt:         var(--neutral-950);
   --theme-bg-section:     #121212;
   --theme-card:           #1E1E1E;
   
   --theme-text:           #EDEDED;
-  --theme-text-muted:     #A1A1A1;
-  --theme-text-inverse:   #050505;
+  --theme-text-muted:     var(--neutral-400);
+  --theme-text-inverse:   var(--color-black);
   
   --theme-border:         #333333;
   --theme-input:          #2A2A2A;
+
+  /* Status Colors */
+  --status-success:       #10b981;
+  --status-success-rgb:   16, 185, 129;
+  --status-error:         #f43f5e;
+  --status-error-rgb:     244, 63, 94;
+  --status-warning:       #f59e0b;
+  --status-warning-rgb:   245, 158, 11;
+
+  /* ── Secondary Accent ── */
+  --theme-secondary:          #a78bfa;
+  --theme-secondary-dark:     #7c3aed;
+  --theme-secondary-light:    #c4b5fd;
+  --theme-secondary-rgb:      167, 139, 250;
+  --theme-secondary-soft:     rgba(167, 139, 250, 0.1);
+
+  /* ── Status Soft (transparent backgrounds) ── */
+  --status-error-soft:        rgba(244, 63, 94, 0.1);
+  --status-success-soft:      rgba(16, 185, 129, 0.1);
+  --status-warning-soft:      rgba(245, 158, 11, 0.1);
+  --status-info:              #3b82f6;
+  --status-info-soft:         rgba(59, 130, 246, 0.1);
+  --color-error-soft:         rgba(244, 63, 94, 0.1);
+
+  /* ── RGB channel helpers (for admin CSS rgba() overlays) ── */
+  --theme-bg-alt-rgb:         10, 10, 10;
+  --theme-card-rgb:           30, 30, 30;
+  --theme-text-rgb:           237, 237, 237;
+
+  /* ── Misc missing ── */
+  --gp-neutral-900:           #171717;
+  --theme-warning:            var(--status-warning);
 }
 
 /* ── Esports Theme ── */
 .theme-esports {
-  --theme-primary:        #379730;
-  --theme-primary-dark:   #2f8626;
-  --theme-primary-light:  #52ba44;
+  --theme-primary:        var(--es-green);
+  --theme-primary-dark:   var(--es-green-dark);
+  --theme-primary-light:  var(--es-green-light);
   
   --theme-bg:             #eef7ee; 
   --theme-bg-alt:         #f4fbf4;
   --theme-bg-section:     #dff0df;
-  --theme-card:           #ffffff;
+  --theme-card:           var(--color-white);
   
   --theme-text:           #112911;
   --theme-text-muted:     #4d694d;
-  --theme-text-inverse:   #ffffff;
+  --theme-text-inverse:   var(--color-white);
+    /* Refined Accents & Status */
+    --theme-accent: var(--theme-primary);
+    --theme-accent-soft: color-mix(in srgb, var(--theme-primary), transparent 90%);
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-success-soft: rgba(16, 185, 129, 0.1);
+    --color-warning-soft: rgba(245, 158, 11, 0.1);
   
   --theme-border:         rgba(55, 151, 48, 0.25);
-  --theme-input:          #ffffff;
+  --theme-input:          var(--color-white);
+}
+
+.theme-tournaments-page {
+  --theme-primary:        #379730;
+  --theme-primary-dark:   #2f8626;
+  --theme-primary-light:  #52ba44;
+  --theme-primary-rgb:    55, 151, 48;
+
+  --theme-bg:             #050505;
+  --theme-bg-alt:         #080808;
+  --theme-bg-section:     #0c0c0c;
+  --theme-card:           #0a0a0a;
+
+  --theme-text:           #ffffff;
+  --theme-text-muted:     #a3a3a3;
+  --theme-text-inverse:   #000000;
+
+  --theme-border:         rgba(55, 151, 48, 0.15);
+  --theme-input:          #121212;
+}
+
+/* ── Dev Theme ── */
+.theme-dev {
+  --theme-primary:        #4f46e5; /* indigo-600 */
+  --theme-primary-dark:   #3730a3; /* indigo-800 */
+  --theme-primary-light:  #818cf8; /* indigo-400 */
+  --theme-primary-soft:   rgba(79, 70, 229, 0.1);
+}
+
+/* ── Content Theme ── */
+.theme-content {
+  --theme-primary:        #ea580c; /* orange-600 */
+  --theme-primary-dark:   #9a3412; /* orange-800 */
+  --theme-primary-light:  #fb923c; /* orange-400 */
+  --theme-primary-soft:   rgba(234, 88, 12, 0.1);
+}
+
+/* ── Business Theme ── */
+.theme-business {
+  --theme-primary:        #0891b2; /* cyan-600 */
+  --theme-primary-dark:   #155e75; /* cyan-800 */
+  --theme-primary-light:  #22d3ee; /* cyan-400 */
+  --theme-primary-soft:   rgba(8, 145, 178, 0.1);
+}
+
+/* ── Art Theme ── */
+.theme-art {
+  --theme-primary:        #c026d3; /* fuchsia-600 */
+  --theme-primary-dark:   #86198f; /* fuchsia-800 */
+  --theme-primary-light:  #e879f9; /* fuchsia-400 */
+  --theme-primary-soft:   rgba(192, 38, 211, 0.1);
+}
+
+/* ── Writing Theme ── */
+.theme-writing {
+  --theme-primary:        #059669; /* emerald-600 */
+  --theme-primary-dark:   #065f46; /* emerald-800 */
+  --theme-primary-light:  #34d399; /* emerald-400 */
+  --theme-primary-soft:   rgba(5, 150, 105, 0.1);
+}
+
+/* ── Audio Theme ── */
+.theme-audio {
+  --theme-primary:        #2563eb; /* blue-600 */
+  --theme-primary-dark:   #1e40af; /* blue-800 */
+  --theme-primary-light:  #60a5fa; /* blue-400 */
+  --theme-primary-soft:   rgba(37, 99, 235, 0.1);
 }
 
 /* ── Blog Theme ── */
 .theme-blog {
-  --theme-primary:        #F59E0B;
-  --theme-primary-dark:   #D97706;
-  --theme-primary-light:  #fbbf24;
+  --theme-primary:        var(--blog-amber);
+  --theme-primary-dark:   var(--blog-amber-dark);
+  --theme-primary-light:  var(--blog-amber-light);
   
   --theme-bg:             #FEF9E7;
   --theme-bg-alt:         #f2f2f0;
   --theme-bg-section:     #FDF3C8;
-  --theme-card:           #ffffff;
+  --theme-card:           var(--color-white);
   
   --theme-text:           #1a1a1a;
   --theme-text-muted:     #6b6b6b;
-  --theme-text-inverse:   #ffffff;
+  --theme-text-inverse:   var(--color-white);
   
   --theme-border:         rgba(245,158,11,0.20);
-  --theme-input:          #ffffff;
+  --theme-input:          var(--color-white);
 }
 
-/* ── About Theme ── */
+/* ── About Theme — dark navy (matches AboutHub hero design) ── */
 .theme-about {
-  --theme-primary:        #0f6f8c;
-  --theme-primary-dark:   #0a4f68;
-  --theme-primary-light:  #4fc3dc;
-  
-  --theme-bg:             #d7f0fa;
-  --theme-bg-alt:         #b8e4f5;
-  --theme-bg-section:     #c0e9f5;
-  --theme-card:           #ffffff;
-  
-  --theme-text:           #1a3a5a;
-  --theme-text-muted:     #4a6a8a;
-  --theme-text-inverse:   #ffffff;
-  
-  --theme-border:         rgba(15,111,140,0.30);
-  --theme-input:          #ffffff;
+  --theme-primary:        #4fc3dc;
+  --theme-primary-dark:   #0f6f8c;
+  --theme-primary-light:  #8de0f5;
+
+  --theme-bg:             #050f23;
+  --theme-bg-alt:         #0a1a3a;
+  --theme-bg-section:     #0d2048;
+  --theme-card:           #0f2050;
+
+  --theme-text:           #e0f0ff;
+  --theme-text-muted:     #8ab0d0;
+  --theme-text-inverse:   #050f23;
+
+  --theme-border:         rgba(79,195,220,0.20);
+  --theme-input:          #0f2050;
 }
 
 /* ── Auth Theme ── */
@@ -139,7 +239,7 @@
   --theme-bg-section:     #05445c;
   --theme-card:           #085c7a;
   
-  --theme-text:           #ffffff;
+  --theme-text:           var(--color-white);
   --theme-text-muted:     #e0f7fa;
   --theme-text-inverse:   #085c7a;
   
@@ -149,21 +249,21 @@
 
 /* ── Profile Theme ── */
 .theme-profile {
-  --theme-primary:        #8b5cf6;
-  --theme-primary-dark:   #7c3aed;
-  --theme-primary-light:  #a78bfa;
+  --theme-primary:        var(--profile-purple);
+  --theme-primary-dark:   var(--profile-purple-dark);
+  --theme-primary-light:  var(--profile-purple-light);
   
   --theme-bg:             #faf5ff;
   --theme-bg-alt:         #ede9fe;
-  --theme-bg-section:     #ffffff; /* often used for sidebar */
-  --theme-card:           #ffffff;
+  --theme-bg-section:     var(--color-white); 
+  --theme-card:           var(--color-white);
   
   --theme-text:           #1f2937;
   --theme-text-muted:     #6b7280;
-  --theme-text-inverse:   #ffffff;
+  --theme-text-inverse:   var(--color-white);
   
   --theme-border:         #e5e7eb;
-  --theme-input:          #ffffff;
+  --theme-input:          var(--color-white);
 }
 
 /* ── Community Theme ── */
@@ -172,36 +272,17 @@
   --theme-primary-dark:   #6D28D9;
   --theme-primary-light:  #A78BFA;
   
-  --theme-bg:             #fafafa; /* neutral-50 approximation */
-  --theme-bg-alt:         #f5f5f5;
-  --theme-bg-section:     #ffffff;
-  --theme-card:           #ffffff;
+  --theme-bg:             var(--neutral-50); 
+  --theme-bg-alt:         var(--neutral-100);
+  --theme-bg-section:     var(--color-white);
+  --theme-card:           var(--color-white);
   
-  --theme-text:           #171717; /* neutral-900 */
-  --theme-text-muted:     #737373; /* neutral-500 */
-  --theme-text-inverse:   #ffffff;
+  --theme-text:           var(--neutral-900);
+  --theme-text-muted:     var(--neutral-500);
+  --theme-text-inverse:   var(--color-white);
   
-  --theme-border:         #e5e5e5; /* neutral-200 */
-  --theme-input:          #ffffff;
-}
-
-/* ── Contact Theme ── */
-.theme-contact {
-  --theme-primary:        #1a4a5e;
-  --theme-primary-dark:   #0d3a4e;
-  --theme-primary-light:  #2f6d8a;
-  
-  --theme-bg:             #E0F4FB;
-  --theme-bg-alt:         #c8ecf6;
-  --theme-bg-section:     #042232; /* often used for hero */
-  --theme-card:           #ffffff;
-  
-  --theme-text:           #1a3650;
-  --theme-text-muted:     #4a6a80;
-  --theme-text-inverse:   #ffffff;
-  
-  --theme-border:         rgba(26,74,94,0.20);
-  --theme-input:          #f4f8fa;
+  --theme-border:         var(--neutral-200);
+  --theme-input:          var(--color-white);
 }
 
 /* ── Admin Theme ── */
@@ -211,60 +292,149 @@
   --theme-primary-light:  #fed7aa;
   
   --theme-bg:             #f4f4f4;
-  --theme-bg-alt:         #e9e9e9; /* Sidebar */
-  --theme-bg-section:     #f8f8f8; /* Navbar */
-  --theme-card:           #ffffff;
+  --theme-bg-alt:         #e9e9e9;
+  --theme-bg-section:     #f8f8f8;
+  --theme-card:           var(--color-white);
   
   --theme-text:           #111827;
   --theme-text-muted:     #6b7280;
-  --theme-text-inverse:   #ffffff;
+  --theme-text-inverse:   var(--color-white);
   
   --theme-border:         #d1d5db;
-  --theme-input:          #ffffff;
+  --theme-input:          var(--color-white);
 }
 
-/* ── Game Collection Theme ── */
+/* ── Contact Theme ── */
+.theme-contact {
+  --theme-primary:        #6366f1;
+  --theme-primary-dark:   #4f46e5;
+  --theme-primary-light:  #a5b4fc;
+
+  --theme-bg:             #f5f5ff;
+  --theme-bg-alt:         #eef2ff;
+  --theme-bg-section:     #e0e7ff;
+  --theme-card:           var(--color-white);
+
+  --theme-text:           #1e1b4b;
+  --theme-text-muted:     #4338ca;
+  --theme-text-inverse:   var(--color-white);
+
+  --theme-border:         rgba(99,102,241,0.20);
+  --theme-input:          var(--color-white);
+}
+
+/* ── Collection (Game Post Collection) Theme ── */
 .theme-collection {
-  --theme-primary:        #0ea5e9;
-  --theme-primary-dark:   #0284c7;
-  --theme-primary-light:  #7dd3fc;
-  
-  --theme-bg:             #cfeaf6;
-  --theme-bg-alt:         #e8f4fc;
-  --theme-bg-section:     #ffffff;
-  --theme-card:           #ffffff;
-  
-  --theme-text:           #0f172a;
-  --theme-text-muted:     #64748b;
-  --theme-text-inverse:   #ffffff;
-  
-  --theme-border:         rgba(14, 165, 233, 0.20);
-  --theme-input:          #ffffff;
+  --theme-primary:        #0EA5E9;
+  --theme-primary-dark:   #0284C7;
+  --theme-primary-light:  #38BDF8;
+  --theme-primary-soft:   rgba(14, 165, 233, 0.08);
+  --theme-primary-rgb:    14, 165, 233;
+
+  --theme-bg:             #FFFFFF;
+  --theme-bg-alt:         #F0F9FF;
+  --theme-bg-section:     #E0F2FE;
+  --theme-card:           #FFFFFF;
+
+  --theme-text:           #0C1A2E;
+  --theme-text-muted:     #475569;
+  --theme-text-inverse:   #FFFFFF;
+
+  --theme-border:         #BAE6FD;
+  --theme-border-strong:  #7DD3FC;
+  --theme-input:          #FFFFFF;
 }
 
-/* ── Game Post / Dynamic Defaults (Used if context isn't applied) ── */
+/* ── Tournaments Theme ── */
+.theme-tournaments {
+  --theme-primary:        #e11d48; /* rose-600 */
+  --theme-primary-dark:   #be123c; /* rose-700 */
+  --theme-primary-light:  #fb7185; /* rose-400 */
+  --theme-primary-rgb:    225, 29, 72;
+  
+  --theme-bg:             #050505;
+  --theme-bg-alt:         #080808;
+  --theme-bg-section:     #0c0c0c;
+  --theme-card:           #0a0a0a;
+  
+  --theme-text:           #ffffff;
+  --theme-text-muted:     #a3a3a3; /* neutral-400 */
+  --theme-text-inverse:   #000000;
+  
+  --theme-border:         rgba(255, 255, 255, 0.05);
+  --theme-input:          #121212;
+}
+
+/* ── Game Post / Dynamic Defaults ── */
 .theme-gamepost {
-  --gp-primary:        #e53935;
-  --gp-primary-dark:   #c62828;
-  --gp-primary-light:  #ef5350;
-  --gp-primary-alpha:  rgba(229, 57, 53, 0.12);
+  --gp-primary:           var(--gp-red);
+  --gp-primary-dark:      var(--gp-red-dark);
+  --gp-primary-light:     var(--gp-red-light);
+  --gp-primary-alpha:     rgba(229, 57, 53, 0.12);
+  --gp-primary-alpha-low: rgba(229, 57, 53, 0.06);
+  /* camelCase aliases for legacy component usage */
+  --gp-primaryDark:       var(--gp-primary-dark);
+  --gp-primaryLight:      var(--gp-primary-light);
   --gp-bg-page:        #fff5f5;
   --gp-bg-section:     #ffebee;
-  --gp-bg-card:        #ffffff;
+  --gp-bg-card:        var(--color-white);
   --gp-bg-card-alt:    #fff8f8;
   --gp-border:         #ffcdd2;
   --gp-border-strong:  #ef9a9a;
-  --gp-text-heading:   #c62828;
+  --gp-text-heading:   var(--gp-red-dark);
   --gp-text-body:      #1f2937;
   --gp-text-muted:     #6b7280;
-  --gp-text-on-accent: #ffffff;
+  --gp-text-on-accent: var(--color-white);
   --gp-tag-bg:         rgba(229, 57, 53, 0.10);
-  --gp-btn-bg:         #e53935;
-  --gp-btn-hover:      #c62828;
-  --gp-quote-bg:       #e53935;
+  --gp-btn-bg:         var(--gp-red);
+  --gp-btn-hover:      var(--gp-red-dark);
+  --gp-quote-bg:       var(--gp-red);
   --gp-icon-circle-bg: #ffebee;
-  --gp-icon-circle-fg: #e53935;
-  --gp-cta-gradient:   linear-gradient(135deg, #e53935 0%, #c62828 100%);
+  --gp-icon-circle-fg: var(--gp-red);
+  --gp-cta-gradient:   linear-gradient(135deg, var(--gp-red) 0%, var(--gp-red-dark) 100%);
   --gp-hero-overlay:   rgba(0, 0, 0, 0.60);
-  --gp-accent-bar:     3px solid #e53935;
+  --gp-accent-bar:     3px solid var(--gp-red);
+}
+
+/* ── Navbar adaptive hover states ── */
+.nav-platform-link:hover {
+  color: var(--theme-primary);
+  background-color: color-mix(in srgb, var(--theme-primary) 5%, transparent);
+}
+.nav-explore-item:hover {
+  background-color: color-mix(in srgb, var(--theme-primary) 6%, transparent);
+}
+.nav-explore-item:hover .nav-explore-label {
+  color: var(--theme-primary);
+}
+.nav-avatar-item:hover {
+  background-color: color-mix(in srgb, var(--theme-primary) 6%, transparent);
+  color: var(--theme-primary);
+}
+
+.theme-home {
+  --theme-primary: #1D6ADB;
+  --theme-primary-dark: #1558B8;
+  --theme-primary-light: #3B82F6;
+  --theme-primary-soft: rgba(29, 106, 219, 0.08);
+  --theme-primary-rgb: 29, 106, 219;
+  --theme-bg: #FFFFFF;
+  --theme-bg-alt: #F8FAFC;
+  --theme-bg-section: #F1F5F9;
+  --theme-bg-dark: #0F172A;
+  --theme-card: #FFFFFF;
+  --theme-text: #0F172A;
+  --theme-text-muted: #64748B;
+  --theme-text-subtle: #94A3B8;
+  --theme-text-inverse: #FFFFFF;
+  --theme-border: #E2E8F0;
+  --theme-border-strong: #CBD5E1;
+  --home-games-bg: #F0F9FF;
+  --home-games-accent: #0EA5E9;
+  --home-tourney-bg: #F0FDF4;
+  --home-tourney-accent: #16A34A;
+  --home-profile-bg: #FAF5FF;
+  --home-profile-accent: #7C3AED;
+  --home-community-bg: #FFF7ED;
+  --home-community-accent: #EA580C;
 }

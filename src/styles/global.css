@@ -1,0 +1,180 @@
+/* ==========================================================
+   GZS GLOBAL CSS — Architecture
+   ──────────────────────────────────────────────────────────
+   Import order:
+     1. Tailwind
+     2. Design tokens  → variables/colors.css, spacing.css,
+                         typography.css, domains.css
+     3. Theme          → theme.css  (semantic --theme-* vars
+                         per .theme-* class on <html>)
+     4. Utilities      → utilities.css  (@utility directives)
+     5. Base / Reset   → @layer base { html, body, h1-h3 }
+     6. Layout helpers → .page-container, .page-section,
+                         .card-base, .app-shell, .app-main
+     7. Feature CSS    → auth, profile, blog, gamepost,
+                         tournaments, community, admin/*
+     8. Keyframes      → slideIn, etc.
+   ──────────────────────────────────────────────────────────
+   Naming convention:
+     --color-*   raw palette       (variables/colors.css)
+     --theme-*   semantic/themed   (styles/theme.css)
+     --space-*   spacing scale     (variables/spacing.css)
+     --text-*    type scale        (variables/typography.css)
+     --radius-*  border radii      (variables/spacing.css)
+   ========================================================== */
+
+/* ── 1. Tailwind ── */
+@import "tailwindcss";
+
+/* ── 2. Design-Token Variables ── */
+@import "./variables/colors.css";
+@import "./variables/spacing.css";
+@import "./variables/typography.css";
+@import "./variables/domains.css";
+
+/* ── 3. Theme ── */
+@import "./theme.css";
+
+/* ── 4. Utilities ── */
+@import "./utilities.css";
+
+/* ── 5. Reset / Base ── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--theme-text);
+    background-color: var(--theme-bg);
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  h1 { @apply gzs-h1; }
+  h2 { @apply gzs-h2; }
+  h3 { @apply gzs-h3; }
+
+  p {
+    margin-bottom: var(--space-4);
+  }
+
+  section {
+    @apply section-padding;
+  }
+}
+
+/* ── 6. Layout Helpers ── */
+
+/* Centred content wrapper — max 1280 px with horizontal breathing room */
+.page-container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+}
+
+/* Full-width section with standard vertical rhythm */
+.page-section {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+}
+
+/* Compact section variant */
+.page-section--sm {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-10);
+}
+
+/* Theme-aware card surface */
+.card-base {
+  background-color: var(--theme-card);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+/* App canvas — root wrapper created in main.jsx */
+.app-canvas {
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* App shell — full viewport column layout */
+.app-shell {
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content area expands between navbar and footer */
+.app-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Offset content below the fixed 64px navbar */
+.has-fixed-nav {
+  padding-top: 64px;
+}
+
+/* Prevent zero-height collapse when data is loading or empty */
+.card-base,
+.gzs-card,
+.gzs-card-elevated,
+.gzs-card-dark {
+  min-height: 80px;
+}
+
+/* Fallback background for broken/missing card images */
+.card-base img,
+.gzs-card img,
+.gzs-card-elevated img {
+  background-color: var(--theme-bg-alt, #F8FAFC);
+  min-height: 120px;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ── 7. Page-Module CSS ── */
+/* TODO: migrate each file's rules into component CSS or utilities, then remove */
+@import "./admin.css";
+@import "./auth.css";
+@import "./profile.css";
+@import "./blog.css";
+@import "./gamepost.css";
+@import "./tournaments.css";
+@import "./community.css";
+
+/* ── 8. Keyframe Animations ── */
+
+/* Toast slide-in (used by ToastProvider) */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(2rem) scale(0.95); }
+  to   { opacity: 1; transform: translateX(0)    scale(1);    }
+}

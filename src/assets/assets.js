@@ -12,10 +12,10 @@
  */
 
 // Images
-export { images, default as placeholderWhite } from '../data/images';
+export { images, default as placeholderWhite } from '../shared/data/images';
 
 // Blog data
-export { blogPosts, galleryImages, categories, sortOptions, blogTypes } from '../data/blogData';
+export { blogPosts, galleryImages, categories, sortOptions, blogTypes } from '../shared/data/blogData';
 
 // Blog service (localStorage + utilities)
 export {
@@ -26,7 +26,7 @@ export {
   formatDateForStorage,
   addUserBlog,
   getAllBlogs,
-} from '../data/blogService';
+} from '../shared/data/blogService';
 
 // Game data
-export { gamePostData } from '../data/gameData';
+export { gamePostData } from '../shared/data/gameData';

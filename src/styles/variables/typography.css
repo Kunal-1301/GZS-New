@@ -1,0 +1,55 @@
+/* ==========================================================
+   TYPOGRAPHY VARIABLES (SCALE & TOKENS)
+   ========================================================== */
+
+:root {
+  /* ── Typography Tokens ── */
+  --font-heading:         'Archivo Black', 'Impact', 'Arial Narrow', sans-serif;
+  --font-body:            'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ── Typography Scale ── */
+  --text-xs:              0.75rem;
+  --text-sm:              0.875rem;
+  --text-base:            1rem;
+  --text-lg:              1.125rem;
+  --text-xl:              1.25rem;
+  --text-2xl:             1.5rem;
+  --text-3xl:             1.875rem;
+  --text-4xl:             2.25rem;
+  --text-5xl:             3rem;
+  --text-6xl:             3.75rem;
+
+  --leading-tight:        1.1;
+  --leading-snug:         1.3;
+  --leading-normal:       1.5;
+  --leading-relaxed:      1.625;
+
+  --tracking-tighter:     -0.05em;
+  --tracking-tight:       -0.025em;
+  --tracking-normal:      0em;
+  --tracking-wide:        0.025em;
+  --tracking-wider:       0.05em;
+  --tracking-widest:      0.1em;
+  --tracking-tightest:    -0.06em;
+
+  --font-display: "Archivo Black", "Impact", "Arial Narrow", "Arial Black", sans-serif;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --leading-loose: 1.8;
+  --leading-none: 1.0;
+
+  /* ── Semantic Font-Size Aliases ── */
+  --font-size-display:    var(--text-5xl);   /* hero headlines */
+  --font-size-title:      var(--text-3xl);   /* section titles */
+  --font-size-subtitle:   var(--text-xl);    /* subtitles */
+  --font-size-body:       var(--text-base);  /* body copy */
+  --font-size-caption:    var(--text-sm);    /* labels, captions */
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+  --weight-display: 900;
+}

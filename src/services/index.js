@@ -1,0 +1,10 @@
+export { default as authService } from './features/authService';
+export { default as gamesService } from './features/gamesService';
+export { default as blogsService } from './features/blogsService';
+export { default as tournamentService } from './features/tournamentService';
+export { default as profileService } from './features/profileService';
+export { default as communityService } from './features/communityService';
+export { default as socialService } from './features/socialService';
+export { default as messageService } from './features/messageService';
+export { default as esportsService } from './features/esportsService';
+export { CORE, CMS } from './api/endpoints';

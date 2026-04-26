@@ -3,6 +3,88 @@
    Animations, Transitions, and Custom Gradients
    ========================================================== */
 
+@layer components {
+
+.gp-page-shell {
+    color: var(--gp-text-body, var(--theme-text));
+}
+
+.gp-page-content {
+    position: relative;
+    z-index: 10;
+}
+
+.gp-top-accent {
+    position: relative;
+    z-index: 100;
+    height: 3px;
+    background: var(--gp-primary);
+}
+
+.gp-section-nav {
+    position: sticky;
+    top: 64px;
+    z-index: 40;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--theme-border, #E2E8F0);
+    background: color-mix(in srgb, white 78%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.gp-section-nav__inner {
+    display: flex;
+    gap: var(--space-1);
+    min-width: max-content;
+    width: 100%;
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+}
+
+.gp-section-nav__button {
+    position: relative;
+    padding: var(--space-4) var(--space-5);
+    border: 0;
+    background: transparent;
+    color: var(--theme-text-muted, #64748B);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.gp-section-nav__button::after {
+    content: '';
+    position: absolute;
+    left: var(--space-5);
+    right: var(--space-5);
+    bottom: 0;
+    height: 2px;
+    background: transparent;
+    transition: background-color 0.2s ease;
+}
+
+.gp-section-nav__button:hover,
+.gp-section-nav__button.is-active {
+    color: var(--gp-primary);
+}
+
+.gp-section-nav__button.is-active::after {
+    background: var(--gp-primary);
+}
+
+.gp-empty-state {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-20);
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    font-family: var(--font-body);
+}
+
 /* Main Background Gradient for the light theme */
 .gp-page-bg {
     background-color: var(--gp-bg-page, #ffffff);
@@ -63,11 +145,6 @@
 }
 
 /* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
 @keyframes slideUpFade {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -139,15 +216,15 @@
     letter-spacing: 0.2em;
     color: var(--gp-primary);
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
     display: block;
 }
 
 .gp-meta-card {
     background: white;
     box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-    border-radius: 16px;
-    padding: 2rem;
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
 }
 
 /* Continuous Scroll Animation */
@@ -235,4 +312,14 @@
     animation: heroBreathe 10s ease-in-out infinite;
 }
 
+@media (max-width: 768px) {
+    .gp-section-nav__inner {
+        padding: 0 var(--space-4);
+    }
 
+    .gp-section-nav__button {
+        padding: var(--space-4);
+    }
+}
+
+} /* end @layer components */
